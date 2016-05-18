@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+         http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 参数配置缓存对象 
+	<bean id="system.cache.preference" class="com.walker.infrastructure.spring.CacheFactoryBean"
+		p:cacheName="system.cache.preference" p:cluster="false" p:writeOnDiskAfterShutdown="false" p:expiredTime="0"/>
+	-->
+	<bean id="departmentCacheProvider" class="com.walkersoft.application.cache.DepartmentCacheProvider" depends-on="applicationConfig"></bean>
+	<bean id="functionCacheProvider" class="com.walkersoft.application.cache.FunctionCacheProvider"></bean>
+	
+	<bean id="codeCacheProvider" class="com.walkersoft.application.cache.CodeCacheProvider"></bean>
+	<bean id="userCacheProvider" class="com.walkersoft.application.cache.UserCoreCacheProvider" depends-on="departmentCacheProvider">
+		<property name="departmentCache" ref="departmentCacheProvider"/>
+	</bean>
+				
+<!-- 
+	<bean id="system.cacheManager" class="com.walkersoft.application.SimpleCacheManager" depends-on="applicationConfig">
+		<property name="cacheProviders">
+			<list>
+				<ref bean="departmentCacheProvider"/>
+				<ref bean="functionCacheProvider"/>
+			</list>
+		</property>
+	</bean>
+ -->
+	
+</beans>

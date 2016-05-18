@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="walkersoft-system" basedir="." default="dist">
+
+	<!-- 项目名称 -->  
+  <property name="project.name" value="walker-system"/> 
+  <!-- tomcat所在路径 -->
+  <property name="tomcat.path" value="E:/webserver/apache-tomcat-6.0.36"/>
+  <!-- jdk所在路径 -->  
+  <property name="jdk.classpath" value="D:/programs/Java/jdk1.6.0_18"/>
+  <!-- 打包编译的临时路径 -->
+  <property name="tempCompilePath" value="build/temp"/>
+  
+  <!-- 项目包路径 -->
+  <property name="project.lib" value="${basedir}/WebContent/WEB-INF/lib"/>
+  <property name="project.ftl" value="${basedir}/WebContent/WEB-INF/pages/ftl"/>
+  <property name="project.classpath" value="build/classes"/>
+  <!-- tomcat包路径 -->
+  <property name="tomcat.classpath" value="${tomcat.path}/lib"/>
+  
+  <!-- 打包所需jar -->   
+	<path id="classpath">
+	   <pathelement location="${jdk.classpath}/jre/lib/rt.jar" /> 
+	   <fileset dir="${project.lib}">
+       <include name="*.jar"/>
+	   </fileset>  
+	   <fileset dir="${tomcat.classpath}">    
+	       <include name="*.jar"/>
+	   </fileset>
+	   <classfileset id="reqdClasses" dir="${tempCompilePath}/system">
+	   	 <root classname="com.walkersoft"/>
+	   </classfileset>
+	   <fileset dir="dist"> 
+	       <include name="*.jar"/>
+	   </fileset>
+	</path>
+
+	<!-- 编译并打包system -->
+	<target name="compile_system">
+		<echo message="编译'system'中..."/>
+		<!-- 
+		 -->
+		<delete dir="${tempCompilePath}/system"/>
+		<mkdir dir="${tempCompilePath}/system"/>
+    <javac srcdir="system" destdir="${tempCompilePath}/system" includeantruntime="true" 
+    	 classpathref="classpath" debug="on" target="1.6" source="1.6" encoding="utf-8"/>
+    <!-- 配置文件拷贝 -->  
+    <copy todir="${tempCompilePath}/system">
+   		<fileset dir="system">
+   			<include name="*.xml"/>
+   			<include name="*.properties"/>
+   		</fileset>
+   	</copy>
+    <copy todir="${tempCompilePath}/system/conf">
+    	<fileset dir="system/conf"/>
+   	</copy>
+   	<copy todir="${tempCompilePath}/system/mvc">
+   		<fileset dir="system/mvc"/>
+   	</copy>
+   	<copy todir="${tempCompilePath}/system/sql">
+   		<fileset dir="system/sql"/>
+   	</copy>
+		<echo message="打包'system'中..."/>
+		<jar jarfile="dist/walkersoft-system-v1.0.jar" basedir="${tempCompilePath}/system"/>
+	</target>
+	
+	<!-- 编译并打包flow -->
+	<target name="compile_flow">
+		<echo message="编译'flow'中..."/>
+		<delete dir="${tempCompilePath}/flow"/>
+   	<mkdir dir="${tempCompilePath}/flow"/>
+    <javac srcdir="flow" destdir="${tempCompilePath}/flow" includeantruntime="true" 
+    	 classpathref="classpath" debug="on" target="1.6" source="1.6" encoding="utf-8"/>
+    <!-- 配置文件拷贝 -->  
+    <copy todir="${tempCompilePath}/flow">
+   		<fileset dir="flow">
+   			<include name="*.xml"/>
+   			<include name="*.properties"/>
+   		</fileset>
+   	</copy>
+    <copy todir="${tempCompilePath}/flow/conf">
+    	<fileset dir="flow/conf"/>
+   	</copy>
+		<echo message="打包'flow'中..."/>
+		<jar jarfile="dist/walkersoft-flow-v1.0.jar" basedir="${tempCompilePath}/flow"/>
+	</target>
+	
+	<!-- 编译并打包deploy -->
+	<target name="compile_deploy">
+		<echo message="编译'deploy'中..."/>
+		<delete dir="${tempCompilePath}/deploy"/>
+   	<mkdir dir="${tempCompilePath}/deploy"/>
+    <javac srcdir="deploy" destdir="${tempCompilePath}/deploy" includeantruntime="true" 
+    	 classpathref="classpath" debug="on" target="1.6" source="1.6" encoding="utf-8"/>
+    <!-- 配置文件拷贝 -->  
+    <copy todir="${tempCompilePath}/deploy">
+   		<fileset dir="deploy">
+   			<include name="*.xml"/>
+   		</fileset>
+   	</copy>
+    <copy todir="${tempCompilePath}/deploy/conf">
+    	<fileset dir="deploy/conf"/>
+   	</copy>
+   	<copy todir="${tempCompilePath}/deploy/sql">
+   		<fileset dir="deploy/sql"/>
+   	</copy>
+		<echo message="打包'deploy'中..."/>
+		<jar jarfile="dist/walkersoft-deploy-v1.0.jar" basedir="${tempCompilePath}/deploy"/>
+	</target>
+	
+	<!-- 编译并打包mobile -->
+	<target name="compile_mobile">
+		<echo message="编译'mobile'中..."/>
+		<delete dir="${tempCompilePath}/mobile"/>
+   	<mkdir dir="${tempCompilePath}/mobile"/>
+    <javac srcdir="mobile" destdir="${tempCompilePath}/mobile" includeantruntime="true" 
+    	 classpathref="classpath" debug="on" target="1.6" source="1.6" encoding="utf-8"/>
+    <!-- 配置文件拷贝 -->  
+    <copy todir="${tempCompilePath}/mobile">
+   		<fileset dir="mobile">
+   			<include name="*.xml"/>
+   		</fileset>
+   	</copy>
+    <copy todir="${tempCompilePath}/mobile/conf">
+    	<fileset dir="mobile/conf"/>
+   	</copy>
+   	<copy todir="${tempCompilePath}/mobile/sql">
+   		<fileset dir="mobile/sql"/>
+   	</copy>
+		<echo message="打包'mobile'中..."/>
+		<jar jarfile="dist/walkersoft-mobile-v1.2.jar" basedir="${tempCompilePath}/mobile"/>
+	</target>
+	
+	<!-- 打包所有资源文件 -->
+	<target name="dist" depends="compile_system,compile_flow,compile_deploy,compile_mobile">
+		<!-- 拷贝模板文件 -->
+		<copy todir="${tempCompilePath}/ftl/common">
+   		<fileset dir="${project.ftl}/common"/>
+   	</copy>
+		<copy todir="${tempCompilePath}/ftl/help">
+   		<fileset dir="${project.ftl}/help"/>
+  	</copy>
+   	<copy todir="${tempCompilePath}/ftl/system">
+   		<fileset dir="${project.ftl}/system"/>
+   	</copy>
+		<copy todir="${tempCompilePath}/ftl/flow">
+   		<fileset dir="${project.ftl}/flow"/>
+   	</copy>
+		<copy todir="${tempCompilePath}/ftl/deploy">
+   		<fileset dir="${project.ftl}/deploy"/>
+   	</copy>
+   	<copy todir="${tempCompilePath}/ftl/report">
+   		<fileset dir="${project.ftl}/report"/>
+   	</copy>
+		<copy todir="${tempCompilePath}/ftl/mobile">
+   		<fileset dir="${project.ftl}/mobile"/>
+   	</copy>
+    <jar jarfile="dist/walkersoft-resource-system-v0.2.1.jar" basedir="${tempCompilePath}/ftl"/>
+   </target>
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:compass="http://www.compass-project.org/schema/spring-core-config"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+	 	 http://www.compass-project.org/schema/spring-core-config http://www.compass-project.org/schema/spring-compass-core-config-2.2.xsd">
+
+<!-- 系统表收集器 -->
+<bean id="systemTableColloctor" class="com.walker.db.init.simp.DefaultDataTableCollector">
+	<property name="testSql" value="select count(id) from sm_accredit"/>
+	<property name="forceOption" value="${app.database.detector.force_option}"/>
+	<property name="scriptFiles">
+		<list>
+			<value>sql/utf8-mysql.SQL</value>
+		</list>
+	</property>
+</bean>
+
+</beans>

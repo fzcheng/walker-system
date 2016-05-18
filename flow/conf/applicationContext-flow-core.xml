@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
+	<!-- 配置i18n -->
+	<bean id="springworker.messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="message"/>
+	</bean>
+	<bean id="messageSourceProvider" class="com.walker.flow.core.i18n.MessageSourceProvider"/>
+	
+	<!-- bean拦截器，切面注入属性 -->
+	<bean id="springworker.beanCollectPostProcessor" class="com.walker.flow.beans.BeanCollectPostProcessor"></bean>
+	
+	<!-- 初始化工作流数据库 -->
+	<!-- 流程表收集器 -->
+<bean id="springworker.TableColloctor" class="com.walker.db.init.simp.DefaultDataTableCollector">
+	<property name="testSql" value="select count(id) from sw_process_define"/>
+	<property name="forceOption" value="${springworker.database.install}"/>
+	<property name="scriptFiles">
+		<list>
+			<value>sql/springworker-mysql.SQL</value>
+			<value>sql/springworker-oracle.SQL</value>
+		</list>
+	</property>
+</bean>
+	
+	<!-- 流程管理数据库事务配置
+	  需要集成的业务系统提供TRANSACTION对象
+	  事务创建：如果业务中存在事务就是用该事务，如果不存在则流程管理器创建新事务
+	 -->
+	<bean id="springWorkerTransactionProxy" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="exec*">PROPAGATION_REQUIRED, -Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 
+	<bean id="springWorkerJdbcTemplateDao" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg>
+			<ref bean="dataSource"/>
+		</constructor-arg>
+	</bean>
+	<bean id="springWorkerNamedJdbcTemplateDao" class="com.walker.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	 -->
+	
+	<!-- DAO配置 
+	<bean id="springworker.workflowConfigOracleDao" class="com.walker.flow.dao.simp.WorkflowConfigOracleDao"></bean>
+	<bean id="springworker.workflowConfigMysqlDao" class="com.walker.flow.dao.simp.WorkflowConfigMysqlDao"></bean>
+	<bean id="springworker.workflowConfigSqlserverDao" class="com.walker.flow.dao.simp.WorkflowConfigSqlserverDao"></bean>
+	<bean id="springworker.workflowManageOracleDao" class="com.walker.flow.dao.simp.WorkflowManageOracleDao"></bean>
+	<bean id="springworker.workflowManageMysqlDao" class="com.walker.flow.dao.simp.WorkflowManageMysqlDao"></bean>
+	<bean id="springworker.workflowManageSqlserverDao" class="com.walker.flow.dao.simp.WorkflowManageSqlserverDao"></bean>
+	-->
+	<bean id="springworker.workflowEngineOracleDao" class="com.walker.flow.dao.simp.WorkflowEngineOracleDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+	</bean>
+	<bean id="springworker.workflowEngineMysqlDao" class="com.walker.flow.dao.simp.WorkflowEngineMysqlDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+	</bean>
+	<bean id="springworker.workflowEngineSqlserverDao" class="com.walker.flow.dao.simp.WorkflowEngineSqlserverDao"></bean>
+	
+	<!-- bean工厂处理 -->
+	<bean id="springWorkerBeanManager" class="com.walker.flow.beans.SpringWorkerBeanManager"/>
+	<bean id="springWorkerDaoFactoryBean" init-method="init" class="com.walker.flow.beans.SpringWorkerDaoFactoryBean">
+		<property name="databaseType" value="${app.database_type}"/>
+	</bean>
+	
+	<!-- 配置流程默认参与者 -->
+	<bean id="springworker.actor.workflowCreator" name="流程创建者"
+		class="com.walker.flow.core.actor.simp.ProcessCreatorActor"/>
+	
+	<!-- 流程定义缓存配置 -->
+	<bean id="springworker.processVersionCache" 
+		class="com.walker.flow.ncache.ProcessVersionCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="processDefineCache" 
+		class="com.walker.flow.ncache.ProcessDefineCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="taskDefineCache" 
+		class="com.walker.flow.ncache.TaskDefineCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="taskInCache" 
+		class="com.walker.flow.ncache.TaskInCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="taskOutCache" 
+		class="com.walker.flow.ncache.TaskOutCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="actorAssignCache" 
+		class="com.walker.flow.ncache.ActorAssignCache">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="springworker.processContextCache" 
+		class="com.walker.flow.ncache.ProcessContextCache"/>
+	<bean id="springWorkerCacheFactory" class="com.walker.flow.cache.SpringWorkerCacheFactory">
+		<property name="processDefineCache" ref="processDefineCache"/>
+		<property name="taskDefineCache" ref="taskDefineCache"/>
+		<property name="taskInCache" ref="taskInCache"/>
+		<property name="taskOutCache" ref="taskOutCache"/>
+		<property name="actorAssignCache" ref="actorAssignCache"/>
+		<property name="processVersionCache" ref="springworker.processVersionCache"/>
+		<property name="processContextCache" ref="springworker.processContextCache"/>
+		<!-- 
+		<property name="processNavigatorCache" ref="springworker.processNavigatorCache"/>
+		 -->
+	</bean>
+	
+	<!-- 流程引擎装配 -->
+	<bean id="springworker.actor.actorSolver" class="com.walker.flow.core.actor.ActorSolver">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+	</bean>
+	<bean id="springworker.engine.subTaskFirstCreateHandler" class="com.walker.flow.engine.handler.SubTaskFirstCreateHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="actorSolver" ref="springworker.actor.actorSolver"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.subTaskMiddleCreateHandler" class="com.walker.flow.engine.handler.SubTaskMiddleCreateHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="actorSolver" ref="springworker.actor.actorSolver"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.primaryTaskLastDoneHandler" class="com.walker.flow.engine.handler.PrimaryTaskLastDoneHandler">
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.primaryTaskMiddleCreateHandler" class="com.walker.flow.engine.handler.PrimaryTaskMiddleCreateHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="actorSolver" ref="springworker.actor.actorSolver"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.primaryTaskMiddleDoneHandler" class="com.walker.flow.engine.handler.PrimaryTaskMiddleDoneHandler">
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.subTaskLastDoneHandler" class="com.walker.flow.engine.handler.SubTaskLastDoneHandler">
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.subTaskMiddleDoneHandler" class="com.walker.flow.engine.handler.SubTaskMiddleDoneHandler">
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.primaryProcessCreateHandler" class="com.walker.flow.engine.handler.PrimaryProcessCreateHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="nextTaskExecutor" ref="springworker.engine.nextTaskExecutor"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.subProcessCreateHandler" class="com.walker.flow.engine.handler.SubProcessCreateHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="nextTaskExecutor" ref="springworker.engine.nextTaskExecutor"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.nextTaskExecutor" class="com.walker.flow.engine.NextTaskExecutor">
+		<property name="subTaskMiddleCreateHandler" ref="springworker.engine.subTaskMiddleCreateHandler"/>
+		<property name="subTaskFirstCreateHandler" ref="springworker.engine.subTaskFirstCreateHandler"/>
+		<property name="primaryTaskMiddleCreateHandler" ref="springworker.engine.primaryTaskMiddleCreateHandler"/>
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.transBackPrevious" class="com.walker.flow.engine.handler.TransmitBackPreviousHandler">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+	</bean>
+	<bean id="springworker.engine.processor" class="com.walker.flow.engine.EngineProcessor">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="primaryTaskLastDoneHandler" ref="springworker.engine.primaryTaskLastDoneHandler"/>
+		<property name="primaryTaskMiddleDoneHandler" ref="springworker.engine.primaryTaskMiddleDoneHandler"/>
+		<property name="subTaskLastDoneHandler" ref="springworker.engine.subTaskLastDoneHandler"/>
+		<property name="subTaskMiddleDoneHandler" ref="springworker.engine.subTaskMiddleDoneHandler"/>
+		<property name="primaryProcessCreateHandler" ref="springworker.engine.primaryProcessCreateHandler"/>
+		<property name="subProcessCreateHandler" ref="springworker.engine.subProcessCreateHandler"/>
+		<property name="nextTaskExecutor" ref="springworker.engine.nextTaskExecutor"/>
+		<property name="transmitBackHandler" ref="springworker.engine.transBackPrevious"/>
+	</bean>
+	<!-- 流程引擎事务处理 -->
+	<bean id="springworker.workflowEngineService" parent="springWorkerTransactionProxy">
+		<property name="target">
+			<bean class="com.walker.flow.service.WorkflowEngineDatabaseService">
+				<property name="engineProcessor" ref="springworker.engine.processor"/>
+				<property name="daoFactory" ref="springWorkerDaoFactoryBean"/>
+				<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+			</bean>
+		</property>
+	</bean>
+	<!-- 业务类别 -->
+	<bean id="springworker.businessTypeFactoryBean" class="com.walker.flow.core.biz.support.BusinessTypeFactoryBean" autowire="byType">
+	</bean>
+	<!-- 流程客户端 -->
+	<bean id="springworker.client" class="com.walker.flow.client.SpringWorkerClient">
+		<property name="workflowEngineService" ref="springworker.workflowEngineService"/>
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+	</bean>
+	
+	<!-- 涉及UI界面中的流程接口调用，它作为client的一部分，通过总的FlowClient为用户提供服务 -->
+	<bean id="springworker.uiEditor" class="com.walker.flow.client.UiEditorController">
+		<property name="cacheFactory" ref="springWorkerCacheFactory"/>
+		<property name="transmitBack" ref="springworker.engine.transBackPrevious"/>
+	</bean>
+	
+	<!-- 以下为测试配置 -->
+	<bean id="bizTypeMap" class="com.walker.flow.core.biz.simp.BusinessTypeGatherer">
+		<property name="businessTypeMap">
+			<map>
+				<entry key="A" value="默认"/>
+				<entry key="B" value="项目管理"/>
+				<entry key="C" value="考勤管理"/>
+				<entry key="D" value="请假业务"/>
+				<entry key="E" value="系统管理"/>
+			</map>
+		</property>
+	</bean>
+</beans>

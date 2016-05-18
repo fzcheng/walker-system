@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	|
+	+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!---->
+	
+	<bean id="quartzScheduler" class="com.walker.infrastructure.spring.QuartzSchedulerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="autoStartup" value="true"/>
+		<property name="overwriteExistingJobs" value="true"/>
+		<property name="propertieLocation" value="classpath:app_quartz.properties"/>
+<!--		<property name="triggers">-->
+<!--		</property>-->
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.scheduler.instanceName">WalkerQuartzScheduler</prop>
+				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+				<prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+				<prop key="org.quartz.threadPool.threadCount">2</prop>
+				<prop key="org.quartz.threadPool.threadPriority">5</prop>
+				<prop key="org.quartz.jobStore.misfireThreshold">6000</prop>
+				<prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
+				<prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreCMT</prop>
+				<prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+				<prop key="org.quartz.jobStore.useProperties">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 
+	<bean id="com.quartz.scheduleControlerAction" class="com.quartz.action.ScheduleControlerAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean id="com.quartz.job.simpleAction" class="com.quartz.action.SimpleJobAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean id="com.quartz.job.createJobAction" class="com.quartz.action.CreateJobAction" scope="prototype">
+		<property name="scheduler" ref="quartzScheduler"/>
+	</bean>
+	<bean id="com.quartz.job.unScheduleAction" class="com.quartz.action.UnScheduleAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean id="com.quartz.job.simpleTriggerAction" class="com.quartz.action.SimpleTriggerAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean id="com.quartz.job.cronTriggerAction" class="com.quartz.action.CronTriggerAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean id="com.quartz.job.createDefJobAction" class="com.quartz.action.CreateDefJobAction" scope="prototype"
+		p:scheduler-ref="quartzScheduler"/>
+	<bean class="com.quartz.QuartzBeanUtils"/>
+	<bean id="modpScheduleService" class="com.quartz.service.ModpScheduleServiceImpl" p:quartzScheduler-ref="quartzScheduler"/>
+	 -->
+	
+	
+<!--	 ******************** 以下内容对于定时任务的触发器配置在“自定义任务”完成后，就不再需要定义了！ ******************* -->
+<!--	 定时删除登录日志
+	<bean id="delLoginLogDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.quartz.job.DeleteLoginLogTask"/>
+	</bean>
+	
+	-->
+<!--	 任务定时设置
+	<bean id="delLoginLogTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="delLoginLogDetail"/>
+		<property name="cronExpression" value="0 30 23 ? * *"></property>
+	</bean>
+	 -->
+	
+<!--	 定时计算时效用户 -->
+<!-- 
+	<bean id="everydayTaskDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.dbgp.crontab.job.EverydayTaskDetail"/>
+	</bean>
+ -->
+<!--	 每天任务定时设置 -->
+<!--  
+	<bean id="everydayTaskDetailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="everydayTaskDetail"/>
+		<property name="cronExpression" value="* 30 22 ? * *"></property>
+	</bean>
+-->
+
+</beans>

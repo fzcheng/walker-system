@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+|
+| 应用系统配置参数，使用XML的方式实现时，需要按照以下格式来增加可变参数。
+| 这些参数在系统启动后，被全部加载，并且在运行过程中可以被动态修改，同时更新文件。
+| 系统提供了调用API来完成获取数据、持久化保存数据等。
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| 1、分组：在管理界面中，会按照分组形成类似目录分类，方便管理，order可以调整显示顺序；
+| 目前仅支持一级分组，如果需要多级展示需要业务自己处理。
+| 2、可以存在多个分组节点。
+| 3、variable节点表示一个配置的可变参数，type为数据类型，目前支持四种：string/integer/boolean/float；
+|
+ -->
+<root>
+	<group id="1" name="系统全局参数" order="1">
+		<variable id="SYSTEM.SUPERPASS" name="超级管理员密码" type="string" value="0" default="123456"/>
+		<variable id="SYSTEM.USER_INITPASS" name="创建用户的初始化密码" type="string" value="123456" default="123456"/>
+		<variable id="SYSTEM.USER_RESETPASS" name="重置密码默认值" type="string" value="123456" default="123456"/>
+		<variable id="SYSTEM.SHOW_VALIDCODE" name="登录是否显示验证码" type="boolean" value="false" default="true"/>
+		<variable id="SYSTEM.COMPANY" name="系统要显示的企业名称" type="string" value="My 管理平台" default="My 管理平台"/>
+	</group>
+	<group id="2" name="首页设置" order="2">
+		<variable id="HOME.SETTING.LOGO_PATH" name="应用系统logo存放路径，相对根路径" type="string" value="images" default="images"/>
+	</group>
+	<group id="3" name="附件设置" order="3">
+		<variable id="ATTACHMENT.PATH_WIN" name="附件上传根路径(windows)-废弃" type="string" value="d:/logs/" default="d:/logs/"/>
+		<variable id="ATTACHMENT.PATH_UNIX" name="附件上传根路径(unix)-废弃" type="string" value="/opt/upload/" default="/opt/upload/"/>
+	</group>
+</root>

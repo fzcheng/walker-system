@@ -1,0 +1,103 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        
+	<!-- 默认的注解映射的支持 
+	<mvc:annotation-driven />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> 
+	<bean class="com.walkersoft.application.MenuMatchRequestHandlerMapping">
+		<property name="functionCacheProvider" ref="functionCacheProvider"></property>
+	</bean>
+	
+		<!-- 允许定义过滤器将基包下的某些类纳入或排除  
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+		-->
+	<!-- 自动扫描的包名 
+	注意：和spring父容器中扫描的包区分开，否则导致父容器中配置的事务总是不生效。
+	springMVC作为子容器，让它只扫描action包就可以了，千万不能扫描父容器内容（dao/service等）。
+	开始时这里也是配置了：com.walkersoft，事务就不生效。
+	-->
+	<context:component-scan base-package="com.walkersoft.*.action">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+<!-- 加载子容器参数配置文件：springMVC -->
+<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<list>
+			<value>classpath*:app_spring_mvc.properties</value>
+		</list>
+	</property>
+</bean>
+
+	<!-- springMVC JSP模板支持 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	  <property name="prefix" value="/WEB-INF/pages/jsp/"/>
+	  <property name="suffix" value=".jsp"/>
+	  <property name="viewClass">
+	  	<value>org.springframework.web.servlet.view.InternalResourceView</value>
+	  </property>
+	  <property name="order" value="1"/>
+	</bean>
+	
+	<!-- 配置freeMarker视图解析器 -->  
+	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>  
+		<property name="contentType" value="text/html; charset=utf-8"/>  
+		<property name="cache" value="false" />  
+		<property name="suffix" value=".ftl" />  
+		<property name="order" value="0"/>
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->  
+  <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+    <property name="templateLoaderPath">  
+        <value>/WEB-INF/pages/ftl/</value>  
+    </property>  
+    <property name="freemarkerVariables">
+    	<map>
+        <entry key="xml_escape" value-ref="fmXmlEscape" />  
+      </map>  
+    </property>  
+    <property name="defaultEncoding">  
+        <value>utf-8</value>  
+    </property>  
+    <property name="freemarkerSettings">  
+        <props>
+          <!-- 定时判断模板的版本，单位：秒，如果想实时判断设置为：0。原值：3600 -->  
+        	<prop key="template_update_delay">${app.freemarker.template_update_delay}</prop>
+        	<!-- 设置true，允许表达式中值为空，否则都要手动判断 --> 
+        	<prop key="classic_compatible">true</prop> 
+        </props>  
+    </property>  
+  </bean>
+
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+	
+	<!-- 文件上传的解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<!-- 应用程序异常处理器 -->
+	<bean id="myApplicationExceptionHandler" class="com.walker.web.ApplicationExceptionHandler"/>
+	
+	<!-- 
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+		</mvc:interceptor> 
+	 -->
+	<mvc:interceptors>
+		 <bean id="applicationBaseInterceptor" class="com.walker.web.interceptor.ApplicationBaseInterceptor">
+		 	<property name="userPageSize" value="${app.ui.default_page_size}"/>
+		 </bean>
+	</mvc:interceptors>
+	
+</beans>

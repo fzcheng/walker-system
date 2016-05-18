@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
+	
+	<!-- 使Spring关注Annotation -->
+	<context:annotation-config />
+
+	<!-- 让Spring通过自动扫描来查询和管理Bean 
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+		注意：这是系统中spring的顶级容器（即：父容器），应当和springMVC中的子容器扫描路径区分开；
+		因为开始时和spingMVC中配置的扫描包一样，所以导致事务的配置总是不生效，避免重复扫描而导致的bean管理重叠。
+		解决办法：把springMVC中的扫描包区分开，仅扫描action就可以了。
+	-->
+	<context:component-scan base-package="com.walkersoft" >
+	</context:component-scan>
+	
+	<!-- 
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true" />
+	 -->
+	
+	<!--Hibernate SessionFatory-->
+	<bean id="sessionFactory" class="com.walker.db.hibernate.TypeAnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan">
+   	  <list>
+   			  <value>com.walkersoft.**.entity.</value>
+     </list> 
+    </property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- 
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				 -->
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.connection.release_mode">${hibernate.connection.release_mode}</prop>
+			</props>
+		</property>
+		<property name="databaseType" value="${app.database_type}"/>
+		<!-- 
+		<property name="entityInterceptor">   
+    	<bean class="com.walker.interceptor.AutoMatchTableInterceptor"></bean> 
+    </property>
+		 -->
+	</bean>
+	
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!--使用基于注解方式配置事务.
+	暂不使用注解事务，需要写很多代码，不方便。
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	-->
+	
+	<!-- 
+	|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	|
+	| 以下方式使用了内置表达式配置方式，配置事务
+	|
+	|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 -->
+	<!-- 系统所有可回滚的事务必须以exec方法名称开头，
+	这样方便管理 ，你也可以增加更多方法前缀，如：save/update/batch...
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="search*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="count*" read-only="true" />
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="exec*" propagation="REQUIRED" rollback-for="Exception,RuntimeException"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="interceptorPointCuts"
+		expression="execution(public * com.walkersoft..*ManagerImpl.*(..))" />
+		<aop:advisor advice-ref="txAdvice"
+		pointcut-ref="interceptorPointCuts" />
+	</aop:config>
+	 -->
+	
+	<!-- 
+	|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	|
+	| 以下方式使用了拦截配置方式，处理事务。
+	| 本来想通过事务拦截来实现流程引擎与业务的合并，不过目前暂没有这样使用。
+	| 以下的正则表达式已经封装在类中，同时也可以通过参数beanNameRegex来注入其他表达式<br>
+	| 来定义Manager的代理创建。
+	|
+	|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 -->
+	<bean id="transactionInterceptor" 
+       class="com.walker.db.transaction.FlowSupportTransactionInterceptor">  
+       <property name="transactionManager" ref="transactionManager" />  
+       <property name="transactionAttributes">  
+           <props>  
+					    <prop key="search*">readOnly</prop> 
+					    <prop key="find*">readOnly</prop> 
+					    <prop key="get*">readOnly</prop> 
+					    <prop key="count*">readOnly</prop> 
+					    <prop key="check*">readOnly</prop> 
+					    <prop key="query*">PROPAGATION_REQUIRED, readOnly</prop> 
+					    <prop key="exec*">PROPAGATION_REQUIRED, -Exception</prop>
+           </props>  
+       </property>  
+   </bean>
+   <bean class="com.walker.db.transaction.ManagerNameAutoProxyCreator">
+   <!-- 
+   		 <property name="beanNameRegex" value=".*\\.manager\\..+ManagerImpl"/>
+       <property name="beanNames">  
+           <list>  
+               <value>*.manager.*ManagerImpl</value>
+           </list>  
+       </property>  
+    -->
+       <property name="interceptorNames">  
+           <list>  
+               <value>transactionInterceptor</value>
+           </list>  
+       </property>  
+   </bean>
+   
+</beans>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
+
+<!-- 属性文件读入 -->
+<!-- 
+<value>classpath*:app_config.properties</value>
+<value>classpath*:app_jdbc.properties</value>
+ -->
+<bean id="appConfigProperties" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	<property name="locations">
+		<list>
+			<value>classpath:app_config.properties</value>
+			<value>classpath:app_springworker.properties</value>
+			<value>classpath:app_jdbc.properties</value>
+			<value>classpath:app_quartz.properties</value>
+		</list>
+	</property>
+</bean>
+
+
+<bean id="moduleConfigProperties" class="com.walkersoft.application.AppPlaceholderConfigurer">
+	<!-- 应用程序模块包前缀，必须先设置 -->
+	<property name="deployJarPrefix" value="walkersoft-"/>
+	<!-- 应用程序模块包中属性文件前缀 -->
+	<property name="locationPrefix">
+		<value>app_</value>
+	</property>
+</bean>
+
+<!-- 
+<context:property-placeholder location="classpath*:app_*.properties"/>
+ -->
+
+<!-- 密码加密对象 -->
+<bean id="encoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+
+<!-- 应用可变配置参数对象 -->
+<bean id="argumentsManager" class="com.walker.infrastructure.arguments.ArgumentsManagerFactoryBean"></bean>
+
+<!-- 应用参数配置 -->
+<bean id="applicationConfig" class="com.walkersoft.application.MyApplicationConfig">
+	<property name="passwordEncoder" ref="encoder"/>
+	<property name="passwordEncode" value="${app.basic.password_encode}"/>
+	<property name="supervisorName" value="${app.supervisor.name}"/>
+	<property name="logEngine" ref="jdbcBatchFactoryBean"/>
+	<!-- 
+	<property name="argumentsManager" ref="argumentsManager"/>
+	 -->
+</bean>
+
+<!-- 日志引擎配置 -->
+<bean id="jdbcBatchFactoryBean" class="com.walker.fastlog.JdbcBatchFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<!-- 日志缓冲区大小，达到最大值会触发写入操作 -->
+	<property name="maxCache" value="${app.basic.log_max_cache}"/>
+	<property name="insertSql" value="insert into s_log(id, create_time, login_user, type, content) values(:id,:create_time,:login_user,:type,:content)"/>
+</bean>
+
+<!-- 数据库自动初始化对象，检测后可以自动执行脚本 
+			它必须第一个初始化，其他缓存对象需要依赖它，通过参数: depend-on
+-->
+
+<bean name="myDatabaseDetector" class="com.walker.db.init.DatabaseDetector">
+	<property name="dataSource" ref="dataSource"/>
+	<property name="databaseType" value="${app.database_type}"/>
+</bean>
+
+<!-- 系统表收集器 -->
+<bean id="systemTableColloctor" class="com.walker.db.init.simp.DefaultDataTableCollector">
+	<property name="testSql" value="select count(id) from s_function"/>
+	<property name="forceOption" value="${app.database.detector.force_option}"/>
+	<property name="scriptFiles">
+		<list>
+			<value>sql/utf8-mysql.SQL</value>
+			<value>sql/utf8-oracle.SQL</value>
+			<value>sql/utf8-derby.SQL</value>
+		</list>
+	</property>
+</bean>
+
+<!-- com.walker.jdbc.core.JdbcTemplate -->
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<constructor-arg>
+		<ref bean="dataSource"/>
+	</constructor-arg>
+</bean>
+<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	<constructor-arg>
+		<ref bean="dataSource"/>
+	</constructor-arg>
+</bean>
+
+<!-- 文件上传操作处理引擎配置 -->
+<bean id="multipartFileReader" class="com.walker.file.support.MultipartFileReader"></bean>
+
+<bean id="fileEngine" class="com.walker.file.support.JdbcFileEngineDao" depends-on="applicationConfig">
+	<property name="fileReader" ref="multipartFileReader"/>
+	<property name="fileStoreRootPath" value="d:/logs/"/>
+	<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	<property name="databaseType" value="${app.database_type}"/>
+</bean>
+
+<!-- 
+数据库-数据SQL导出器配置
+ -->
+<bean id="defaultDatabaseExportor" class="com.walkersoft.application.db.DefaultDatabaseExportor">
+	<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	<property name="schema" value="${app.jdbc.databasename}"/>
+	<property name="databaseType" value="${app.database_type}"/>
+</bean>
+ 
+<!-- 
+ |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ |
+ |系统统一的拦截配置,后处理器自定义时代!
+ |
+ |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+
+<!-- 自动注入系统可变参数的后处理器 -->
+<bean id="argumentsPostProcessor" class="com.walker.infrastructure.arguments.ArgumentsPostProcessor">
+	<property name="argumentsManager" ref="argumentsManager"/>
+</bean>
+
+<!-- 系统依赖管理的容器后处理器 -->
+<bean id="dependManagePostProcessor" class="com.walker.web.DependManagePostProcessor"></bean>
+
+<!-- 数据库SQL收集并初始化的bean后处理器 -->
+<bean id="databasePostProcessor" class="com.walker.db.init.DatabasePostProcessor"></bean>
+
+<!-- 注册缓存对象的容器后处理器 -->
+<bean id="cacheProviderPostProcessor" class="com.walker.infrastructure.cache.CacheProviderPostProcessor"></bean>
+
+<!-- 自动注入消息提醒消费者的后处理器 -->
+<bean id="notificationConsumerPostProcessor" class="com.walker.notification.NotificationConsumerPostProcessor"></bean>
+
+<bean id="mailMessageConsumer" class="com.walker.notification.email.MailMessageConsumer"></bean>
+
+<!-- 回调接口的后处理器 -->
+<bean id="applicationCallbackPostProcessor" class="com.walkersoft.application.ApplicationCallbackPostProcessor"></bean>
+
+<!--处理 @ResponseBody 中文乱码问题-->
+<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<property name="messageConverters">
+		<list>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>
+							text/html;charset=UTF-8
+						</value>
+					</list>
+				</property>
+			</bean>
+			启动JSON格式的配置
+			<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				解决 HttpMediaTypeNotAcceptableException: Could not find acceptable representation
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</list>
+	</property>
+</bean> -->
+</beans>

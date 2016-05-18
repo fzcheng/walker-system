@@ -1,0 +1,56 @@
+一、关于数据库
+=============================================
+1、命名规则
+ 1.1、表名统一使用英文、英文缩写、下划线及其组合方式，以下为一些常用示例：
+  A、S_CODE：系统代码表
+  B、SW_PROCESS_DEFINE：工作流流程定义表
+  C、WIKI_DOC：知识库文档信息表
+ 1.2、对于前缀，不能和已存在的重复，由业务需求确定，但都遵循缩写规范，例如：项目管理表可以用前缀"PRJ_";
+ 1.3、对于子表，尽可能表的前面名字与主表相同，可以很快定位，例如：任务定义表SW_TASK_DEFINE为主表，其中节点进入表是子表：SW_TASK_IN；
+ 1.4、如果表名较短，可以使用英文全拼，如果较长就需要使用缩写形式，例如：Knowledge可以用缩写knw；
+ 1.5、原则上表名中不能在出现**MANAGEMENT，字样，因为数据表都是实体，不存在管理概念；
+ 
+ 二、导入BIRT报表的包都有哪些
+=============================================
+axis.jar
+axis-ant.jar
+com.ibm.icu_50.1.1.v201304230130.jar
+commons-cli-1.0.jar
+commons-discovery-0.2.jar
+coreapi.jar
+crosstabcoreapi.jar
+dataadapterapi.jar
+dataaggregationapi.jar
+dataextraction.jar
+dteapi.jar
+emitterconfig.jar
+engineapi.jar
+flute.jar
+javax.wsdl_1.5.1.v201012040544.jar
+jaxrpc.jar
+js.jar
+modelapi.jar
+modelodaapi.jar
+org.eclipse.birt.report.viewer.nl_zh_3.6.0.v20100814043401.jar
+org.eclipse.emf.common_2.6.0.v20100914-1218.jar
+org.eclipse.emf.ecore_2.6.1.v20100914-1218.jar
+org.eclipse.emf.ecore.xmi_2.5.0.v20100521-1846.jar
+saaj.jar
+scriptapi.jar
+viewservlets.jar
+
+
+三、导入websocket jar包
+=============================================
+jackson-annotations-2.2.3.jar
+jackson-core-2.2.3.jar
+jackson-databind-2.2.3.jar
+spring-**-4.0.6.jar(换成spring4就是因为websocket)
+
+四、导入poi包
+=============================================
+poi-3.8-20120326.jar
+poi-ooxml-3.8-20120326.jar
+poi-ooxml-schemas-3.8-20120326.jar
+xmlbeans-2.3.0.jar
+

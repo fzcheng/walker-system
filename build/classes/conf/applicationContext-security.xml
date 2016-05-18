@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+http://www.springframework.org/schema/security 
+http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <global-method-security pre-post-annotations="enabled" />
+
+		<!-- 公共访问页面，无需经过拦截器 -->
+    <http pattern="/script/**" security="none"/>
+    <http pattern="/style/**" security="none"/>
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/sdk/**" security="none"/>
+    <http pattern="/img/*.png" security="none"/>
+    <http pattern="/login.do*" security="none"/>
+    <http pattern="/jcaptcha" security="none"/>
+    <http pattern="/sessionInvalid.do" security="none"/>
+    <http pattern="/timeout.do" security="none"/>
+    <http pattern="/notFound.do" security="none"/>
+    <http pattern="/error.do" security="none"/>
+    <http pattern="/reg_auth.do" security="none"/>
+    <http pattern="/update_deploy.do" security="none"/>
+    
+    <!-- 手机端访问 -->
+    <http pattern="/m/**" security="none"/>
+    
+    <!-- websocket访问 -->
+    <http pattern="/websocket/**" security="none"/>
+    
+    <!-- BIRT报表访问路径 -->
+    <http pattern="/frameset*" security="none"/>
+    <http pattern="/webcontent/**" security="none"/>
+    <http pattern="/preview*" security="none"/>
+    <!-- cms访问路径 -->
+    <http pattern="/**/*.cm*" security="none"/>
+    <http pattern="/**/*.htm*" security="none"/>
+    <http pattern="/**/*.html*" security="none"/>
+		<http pattern="/auxiliary_res/**" security="none"/>
+		<http pattern="/cms_res/**" security="none"/>
+		<http pattern="/common_res/**" security="none"/>
+		<http pattern="/core_res/**" security="none"/>
+		<http pattern="/fckeditor/**" security="none"/>
+		<http pattern="/front_res/**" security="none"/>
+		<http pattern="/My97DatePicker/**" security="none"/>
+		<http pattern="/res_base/**" security="none"/>
+		<!-- 
+		hasAnyRole('supervisor','admin');
+		hasRole('supervisor');
+		 -->
+    <http use-expressions="false" auto-config="true" 
+    	access-denied-page="/accessDenied.do">
+    	
+    	<!-- 
+    	https登录的配置
+    	<intercept-url pattern="/login.do" requires-channel="https"/>
+    	<intercept-url pattern="/j_spring_security_check" requires-channel="https"/>
+    	<intercept-url pattern="/index.do" requires-channel="http"/>
+    	 -->
+    	
+        <!-- 
+        <intercept-url pattern="/admin/**" access="ROLE_SUPERVISOR,ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="hasRole('user')" />
+        登录用户都可以访问首页
+         -->
+        <!--
+             Allow all other requests. In a real application you should
+             adopt a whitelisting approach where access is not allowed by default
+        <intercept-url pattern="/**" access="permitAll" />
+        注意：一旦配置了自己的认证过滤器，那么在这里，
+        配置的默认跳转和失败url就不管用了。
+        authentication-failure-url="/login.do?error=true"
+        default-target-url="/index.do"
+          -->
+        <form-login login-page="/login.do" 
+        always-use-default-target="true"/>
+        
+        <!-- 
+         success-handler-ref="",设置注销成功的业务回调实现
+         -->
+        <logout invalidate-session="true" logout-success-url="/login.do" 
+        delete-cookies="JSESSIONID" logout-url="/j_spring_security_logout"/>
+        
+        <!-- 默认时间604800秒(一个星期) -->
+        <remember-me user-service-ref="myUserDetailService" token-validity-seconds="604800"/>
+<!--
+    Uncomment to enable X509 client authentication support
+        <x509 />
+-->
+        <!-- Uncomment to limit the number of sessions a user can have 
+        <session-management invalid-session-url="/sessionInvalid.do">
+            <concurrency-control max-sessions="1" 
+            	error-if-maximum-exceeded="true" expired-url="/timeout.do"/>
+        </session-management>
+        
+        // 这个是原来配置，默认启用session保护
+        <session-management invalid-session-url="/sessionInvalid.do" 
+	        session-authentication-strategy-ref="sas" 
+	        session-authentication-error-url="/login.do?msg=session_faild"/>
+	        
+        以下配置关闭了session保护，因为加上https切换后，会无法切换了http了。
+        不过，通过自定义成功跳转可以实现session保护的情况下也可以正常切换。
+        -->
+        <session-management invalid-session-url="/sessionInvalid.do"  
+          session-authentication-strategy-ref="sas" 
+	        session-authentication-error-url="/login.do?msg=session_faild" 
+	        />
+        
+        <custom-filter ref="concurrencyFilter" position="CONCURRENT_SESSION_FILTER"/>
+
+<!-- 
+认证过滤器自定义实现
+-->
+				<custom-filter ref="myAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
+				
+				<custom-filter ref="mySecurityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+				
+				<port-mappings>
+					<port-mapping http="7003" https="8443"/>
+				</port-mappings>
+    </http>
+    
+    <beans:bean id="myAuthenticationProcessingFilter" class="com.walker.test.MySecurityAuthenticationProcessionFilter">
+    	<beans:property name="authenticationManager" ref="authenticationManager"/>
+    	<beans:property name="sessionAuthenticationStrategy" ref="sas"/>
+    	<!-- 注意：如果使用https登录一定要设置true -->
+    	<beans:property name="useHttps" value="false"/>
+    	<!-- 
+    	部署的jar前缀，所有以此开头的jar系统都要解压ftl文件
+    	<beans:property name="deployJarPrefix" value="walkersoft-resource-"/>
+    	 -->
+    	<beans:property name="defaultFailureUrl" value="/login.do?error=true"/>
+    	<beans:property name="defaultTargetUrl" value="/index.do"/>
+    </beans:bean>
+
+		<beans:bean id="myUserDetailService" class="com.walkersoft.application.security.MyUserDetailService"/>
+		
+		<beans:bean id="myAuthenticationProvider" class="com.walkersoft.application.security.MyAuthenticationProvider">
+			<beans:property name="userDetailService" ref="myUserDetailService"/>
+			<beans:property name="passwordEncoder" ref="encoder"/>
+			<!-- 密码是否加密，false为不加密 -->
+			<beans:property name="encodePassword" value="${app.basic.password_encode}"/>
+			<beans:property name="functionCacheProvider" ref="functionCacheProvider"/>
+			<beans:property name="loginCallback" value="${app.security.login_callback}"/>
+		</beans:bean>
+		
+		<!-- 
+		Usernames/Passwords are
+        rod/koala
+        dianne/emu
+        scott/wombat
+        peter/opal
+        
+	    <authentication-provider>
+				<user-service>
+	          <user name="rod" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_ADMIN" />
+	          <user name="dianne" password="957ea522524a41cbfb649a3e293d56268f840fd5b661b499b07858bc020d6d223f912e3ab303b00f" authorities="ROLE_USER,ROLE_ADMIN" />
+	          <user name="scott" password="fb1f9e48058d30dc21c35ab4cf895e2a80f2f03fac549b51be637196dfb6b2b7276a89c65e38b7a1" authorities="ROLE_USER" />
+	          <user name="peter" password="e175750688deee19d7179d444bfaf92129f4eea8b4503d83eb8f92a7dd9cda5fbae73638c913e420" authorities="ROLE_USER" />
+	      </user-service>
+        <password-encoder ref="encoder"/>
+       </authentication-provider>
+		 -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="myAuthenticationProvider"/>
+    </authentication-manager>
+
+	<!-- session配置 -->
+	<beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:property name="sessionRegistry" ref="sessionRegistry" />
+		<beans:property name="expiredUrl" value="/timeout.do" />
+	</beans:bean>
+	
+	<beans:bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		<beans:property name="maximumSessions" value="2" />
+		<beans:property name="exceptionIfMaximumExceeded" value="true" />
+	</beans:bean>
+	
+	<!-- 权限资源拦截，相关配置，通过角色和功能关系动态拦截 -->
+	<beans:bean id="applicationResourceLoader" class="com.walkersoft.application.security.support.ApplicationResourceLoader">
+		<beans:property name="functionCacheProvider" ref="functionCacheProvider"/>
+	</beans:bean>
+	
+	<beans:bean id="mySecurityMetadataSource" class="com.walker.web.security.MySecurityMetadataSource">
+		<beans:property name="resourceLoaderProvider" ref="applicationResourceLoader"/>
+	</beans:bean>
+	
+	<beans:bean id="myAccessDecisionManager" class="com.walker.web.security.MyAccessDecisionManager"/>
+	
+	<beans:bean id="mySecurityFilter" class="com.walker.web.security.MySecurityFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager"/>
+		<beans:property name="accessDecisionManager" ref="myAccessDecisionManager"/>
+		<beans:property name="securityMetadataSource" ref="mySecurityMetadataSource"/>
+	</beans:bean>
+	
+	<!-- 角色资源权限改变监听器配置 -->
+	<beans:bean id="roleSecurityUpdateListener" class="com.walkersoft.application.security.event.RoleSecurityUpdateListener">
+		<beans:property name="securityMetaSource" ref="mySecurityMetadataSource"/>
+	</beans:bean>
+	
+</beans:beans>
