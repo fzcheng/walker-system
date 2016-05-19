@@ -11,25 +11,22 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "yl_app")
-public class AppEntity {
+@Table(name = "yl_app_market")
+public class AppMarketEntity {
 
 	int id;
 	
 	@Column(name="appid", length=36)
 	String appid;
 	
-	@Column(name = "appcode")
-	String appcode;// 'app码',
+	@Column(name = "market")
+	int market;// 'app码',
 	
-	@Column(name = "appname")
-	String appname;// '应用名称',
+	@Column(name = "sdkid")
+	int sdkid;// '应用名称',
 	
-	@Column(name = "package_name")
-	String package_name;// '包名',
-	
-	@Column(name = "companyid")
-	int companyid;// '公司id',
+	@Column(name = "remark")
+	String remark;// '包名',
 	
 	@Column(name = "create_time")
 	long create_time;// '创建时间',
@@ -37,30 +34,6 @@ public class AppEntity {
 	@Column(name = "last_time")
 	long last_time;// '最后修改时间',
 
-	public String getAppcode() {
-		return appcode;
-	}
-	public void setAppcode(String appcode) {
-		this.appcode = appcode;
-	}
-	public String getAppname() {
-		return appname;
-	}
-	public void setAppname(String appname) {
-		this.appname = appname;
-	}
-	public String getPackage_name() {
-		return package_name;
-	}
-	public void setPackage_name(String package_name) {
-		this.package_name = package_name;
-	}
-	public int getCompanyid() {
-		return companyid;
-	}
-	public void setCompanyid(int companyid) {
-		this.companyid = companyid;
-	}
 	public long getCreate_time() {
 		return create_time;
 	}
@@ -89,6 +62,24 @@ public class AppEntity {
 	}
 	public void setAppid(String id) {
 		this.appid = id;
+	}
+	public int getMarket() {
+		return market;
+	}
+	public void setMarket(int market) {
+		this.market = market;
+	}
+	public int getSdkid() {
+		return sdkid;
+	}
+	public void setSdkid(int sdkid) {
+		this.sdkid = sdkid;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

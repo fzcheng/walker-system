@@ -16,4 +16,8 @@ public class AppDao extends SQLDaoSupport<AppEntity> {
 	public GenericPager<AppEntity> queryPageList(String userId){
 		return this.queryForEntityPage();
 	}
+
+	public AppEntity queryForApp(String appid) {
+		return findUniqueBy(entityClass, new String[]{"appid"}, new Object[]{appid});
+	}
 }

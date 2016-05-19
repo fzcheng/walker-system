@@ -3,21 +3,24 @@ package com.walkersoft.appmanager.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.walker.app.ApplicationRuntimeException;
 import com.walker.db.page.support.GenericPager;
 import com.walker.infrastructure.utils.Assert;
 import com.walker.infrastructure.utils.NumberGenerator;
 import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.appmanager.dao.AppDao;
+import com.walkersoft.appmanager.dao.AppMarketDao;
 import com.walkersoft.appmanager.entity.AppEntity;
+import com.walkersoft.appmanager.entity.AppMarketEntity;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
-import com.walkersoft.flow.entity.FlowBindEntity;
 
 @Service("appManager")
 public class AppManagerImpl {
 
 	@Autowired
 	private AppDao appDao;
+	
+	@Autowired
+	private AppMarketDao appmarketDao;
 	
 	public GenericPager<AppEntity> queryPageList(String userId){
 		return appDao.queryPageList(userId);
@@ -45,11 +48,28 @@ public class AppManagerImpl {
 		//appCacheProvider.removeCacheData(appid);
 	}
 
-	public QuerySdkIdResult queryAppSdkId(String appid, String market) {
+	public QuerySdkIdResult queryAppSdkId(String appid, int market) {
+		
+		AppMarketEntity set = appmarketDao.querySingle(appid, market);
 		
 		QuerySdkIdResult r = new QuerySdkIdResult();
-		r.setCode(200);
-		r.setSdkId(1);
+		if(set != null)
+		{	
+			r.setCode(200);
+			r.setSdkId(set.getSdkid());
+		}
+		else
+		{
+			r.setCode(200);
+			r.setSdkId(1);
+		}
 		return r;
+	}
+
+	public String getAppkey(String appid) {
+		AppEntity entity = appDao.queryForApp(appid);
+		if(entity != null)
+			return entity.getAppcode();
+		return null;
 	}
 }

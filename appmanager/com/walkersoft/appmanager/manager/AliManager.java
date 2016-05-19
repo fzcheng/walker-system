@@ -5,21 +5,17 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import com.walkersoft.appmanager.util.ali.AlipayConfig;
 import com.walkersoft.appmanager.util.ali.SignUtils;
 
+/**
+ * 支付包订单生成
+ * @author a
+ *
+ */
 public class AliManager {
 
 	static AliManager manager = null;
-	
-	// 商户PID
-	public static final String PARTNER = "2088221378971981";
-	// 商户收款账号
-	public static final String SELLER = "2088221378971981";
-	// 商户私钥，pkcs8格式
-	public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALmqRhGrqUWN0YTIgh8ik85RC2Vx5EWmpIS7++3v1X45QYvms0S7xLNT/7ALgt3XiB2NYamKYLwNUzsjwkZZqSwb3LEXFFXv3zEvlRfcV9IWPqMffG8dKw6X6QO5JRAc3hL6OJOP1RHSqeFNz+FfyCHfs9nYNoDyztyUd2JWpnVrAgMBAAECgYBlXe61lRhs7hn3OhW49ALowNzM/RqZYHswMQZCCRBxwsbjoAg+PZoOIo1Vy2MexZ7+K4OnsfJQmaHYhxR5nlg621spyiCDZ0e3osGQaUWhtoeMHnqPWbQzROn3QFqQJmuO+Zrvuv8QNd3TPgwXm32HGFRmUk1WK6bya5OrHvq5MQJBAOduVOTys6OQ5FlvRR+Yly0THErUh+9shrVIojH2/p/c9HI9mZ1uO4lr6V+6rgu+DglEWp+vAyGI9h2TGlz+2LkCQQDNYCZl5nCcULY8Nt8aB2CoU2FpaQIDitMO5c7xDGUec2eSWRuEVEFG6qM903OuGAKyNxl2a1d9e/l2oFmdKSVDAkAJxWfCLtkUy9ZITGFfvyKK3aaxJh4DJtLdLo7iiyoe98Y+WIl20yOiXrMAvrIAfuq6y28EFPCN5ul1QDO5v2zJAkA1B3Ciux+0nPqRDbIJrIH+tJjgeOa2N3BL1nbastKhTDcgCLYcMw0v3IIOAr1J5JU9oxCGDS1oD0zYnorFE8y1AkEAyb92qHoD6vbMXDjunw2YDdOzwY/Z9w3VYBy9v2Rs2BJqMkF2saw8r4TdC56I1342Qtr/neniKBl6zeY2Na4+ZQ==";
-	// 支付宝公钥
-	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
-	private static final int SDK_PAY_FLAG = 1;
 
 	public static AliManager getInstance() {
 		if(manager == null)
@@ -31,16 +27,16 @@ public class AliManager {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String subject, String body, String price) {
+	public String getOrderInfo(String subject, String body, String orderId, float price) {
 
 		// 签约合作者身份ID
-		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
+		String orderInfo = "partner=" + "\"" + AlipayConfig.PARTNER + "\"";
 
 		// 签约卖家支付宝账号
-		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
+		orderInfo += "&seller_id=" + "\"" + AlipayConfig.SELLER + "\"";
 
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+		orderInfo += "&out_trade_no=" + "\"" + orderId + "\"";
 
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + subject + "\"";
@@ -49,7 +45,7 @@ public class AliManager {
 		orderInfo += "&body=" + "\"" + body + "\"";
 
 		// 商品金额
-		orderInfo += "&total_fee=" + "\"" + price + "\"";
+		orderInfo += "&total_fee=" + "\"" + (float)(price/100f) + "\"";
 
 		// 服务器异步通知页面路径
 		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
@@ -90,7 +86,7 @@ public class AliManager {
 	 *            待签名订单信息
 	 */
 	public String sign(String content) {
-		return SignUtils.sign(content, RSA_PRIVATE);
+		return SignUtils.sign(content, AlipayConfig.RSA_PRIVATE);
 	}
 
 	/**
