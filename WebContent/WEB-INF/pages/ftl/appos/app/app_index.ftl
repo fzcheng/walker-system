@@ -27,6 +27,17 @@ function showAddAppWnd(){
 	popDefaultDialog('添加应用', '${ctx}/permit/appos/app/showAddAppItem.do');
 }
 
+//创建授权页面
+function showUpdateAppWnd(){
+	var selected = getCheckValue("ids");
+	if(selected == null || selected.length > 1){
+		alert("请选择一条数据。");
+		return;
+	}
+	
+	popDefaultDialog('编辑应用', '${ctx}/permit/appos/app/showUpdateAppItem.do?id='+selected[0]);
+}
+
 function deleteAppWnd()
 {
 	var selected = getCheckValue("ids");
@@ -35,7 +46,7 @@ function deleteAppWnd()
 		return;
 	}
 	if(window.confirm("确定要删除应用么")){
-		requestAjax("${ctx}/appos/app/delApp.do", {"appid":selected[0]}, function(data){
+		requestAjax("${ctx}/appos/app/delApp.do", {"id":selected[0]}, function(data){
 			reload(0);
 		});
 	}

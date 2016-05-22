@@ -85,6 +85,10 @@ function f_check(){
 		alert("错误：appcode为空！");
 		return false;
 	}
+	if($("#appid").val() == ""){		
+		alert("错误：appid为空！");
+		return false;
+	}
 	if($("#appname").val() == ""){		
 		alert("请输入应用名称！");
 		$("#appname").focus();
@@ -106,7 +110,7 @@ function f_check(){
   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table-form">
   	<tr>
   		<td width="160" class="showTitle">appid：</td>
-  		<td><input type="text" id="appid" name="appid" style="width:200px;" disabled/></td>
+  		<td><input type="text" id="appid" name="appid" class="text" value="${appid}" style="width:200px;" readonly="readonly"/></td>
   	</tr>
   	<tr>
   		<td class="showTitle">appcode：</td>

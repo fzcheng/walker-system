@@ -30,7 +30,7 @@ function save(){
 		//target: '#content',
 		success: function(data){
 			if(data == "success"){
-		    	parent.frames.sampleframe.refreshCodeTree();
+		    	parent.frames.sampleframe.reload(1);
 		    	closeWindow();
 			} else {
 				showErrorTip(data);
@@ -48,13 +48,22 @@ function save(){
 }
 		
 function f_check(){
-	if($("#parentId").val() == ""){		
-		alert("保存错误：代码ID不存在！");
+	if($("#appcode").val() == ""){		
+		alert("错误：appcode为空！");
 		return false;
 	}
-	if($("#codeName").val() == ""){		
-		alert("请输入代码项名称！");
-		$("#codeName").focus();
+	if($("#appid").val() == ""){		
+		alert("错误：appid为空！");
+		return false;
+	}
+	if($("#appname").val() == ""){		
+		alert("请输入应用名称！");
+		$("#appname").focus();
+		return false;
+	}
+	if($("#package_name").val() == ""){		
+		alert("请输入应用包名！");
+		$("#package_name").focus();
 		return false;
 	}
 	return true;
@@ -64,21 +73,31 @@ function f_check(){
   </head>
   
 <body>
-	<form action="${ctx}/admin/code/updateCode.do" method="post" id="form" target="_self">
+	<form action="${ctx}/appos/app/updateApp.do" method="post" id="form" target="_self">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table-form">
+  	<td>
+	    <input name="id" type="text" value="${id}" class="text" readonly="readonly"/>
+    </td>
   	<tr>
-  		<td class="showTitle">代码ID：</td>
-  		<td><input type="text" id="parentId" name="parentId" class="text" readonly="readonly"
-  			value="${id}"/></td>
+  		<td width="160" class="showTitle">appid：</td>
+  		<td><input type="text" id="appid" name="appid" class="text" value="${appid}" style="width:200px;" readonly="readonly"/></td>
   	</tr>
   	<tr>
-  		<td class="showTitle">代码名称(*)：</td>
-  		<td><input type="text" id="codeName" name="codeName" class="text"
-  			value="${codeName}"/></td>
+  		<td class="showTitle">appcode：</td>
+  		<td><input type="text" id="appcode" name="appcode" class="text" readonly="readonly"
+  			value="${appcode}"/></td>
   	</tr>
   	<tr>
-  		<td class="showTitle">标准代码编号：</td>
-  		<td><input type="text" id="codeStand" name="codeStand" class="text"/></td>
+  		<td class="showTitle">应用名称：</td>
+  		<td><input type="text" id="appname" name="appname" class="text" value="${appname}"/></td>
+  	</tr>
+  	<tr>
+  		<td class="showTitle">应用包名：</td>
+  		<td><input type="text" id="package_name" name="package_name" class="text" value="${package_name}"/></td>
+  	</tr>
+  	<tr>
+  		<td class="showTitle">所属公司id：</td>
+  		<td><input type="text" id="companyid" name="companyid" class="text" value="${companyid}"/></td>
   	</tr>
   </table>
   <div style="width:99%;" align="center">

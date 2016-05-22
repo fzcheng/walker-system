@@ -20,4 +20,8 @@ public class AppDao extends SQLDaoSupport<AppEntity> {
 	public AppEntity queryForApp(String appid) {
 		return findUniqueBy(entityClass, new String[]{"appid"}, new Object[]{appid});
 	}
+
+	public AppEntity queryForAppById(int id) {
+		return findUniqueBy(entityClass, new String[]{"id"}, new Object[]{id});
+	}
 }

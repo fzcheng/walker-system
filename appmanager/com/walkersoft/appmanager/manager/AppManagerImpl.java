@@ -39,11 +39,18 @@ public class AppManagerImpl {
 		appDao.save(entity);
 	}
 
-	public void execDeleteAppInfo(String appid) {
-		assert (StringUtils.isNotEmpty(appid));
+	public void execUpdate(AppEntity entity) {
+		Assert.notNull(entity);
+		long time = NumberGenerator.getSequenceNumber();
+		entity.setLast_time(time);
+		appDao.updateEntity(entity);
+	}
+	
+	public void execDeleteAppInfo(String id) {
+		assert (StringUtils.isNotEmpty(id));
 		
 		
-		appDao.removeById(Integer.valueOf(appid));
+		appDao.removeById(Integer.valueOf(id));
 		
 		//appCacheProvider.removeCacheData(appid);
 	}
@@ -70,6 +77,13 @@ public class AppManagerImpl {
 		AppEntity entity = appDao.queryForApp(appid);
 		if(entity != null)
 			return entity.getAppcode();
+		return null;
+	}
+
+	public AppEntity queryApp(String id) {
+		AppEntity entity = appDao.queryForAppById(Integer.valueOf(id));
+		if(entity != null)
+			return entity;
 		return null;
 	}
 }
