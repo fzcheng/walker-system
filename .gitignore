@@ -1,2 +1,10 @@
 
 build/classes/app_config.properties
+
+.classpath
+
+.settings/com.genuitec.eclipse.j2eedt.core.prefs
+
+.settings/org.eclipse.wst.common.component
+
+.settings/org.eclipse.wst.common.component

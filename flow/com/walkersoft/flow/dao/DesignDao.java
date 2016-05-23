@@ -25,7 +25,7 @@ import com.walkersoft.flow.pojo.TaskNode;
 @Repository("DesignDao")
 public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 
-	private static final String SQL_INSERT_TASK = "insert into sw_task_define(id,name,create_time,"
+	private static final String SQL_INSERT_TASK = "insert into SW_TASK_DEFINE(id,name,create_time,"
 			+ "task_type,process_define_id,listener_in,listener_out,is_start,is_end,affluence_type,"
 			+ "split_type,actor_type,sub_process_id,next_name,previous_name,page_url,access_role,"
 			+ "multi_user,actor_exec,mod_task) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -56,7 +56,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_INSERT_TASK, params);
 	}
 	
-	private static final String SQL_UPDATE_TASK = "update sw_task_define set name=?, listener_in=?, listener_out=?" 
+	private static final String SQL_UPDATE_TASK = "update SW_TASK_DEFINE set name=?, listener_in=?, listener_out=?" 
 			+ ", affluence_type=?, split_type=?, actor_type=?, sub_process_id=?, next_name=?, previous_name=?" 
 			+ ", page_url=?, access_role=?, multi_user=?, actor_exec=?, mod_task=? where id=?";
 	
@@ -80,7 +80,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_UPDATE_TASK, params);
 	}
 	
-	private static final String SQL_MAX_TASKID = "select d.id from sw_task_define d, (select max(create_time) max_time from sw_task_define) as t2 where d.CREATE_TIME = t2.max_time";
+	private static final String SQL_MAX_TASKID = "select d.id from SW_TASK_DEFINE d, (select max(create_time) max_time from SW_TASK_DEFINE) as t2 where d.CREATE_TIME = t2.max_time";
 	
 	/**
 	 * 找出当前任务记录最大值，并+1
@@ -98,7 +98,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 			return 1;
 	}
 	
-	private static final String SQL_INSERT_TASK_IN = "insert into sw_task_in(id,task_define_id,previous_task,process_define_id) "
+	private static final String SQL_INSERT_TASK_IN = "insert into SW_TASK_IN(id,task_define_id,previous_task,process_define_id) "
 			+ "values(?,?,?,?)";
 	
 	/**
@@ -162,7 +162,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_UPDATE_TASKNODE_POS, new Object[]{inPositions, outPositions, taskDefineId});
 	}
 	
-	private static final String SQL_MAX_TASKOUT_NUM = "select max(order_num) from sw_task_out";
+	private static final String SQL_MAX_TASKOUT_NUM = "select max(order_num) from SW_TASK_OUT";
 	
 	public int getMaxTaskoutOrder(){
 		int result = this.getJdbcTemplate().queryForInt(SQL_MAX_TASKOUT_NUM);
@@ -170,7 +170,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		return result + 1;
 	}
 	
-	private static final String SQL_INSERT_TASK_OUT = "insert into sw_task_out("
+	private static final String SQL_INSERT_TASK_OUT = "insert into SW_TASK_OUT("
 			+ "id,task_define_id,next_task,order_num,conditions,expression,default_task,"
 			+ "process_define_id) values(?,?,?,?,?,?,?,?)";
 	
@@ -214,39 +214,39 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_INSERT_ANCHOR_IN, params);
 	}
 	
-	private static final String SQL_DELETE_TASK_OUT = "delete from sw_task_out where "
+	private static final String SQL_DELETE_TASK_OUT = "delete from SW_TASK_OUT where "
 			+ "process_define_id = ? and task_define_id = ? and next_task = ?";
 	
 	public void deleteTaskOut(String processDefineId, String taskDefineId, String nextTaskId){
 		this.update(SQL_DELETE_TASK_OUT, new Object[]{processDefineId, taskDefineId, nextTaskId});
 	}
 	
-	private static final String SQL_DELETE_TASK_OUT2 = "delete from sw_task_out where "
+	private static final String SQL_DELETE_TASK_OUT2 = "delete from SW_TASK_OUT where "
 			+ "task_define_id = ? and next_task <> 'END'";
 	public void deleteTaskoutWithoutEnd(String taskDefineId){
 		this.update(SQL_DELETE_TASK_OUT2, new Object[]{taskDefineId});
 	}
 	
-	private static final String SQL_DELETE_END_TASKOUT = "delete from sw_task_out where "
+	private static final String SQL_DELETE_END_TASKOUT = "delete from SW_TASK_OUT where "
 			+ "task_define_id = ? and next_task = 'END'";
 	public void deleteEndTaskout(String taskDefineId){
 		this.update(SQL_DELETE_END_TASKOUT, new Object[]{taskDefineId});
 	}
 	
-	private static final String SQL_DELETE_TASK_IN = "delete from sw_task_in where "
+	private static final String SQL_DELETE_TASK_IN = "delete from SW_TASK_IN where "
 			+ "process_define_id = ? and task_define_id = ? and previous_task = ?";
 	
 	public void deleteTaskIn(String processDefineId, String taskDefineId, String previousTask){
 		this.update(SQL_DELETE_TASK_IN, new Object[]{processDefineId, taskDefineId, previousTask});
 	}
 	
-	private static final String SQL_DELETE_TASK_IN2 = "delete from sw_task_in where "
+	private static final String SQL_DELETE_TASK_IN2 = "delete from SW_TASK_IN where "
 			+ "task_define_id = ? and previous_task <> 'START'";
 	public void deleteTaskInWithoutStart(String taskDefineId){
 		this.update(SQL_DELETE_TASK_IN2, new Object[]{taskDefineId});
 	}
 	
-	private static final String SQL_UPDATE_TASK_IN = "update sw_task_in set previous_task = ? "
+	private static final String SQL_UPDATE_TASK_IN = "update SW_TASK_IN set previous_task = ? "
 			+ "where process_define_id = ? and task_define_id = ?";
 	
 	/**
@@ -264,7 +264,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_UPDATE_TASK_IN, params);
 	}
 	
-	private static final String SQL_UPDATE_TASK_OUT = "update sw_task_out set next_task = ? "
+	private static final String SQL_UPDATE_TASK_OUT = "update SW_TASK_OUT set next_task = ? "
 			+ "where process_define_id = ? and task_define_id = ?";
 	
 	public void updateTaskOut(String processDefineId
@@ -350,7 +350,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_UPDATE_ANCHOR_IN_PRE_POS, new Object[]{changedFromPosition, nodeId, inPosition, fromTask});
 	}
 	
-	private static final String SQL_DELETE_TASK = "delete from sw_task_define where id = ?";
+	private static final String SQL_DELETE_TASK = "delete from SW_TASK_DEFINE where id = ?";
 	
 	public void deleteTaskDefine(String id){
 		this.update(SQL_DELETE_TASK, new Object[]{id});
@@ -364,8 +364,8 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 	
 	/* 删除与给定任务ID关联的任务节点信息 */
 	
-	private static final String SQL_DELETE_TASKIN_ASSO = "delete from sw_task_in where previous_task = ?";
-	private static final String SQL_DELETE_TASKOUT_ASSO = "delete from sw_task_out where next_task = ?";
+	private static final String SQL_DELETE_TASKIN_ASSO = "delete from SW_TASK_IN where previous_task = ?";
+	private static final String SQL_DELETE_TASKOUT_ASSO = "delete from SW_TASK_OUT where next_task = ?";
 	
 	public void deleteTaskInAsso(String taskDefineId){
 		this.update(SQL_DELETE_TASKIN_ASSO, new Object[]{taskDefineId});
@@ -389,7 +389,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_DELETE_ANCHOROUT_ASSO, new Object[]{taskDefineId});
 	}
 	
-	private static final String SQL_UPDATE_SPLIT_CONDITION = "update sw_task_out set "
+	private static final String SQL_UPDATE_SPLIT_CONDITION = "update SW_TASK_OUT set "
 			+ "conditions=?, expression=? where task_define_id=? and next_task=?";
 	
 	/**
@@ -400,9 +400,9 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.batchUpdate(SQL_UPDATE_SPLIT_CONDITION, parameters);
 	}
 	
-	private static final String SQL_REMOVE_DEFAULT_TASK = "update sw_task_out set "
+	private static final String SQL_REMOVE_DEFAULT_TASK = "update SW_TASK_OUT set "
 			+ "default_task=0 where task_define_id=?";
-	private static final String SQL_UPDATE_DEFAULT_TASK = "update sw_task_out set "
+	private static final String SQL_UPDATE_DEFAULT_TASK = "update SW_TASK_OUT set "
 			+ "default_task=1 where task_define_id=? and next_task=?";
 	
 	public void updateRemoveDefaultTask(String taskDefineId){
@@ -417,15 +417,15 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.update(SQL_UPDATE_DEFAULT_TASK, new Object[]{taskDefineId, nextTask});
 	}
 	
-	private static final String SQL_UPDATE_TASK_ACTOR = "update sw_task_define set "
+	private static final String SQL_UPDATE_TASK_ACTOR = "update SW_TASK_DEFINE set "
 			+ "actor_type = ? where id = ?";
 	
 	public void updateTaskActor(String actorType, String taskDefineId){
 		this.update(SQL_UPDATE_TASK_ACTOR, new Object[]{actorType, taskDefineId});
 	}
 	
-	private static final String SQL_UPDATE_TASK_END = "update sw_task_define set is_end = 1 where id = ?";
-	private static final String SQL_UPDATE_TASK_END_NOT = "update sw_task_define set is_end = 0 where id = ?";
+	private static final String SQL_UPDATE_TASK_END = "update SW_TASK_DEFINE set is_end = 1 where id = ?";
+	private static final String SQL_UPDATE_TASK_END_NOT = "update SW_TASK_DEFINE set is_end = 0 where id = ?";
 	
 	public void updateTaskEnd(String taskDefineId){
 		this.update(SQL_UPDATE_TASK_END, new Object[]{taskDefineId});
@@ -435,7 +435,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 	}
 	
 	
-	private static final String SQL_INSERT_TASK_ACTORASSIGN = "insert into sw_actor_assign(id,task_define_id"
+	private static final String SQL_INSERT_TASK_ACTORASSIGN = "insert into SW_ACTOR_ASSIGN(id,task_define_id"
 			+ ",actor_id,actor_name,order_num,process_define_id) values(?,?,?,?,?,?)";
 	
 	/**
@@ -446,7 +446,7 @@ public class DesignDao extends SQLDaoSupport<TaskDefineAbstract> {
 		this.batchUpdate(SQL_INSERT_TASK_ACTORASSIGN, parameters);
 	}
 	
-	private static final String SQL_DELETE_TASK_ACTORASSIGN = "delete from sw_actor_assign "
+	private static final String SQL_DELETE_TASK_ACTORASSIGN = "delete from SW_ACTOR_ASSIGN "
 			+ "where task_define_id = ?";
 	
 	public void deleteTaskActorAssign(String taskDefineId){

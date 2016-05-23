@@ -13,7 +13,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "yl_app")
+@Table(name = "yl_transfer_record")
 public class TransferRecordEntity {
 
 	int id;

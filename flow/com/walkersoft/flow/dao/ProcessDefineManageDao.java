@@ -26,7 +26,7 @@ public class ProcessDefineManageDao extends SQLDaoSupport<ProcessIdentifier> {
 	private ProcessRowMapper processRowMapper = new ProcessRowMapper();
 	
 	private static final String GET_PAGED_LIST = "SELECT v.INTER_IDENTIFIER v_id, v.CREATE_TIME v_time, v.PROCESS_DEFINE_ID v_pid, d.* " 
-			+ "FROM sw_process_version v, sw_process_define d " 
+			+ "FROM SW_PROCESS_VERSION v, sw_process_define d " 
 			+ "WHERE v.PROCESS_DEFINE_ID = d.ID ORDER BY v.CREATE_TIME DESC";
 	
 	/**
@@ -98,7 +98,7 @@ public class ProcessDefineManageDao extends SQLDaoSupport<ProcessIdentifier> {
 		this.update(SQL_INSERT_PROCESS_DEFINE, params);
 	}
 	
-	private static final String SQL_INSERT_VERSION = "insert into sw_process_version(inter_identifier,create_time,process_define_id) values(?,?,?)";
+	private static final String SQL_INSERT_VERSION = "insert into SW_PROCESS_VERSION(inter_identifier,create_time,process_define_id) values(?,?,?)";
 	
 	public void insertIdentifier(String identifier, String processDefineId){
 		Object[] params = new Object[3];
@@ -123,7 +123,7 @@ public class ProcessDefineManageDao extends SQLDaoSupport<ProcessIdentifier> {
 			return 1;
 	}
 	
-	private static final String SQL_QUERY_IDENTIFIER = "select * from sw_process_version v where v.inter_identifier = ?";
+	private static final String SQL_QUERY_IDENTIFIER = "select * from SW_PROCESS_VERSION v where v.inter_identifier = ?";
 	
 	/**
 	 * 查找存在的流程标识记录
@@ -158,7 +158,7 @@ public class ProcessDefineManageDao extends SQLDaoSupport<ProcessIdentifier> {
 		this.update(SQL_DELETE_PROCESS_IDENTIFIER, new Object[]{identifier});
 	}
 	
-	private static final String SQL_DELETE_VERSION = "delete from sw_process_version where inter_identifier = ?";
+	private static final String SQL_DELETE_VERSION = "delete from SW_PROCESS_VERSION where inter_identifier = ?";
 	
 	/**
 	 * 根据主键，删除version表中的记录
@@ -203,7 +203,7 @@ public class ProcessDefineManageDao extends SQLDaoSupport<ProcessIdentifier> {
 				, new Object[]{id}, processRowMapper);
 	}
 	
-	private static final String SQL_QUERY_VERSION_IDENTIFIER = "select inter_identifier from sw_process_version where process_define_id = ?";
+	private static final String SQL_QUERY_VERSION_IDENTIFIER = "select inter_identifier from SW_PROCESS_VERSION where process_define_id = ?";
 	
 	/**
 	 * 从流程版本表中查询对应流程的标识名称

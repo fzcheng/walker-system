@@ -18,7 +18,7 @@ public class AliCallbackEntity {
 	int id;
 	
 	@Column(name="notify_time")
-	Date	notify_time;
+	String	notify_time;
 	@Column(name="notify_type")
 	String	notify_type;
 	@Column(name="notify_id")
@@ -46,17 +46,17 @@ public class AliCallbackEntity {
 	@Column(name="buyer_email")
 	String	buyer_email;
 	@Column(name="total_fee")
-	int	total_fee;
+	float	total_fee;
 	@Column(name="quantity")
 	int	quantity;
 	@Column(name="price")
-	int	price;
+	float	price;
 	@Column(name="body")
 	String	body;
 	@Column(name="gmt_create")
-	Date	gmt_create;
+	String	gmt_create;
 	@Column(name="gmt_payment")
-	Date	gmt_payment;
+	String	gmt_payment;
 	@Column(name="is_total_fee_adjust")
 	String	is_total_fee_adjust;
 	@Column(name="use_coupon")
@@ -66,7 +66,7 @@ public class AliCallbackEntity {
 	@Column(name="refund_status")
 	String	refund_status;
 	@Column(name="gmt_refund")
-	Date	gmt_refund;
+	String	gmt_refund;
 	
 	@Id
 	@Column(name="id", length=11)
@@ -76,10 +76,10 @@ public class AliCallbackEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getNotify_time() {
+	public String getNotify_time() {
 		return notify_time;
 	}
-	public void setNotify_time(Date notify_time) {
+	public void setNotify_time(String notify_time) {
 		this.notify_time = notify_time;
 	}
 	public String getNotify_type() {
@@ -160,10 +160,10 @@ public class AliCallbackEntity {
 	public void setBuyer_email(String buyer_email) {
 		this.buyer_email = buyer_email;
 	}
-	public int getTotal_fee() {
+	public float getTotal_fee() {
 		return total_fee;
 	}
-	public void setTotal_fee(int total_fee) {
+	public void setTotal_fee(float total_fee) {
 		this.total_fee = total_fee;
 	}
 	public int getQuantity() {
@@ -172,10 +172,10 @@ public class AliCallbackEntity {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public String getBody() {
@@ -184,16 +184,16 @@ public class AliCallbackEntity {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public Date getGmt_create() {
+	public String getGmt_create() {
 		return gmt_create;
 	}
-	public void setGmt_create(Date gmt_create) {
+	public void setGmt_create(String gmt_create) {
 		this.gmt_create = gmt_create;
 	}
-	public Date getGmt_payment() {
+	public String getGmt_payment() {
 		return gmt_payment;
 	}
-	public void setGmt_payment(Date gmt_payment) {
+	public void setGmt_payment(String gmt_payment) {
 		this.gmt_payment = gmt_payment;
 	}
 	public String getIs_total_fee_adjust() {
@@ -220,15 +220,42 @@ public class AliCallbackEntity {
 	public void setRefund_status(String refund_status) {
 		this.refund_status = refund_status;
 	}
-	public Date getGmt_refund() {
+	public String getGmt_refund() {
 		return gmt_refund;
 	}
-	public void setGmt_refund(Date gmt_refund) {
+	public void setGmt_refund(String gmt_refund) {
 		this.gmt_refund = gmt_refund;
 	}
 	
+	public AliCallbackEntity() {
+		
+	}
 	
 	public AliCallbackEntity(HttpServletRequest req) {
-		// TODO Auto-generated constructor stub
+		this.setNotify_time(req.getParameter("notify_time"));
+		this.setNotify_type(req.getParameter("notify_type"));
+		this.setNotify_id(req.getParameter("notify_id"));
+		this.setSign_type(req.getParameter("sign_type"));
+		this.setSign(req.getParameter("sign"));
+		this.setOut_trade_no(req.getParameter("out_trade_no"));
+		this.setSubject(req.getParameter("subject"));
+		this.setPayment_type(req.getParameter("payment_type"));
+		this.setTrade_no(req.getParameter("trade_no"));
+		this.setTrade_status(req.getParameter("trade_status"));
+		this.setSeller_id(req.getParameter("seller_id"));
+		this.setSeller_email(req.getParameter("seller_email"));
+		this.setBuyer_id(req.getParameter("buyer_id"));
+		this.setBuyer_email(req.getParameter("buyer_email"));
+		this.setTotal_fee(Float.valueOf(req.getParameter("total_fee")));
+		this.setQuantity(Integer.valueOf(req.getParameter("quantity")));
+		this.setPrice(Float.valueOf(req.getParameter("price")));
+		this.setBody(req.getParameter("body"));
+		this.setGmt_create(req.getParameter("gmt_create"));
+		this.setGmt_payment(req.getParameter("gmt_payment"));
+		this.setIs_total_fee_adjust(req.getParameter("is_total_fee_adjust"));
+		this.setUse_coupon(req.getParameter("use_coupon"));
+		this.setDiscount(req.getParameter("discount"));
+		this.setRefund_status(req.getParameter("refund_status"));
+		this.setGmt_refund(req.getParameter("gmt_refund"));
 	}
 }

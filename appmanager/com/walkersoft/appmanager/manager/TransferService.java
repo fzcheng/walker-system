@@ -41,10 +41,10 @@ public class TransferService {
 	
 	//最大线程数
 	public final static int MAX_T_SIZE = 10;
-	ExecutorService transferThreadPool;//通知线程池
-	ExecutorService retransferThreadPool;//重发通知线程池
+	static ExecutorService transferThreadPool;//通知线程池
+	static ExecutorService retransferThreadPool;//重发通知线程池
 	
-	public void init()
+	static
 	{
 		transferThreadPool = Executors.newFixedThreadPool(MAX_T_SIZE);
 		retransferThreadPool = Executors.newFixedThreadPool(MAX_T_SIZE);
