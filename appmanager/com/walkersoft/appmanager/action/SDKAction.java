@@ -152,8 +152,18 @@ public class SDKAction extends SystemAction {
 	@ResponseBody
 	public String getOrderResult(Model model){
 		String orderId = this.getParameter("orderId");
+		logger.info("getOrderResult orderId" + orderId);
+		OrderEntity order = orderManager.queryOrderByOrderId(orderId);
 		
 		QueryOrderResult r = new QueryOrderResult();
+		if(order != null)
+		{
+			r.setPayresult(order.getStatus());
+		}
+		else
+		{
+			r.setPayresult(-1);
+		}
 		return ""+r.getPayresult();
 	}
 	
