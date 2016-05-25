@@ -20,5 +20,6 @@ public class BaseConstant {
 //			电信卡=805
 //			联通卡=806
 //			其他=807
+	public static final int PAYCHANNEL_TEN = 802;
 	public static final int PAYCHANNEL_ALI = 802;
 }

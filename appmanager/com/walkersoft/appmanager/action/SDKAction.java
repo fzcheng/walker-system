@@ -6,24 +6,28 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xmlpull.v1.XmlPullParserException;
 
 import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.BaseErrorCode;
 import com.walkersoft.appmanager.entity.AliCallbackEntity;
-import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.manager.AliCallbackRecordImpl;
 import com.walkersoft.appmanager.manager.AliManager;
 import com.walkersoft.appmanager.manager.AppManagerImpl;
 import com.walkersoft.appmanager.manager.OrderManagerImpl;
+import com.walkersoft.appmanager.manager.TenpayManager;
 import com.walkersoft.appmanager.req.OrderDataReq;
 import com.walkersoft.appmanager.response.QueryAliPayParamResult;
 import com.walkersoft.appmanager.response.QueryOrderResult;
@@ -173,11 +177,21 @@ public class SDKAction extends SystemAction {
 	 * @param response
 	 * @return code msg appid orderId partnerid prepayid noncestr timestamp package sign 
 	 * @throws IOException
+	 * @throws JSONException 
+	 * @throws XmlPullParserException 
 	 */
 	@RequestMapping("sdk/pay/wxapp")
 	@ResponseBody
-	public String wxapp(AppEntity entity, HttpServletResponse response) throws IOException{
-		QueryWxPayParamResult r = new QueryWxPayParamResult();
+	public String wxapp(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, XmlPullParserException{
+		
+		OrderDataReq req = parseOrderData();
+
+		OrderEntity order = new OrderEntity();
+		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_TEN, order);
+		
+		TreeMap<String, String> r = TenpayManager.getInstance().queryPrepay_id(request, order);
+		
+		//QueryWxPayParamResult r = new QueryWxPayParamResult();
 		return JacksonUtil.getJsonString4JavaPOJO(r);
 	}
 	
