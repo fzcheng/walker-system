@@ -100,18 +100,20 @@ public class TenpayManager {
 //		}
 
 		TreeMap<String, String> payMap = new TreeMap<String, String>();
-		payMap.put("code", "200");
-		payMap.put("msg", "success");
+		
 		payMap.put("appid", appid);
-		payMap.put("orderId", order.getOrderid());
 		payMap.put("partnerid", mch_id);
 		payMap.put("timestamp", create_timestamp());
 		payMap.put("noncestr", create_nonce_str());
-		payMap.put("sign_method", "sha1");
-		payMap.put("package", "prepay_id=" + prepay_id);
+		//payMap.put("package", "prepay_id=" + prepay_id);
+		payMap.put("package", "Sign=WXPay");
+		payMap.put("prepayid", prepay_id);
 		String paySign = getSign(payMap, paternerKey);
 		
-		payMap.put("prepayid", prepay_id);
+		payMap.put("orderId", order.getOrderid());
+		payMap.put("sign_method", "sha1");
+		payMap.put("code", "200");
+		payMap.put("msg", "success");
 		payMap.put("sign", paySign);
 		
 		return payMap;

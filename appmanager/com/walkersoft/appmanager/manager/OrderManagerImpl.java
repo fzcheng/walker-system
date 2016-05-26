@@ -110,7 +110,7 @@ public class OrderManagerImpl {
 		String key = format.format(date);
 
 		Random r = new Random();
-		key = key + r.nextInt(1000000);
+		key = key + (r.nextInt(1000000) + 1000000);
 		key = key.substring(0, 20);
 		return key;
 	}
