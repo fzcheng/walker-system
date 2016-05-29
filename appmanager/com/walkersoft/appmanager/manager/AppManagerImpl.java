@@ -79,9 +79,23 @@ public class AppManagerImpl {
 			return entity.getAppcode();
 		return null;
 	}
+	
+	public AppEntity getByWxMchid(String wx_mch_id) {
+		AppEntity entity = appDao.queryForAppByWxMchid(wx_mch_id);
+		if(entity != null)
+			return entity;
+		return null;
+	}
 
 	public AppEntity queryApp(String id) {
 		AppEntity entity = appDao.queryForAppById(Integer.valueOf(id));
+		if(entity != null)
+			return entity;
+		return null;
+	}
+
+	public AppEntity queryByAppid(String appid) {
+		AppEntity entity = appDao.queryForApp(appid);
 		if(entity != null)
 			return entity;
 		return null;

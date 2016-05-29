@@ -37,6 +37,18 @@ public class AppEntity {
 	@Column(name = "last_time")
 	long last_time;// '最后修改时间',
 
+	@Column(name = "wx_appid")
+	String wx_appid;
+	
+	@Column(name = "wx_parternerKey")
+	String wx_parternerKey;
+	
+	@Column(name = "wx_mch_id")
+	String wx_mch_id;
+	
+	@Column(name = "notify_url")
+	String notify_url;
+	
 	public String getAppcode() {
 		return appcode;
 	}
@@ -89,6 +101,30 @@ public class AppEntity {
 	}
 	public void setAppid(String id) {
 		this.appid = id;
+	}
+	public String getWx_appid() {
+		return wx_appid;
+	}
+	public void setWx_appid(String wx_appid) {
+		this.wx_appid = wx_appid;
+	}
+	public String getWx_parternerKey() {
+		return wx_parternerKey;
+	}
+	public void setWx_parternerKey(String wx_parternerKey) {
+		this.wx_parternerKey = wx_parternerKey;
+	}
+	public String getWx_mch_id() {
+		return wx_mch_id;
+	}
+	public void setWx_mch_id(String wx_mch_id) {
+		this.wx_mch_id = wx_mch_id;
+	}
+	public String getNotify_url() {
+		return notify_url;
+	}
+	public void setNotify_url(String notify_url) {
+		this.notify_url = notify_url;
 	}
 	
 }

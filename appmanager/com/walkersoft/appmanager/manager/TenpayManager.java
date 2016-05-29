@@ -20,8 +20,10 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.util.DateTimeUtil;
+import com.walkersoft.appmanager.util.tenpay.TenpayConfig;
 import com.walkersoft.appmanager.util.tenpay.TenpayHttpClient;
 
 /**
@@ -39,7 +41,7 @@ public class TenpayManager {
 		return manager;
 	}
 	
-	public TreeMap<String, String> queryPrepay_id(HttpServletRequest request, OrderEntity order) throws XmlPullParserException, IOException
+	public TreeMap<String, String> queryPrepay_id(HttpServletRequest request, AppEntity app, OrderEntity order) throws XmlPullParserException, IOException
 	{
 		//AppID：wxd9c0c13bacc6d9b0
 		//AppSecret：3b0a6de73552bb92822c21f229f0e97e
@@ -47,12 +49,16 @@ public class TenpayManager {
 		//包名：com.magicbirds.master
 		//微信支付商户号:1301475301
 		//商户key=7ea0ec5ad7087525caa841b9aeee9c66
-		String appid = "wxd9c0c13bacc6d9b0";
-		String paternerKey = "7ea0ec5ad7087525caa841b9aeee9c66";
-		String mch_id = "1301475301";
-//		String appid = "wxd678efh567hg6787";
-//		String paternerKey = "ININGFENG1234567fdfwfdfd1ss234567";
-//		String mch_id = "1230000109";
+		String appid = TenpayConfig.appid;
+		String paternerKey = TenpayConfig.paternerKey;
+		String mch_id = TenpayConfig.mch_id;
+		
+		if(app != null)
+		{
+			appid = app.getWx_appid();
+			paternerKey = app.getWx_parternerKey(); 
+			mch_id = app.getWx_mch_id();
+		}
 		
 		String out_trade_no = order.getOrderid();
 		TreeMap<String, String> paraMap = new TreeMap<String, String>();
@@ -69,7 +75,7 @@ public class TenpayManager {
 		paraMap.put("spbill_create_ip", addrip);
 		paraMap.put("total_fee", ""+order.getTotalFee());
 		paraMap.put("trade_type", "APP");
-		paraMap.put("notify_url", "http://www.xxx.co/bank/page/wxnotify");
+		paraMap.put("notify_url", TenpayConfig.notify_url);
 		String sign = getSign(paraMap, paternerKey);
 		paraMap.put("sign", sign);
 
@@ -190,7 +196,7 @@ public class TenpayManager {
 		return sb.toString();
 	}
 
-	private Map<String, String> doXMLParse(String xml)
+	public Map<String, String> doXMLParse(String xml)
 			throws XmlPullParserException, IOException {
 
 		InputStream inputStream = new ByteArrayInputStream(xml.getBytes());

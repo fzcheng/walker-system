@@ -15,6 +15,7 @@ import com.walkersoft.appmanager.BaseErrorCode;
 import com.walkersoft.appmanager.dao.OrderDao;
 import com.walkersoft.appmanager.entity.AliCallbackEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
+import com.walkersoft.appmanager.entity.TenpayCallbackEntity;
 import com.walkersoft.appmanager.req.OrderDataReq;
 
 @Service("orderManager")
@@ -91,6 +92,7 @@ public class OrderManagerImpl {
 			order.setUserId(req.getUserId());
 			order.setWares(req.getWares());
 			order.setWaresId(req.getWaresId());
+			order.setTransfer_url(req.getNotify_url());
 			
 			order.setOrderid(getOutTradeNo());
 			execSave(order);
@@ -129,6 +131,24 @@ public class OrderManagerImpl {
 			order.setStatus(BaseConstant.STATUS_SUCCESS);
 			order.setRetCode(callbackentity.getTrade_status());
 			order.setPayOrderid(callbackentity.getTrade_no());
+			order.setIsdeal(1);
+			execUpdate(order);
+			
+			transferService.addTransfer(order);
+		}
+	}
+
+	public void dealTradeFinished_tenpay(TenpayCallbackEntity callbackentity) {
+		OrderEntity order = queryOrderByOrderId(callbackentity.getOut_trade_no());
+		if(order.getIsdeal() == 1)
+		{
+			//已处理过
+		}
+		else{
+			order.setStatus(BaseConstant.STATUS_SUCCESS);
+			order.setRetCode(callbackentity.getResult_code());
+			order.setPayOrderid(callbackentity.getTransaction_id());
+			order.setIsdeal(1);
 			execUpdate(order);
 			
 			transferService.addTransfer(order);

@@ -72,6 +72,11 @@ public class AppAction extends SystemAction {
 		model.addAttribute("package_name", app.getPackage_name());
 		model.addAttribute("companyid", app.getCompanyid());
 		
+		model.addAttribute("wx_appid", app.getWx_appid());
+		model.addAttribute("wx_parternerKey", app.getWx_parternerKey());
+		model.addAttribute("wx_mch_id", app.getWx_mch_id());
+		model.addAttribute("notify_url", app.getNotify_url());
+		
 		return APP_BASE_URL + "app_edit";
 	}
 	

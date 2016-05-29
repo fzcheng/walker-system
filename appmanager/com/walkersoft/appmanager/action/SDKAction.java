@@ -15,27 +15,31 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.tenpay.ResponseHandler;
 import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.BaseErrorCode;
 import com.walkersoft.appmanager.entity.AliCallbackEntity;
+import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
-import com.walkersoft.appmanager.manager.AliCallbackRecordImpl;
+import com.walkersoft.appmanager.entity.TenpayCallbackEntity;
 import com.walkersoft.appmanager.manager.AliManager;
 import com.walkersoft.appmanager.manager.AppManagerImpl;
+import com.walkersoft.appmanager.manager.CallbackRecordImpl;
 import com.walkersoft.appmanager.manager.OrderManagerImpl;
 import com.walkersoft.appmanager.manager.TenpayManager;
 import com.walkersoft.appmanager.req.OrderDataReq;
 import com.walkersoft.appmanager.response.QueryAliPayParamResult;
 import com.walkersoft.appmanager.response.QueryOrderResult;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
-import com.walkersoft.appmanager.response.QueryWxPayParamResult;
 import com.walkersoft.appmanager.util.JacksonUtil;
 import com.walkersoft.appmanager.util.ali.AlipayNotify;
 import com.walkersoft.appmanager.util.ali.Base64;
+import com.walkersoft.appmanager.util.tenpay.TenpayConfig;
 import com.walkersoft.system.SystemAction;
 
 /**
@@ -54,7 +58,7 @@ public class SDKAction extends SystemAction {
 	private OrderManagerImpl orderManager;
 	
 	@Autowired
-	private AliCallbackRecordImpl alicallbackManager;
+	private CallbackRecordImpl callbackManager;
 	/**
 	 * 获取支付宝支付参数 
 	 * @param model
@@ -110,6 +114,7 @@ public class SDKAction extends SystemAction {
 		String wares = this.getParameter("wares");//必填，商品名称
 		String cpOrderId = this.getParameter("cpOrderId");//可选，CP订单编号，不重复
 		String ext = this.getParameter("ext");//可选，透传参数，原样返回
+		String notify_url = this.getParameter("notify_url");//可选，透传参数，原样返回
 		String totalFee = this.getParameter("totalFee");//必填，支付金额，单位分
 		String wxappid = this.getParameter("wxappid");//必填，微信APPID，不填则不启用微信支付
 		
@@ -123,6 +128,7 @@ public class SDKAction extends SystemAction {
 		req.setWares(wares);
 		req.setCpOrderId(cpOrderId);
 		req.setExt(ext);
+		req.setNotify_url(notify_url);
 		req.setTotalFee(Integer.valueOf(totalFee));
 		req.setWxappid(wxappid);
 		
@@ -188,8 +194,9 @@ public class SDKAction extends SystemAction {
 
 		OrderEntity order = new OrderEntity();
 		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_TEN, order);
+		AppEntity app = appManager.queryByAppid(order.getAppid());
 		
-		TreeMap<String, String> r = TenpayManager.getInstance().queryPrepay_id(request, order);
+		TreeMap<String, String> r = TenpayManager.getInstance().queryPrepay_id(request, app, order);
 		
 		//QueryWxPayParamResult r = new QueryWxPayParamResult();
 		return JacksonUtil.getJsonString4JavaPOJO(r);
@@ -235,7 +242,7 @@ public class SDKAction extends SystemAction {
 		if(AlipayNotify.verify(params)){//验证成功
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//请在这里加上商户的业务逻辑程序代码
-			AliCallbackEntity callbackentity = alicallbackManager.addRecord(this.getRequest());
+			AliCallbackEntity callbackentity = callbackManager.addAliRecord(this.getRequest());
 			
 			//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 			
@@ -268,4 +275,90 @@ public class SDKAction extends SystemAction {
 			return "fail";
 		}
 	}
+
+	
+	/**
+	 * 微信支付回调
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("sdk/pay/wxcallback")
+	@ResponseBody
+	public void wxcallback(@RequestBody String requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		System.out.println("-----------wxcallback :" + requestBody);
+		
+		Map<String, String> map = TenpayManager.getInstance().doXMLParse(requestBody);
+		
+		//创建支付应答对象
+		ResponseHandler resHandler = new ResponseHandler(map, request, response);
+		
+		//消息结果
+		String return_code = resHandler.getParameter("return_code");
+		if(!"SUCCESS".equals(return_code))
+		{
+			return;
+		}
+		//TODO 需要根据mch_id判断是哪个应用 取出key
+		//密钥
+		String key = TenpayConfig.paternerKey;
+		String wx_mch_id = resHandler.getParameter("mch_id");
+		
+		AppEntity app = appManager.getByWxMchid(wx_mch_id);
+		if(app != null)
+			key = app.getWx_parternerKey();
+
+		resHandler.setKey(key);
+
+		//判断签名
+		if(resHandler.isTenpaySign()) {
+			
+			//请在这里加上商户的业务逻辑程序代码
+			TenpayCallbackEntity callbackentity = callbackManager.addTenpayRecord(map, requestBody);
+			
+			
+			//订单结果
+			String result_code = resHandler.getParameter("result_code");
+			
+			//判断签名及结果
+			if("SUCCESS".equals(result_code)) {
+				System.out.println("-----------wxcallback" + " order success");
+				//取结果参数做业务处理				
+				System.out.println("out_trade_no:" + resHandler.getParameter("out_trade_no")+
+						" transaction_id:" + resHandler.getParameter("transaction_id"));
+				System.out.println("total_fee:" + resHandler.getParameter("total_fee"));
+			        //如果有使用折扣券，discount有值，total_fee+discount=原请求的total_fee
+				System.out.println("coupon_fee:" + resHandler.getParameter("coupon_fee")+
+						" time_end:" + resHandler.getParameter("time_end"));
+				//------------------------------
+				//处理业务开始
+				//------------------------------
+				
+				orderManager.dealTradeFinished_tenpay(callbackentity);
+				
+				//处理数据库逻辑
+				//注意交易单不要重复处理
+				//注意判断返回金额
+				
+				//------------------------------
+				//处理业务完毕
+				//------------------------------
+				resHandler.sendToCFT("Success");
+			}
+			else{
+				//错误时，返回结果未签名，记录retcode、retmsg看失败详情。
+				//System.out.println("-----------wxcallback");
+				System.out.println("-----------wxcallback" + " return_code:" + resHandler.getParameter("return_code")+
+						" result_code:" + resHandler.getParameter("result_code") +
+						" return_msg:" + resHandler.getParameter("return_msg"));
+			}
+		}
+		else{
+			System.out.println("-----------wxcallback" + "callback sign check : not pair");
+		}
+	}
 }
+
+

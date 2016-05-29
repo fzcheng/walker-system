@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
+
+	
+	<bean id="dataSource" class="com.walker.db.SupportDBTypeDataSource">
+		<property name="databaseType" value="${app.database_type}"/>
+		<property name="ip" value="${app.jdbc.ip}"/>
+		<property name="databaseName" value="${app.jdbc.databasename}"/>
+		<!-- 
+		org.apache.commons.dbcp.BasicDataSource
+		<property name="driverClassName">
+			<value>${jdbc.driver.class.name}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		 -->
+		<property name="username">
+			<value>${app.jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${app.jdbc.password}</value>
+		</property>
+		<property name="maxActive" value="50"/>
+		<property name="maxIdle" value="10"/>
+		<property name="maxWait" value="1000"/>
+		<property name="initialSize" value="5"/>
+		
+		<!--removeAbandoned: 是否自动回收超时连接-->    
+    <property name="removeAbandoned"  value="true"/>
+    <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->    
+    <property name="removeAbandonedTimeout" value="300"/> 
+    
+		<!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->  
+    <property name="timeBetweenEvictionRunsMillis" value="10000"/>  
+    <!--  在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->  
+    <property name="numTestsPerEvictionRun" value="10"/>  
+    <!-- 1000 * 60 * 30  连接在池中保持空闲而不被空闲连接回收器线程-->  
+    <property name="minEvictableIdleTimeMillis" value="10000"/>
+	</bean>
+	<!-- 
+	<bean id="bizDatasource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass">
+			<value>${biz.jdbc.driver.class.name}</value>
+		</property>
+		<property name="jdbcUrl">
+			 <value>${biz.jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${biz.jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${biz.jdbc.password}</value>
+		</property>
+		<property name="minPoolSize">
+            <value>3</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>10</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>2</value>
+        </property>
+        <property name="maxIdleTime">
+            <value>60</value>
+        </property>
+        <property name="acquireIncrement" value="2"></property>
+        <property name="idleConnectionTestPeriod" value="1800" ></property>
+        <property name="breakAfterAcquireFailure" value="true"></property>
+        <property name="testConnectionOnCheckout" value="false"></property>
+	</bean>
+	 -->
+	
+	</beans>

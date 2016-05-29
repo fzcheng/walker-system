@@ -8,3 +8,9 @@ build/classes/app_config.properties
 .settings/org.eclipse.wst.common.component
 
 .settings/org.eclipse.wst.common.component
+
+bin/app_jdbc.properties
+
+bin/*
+
+.settings/.jsdtscope

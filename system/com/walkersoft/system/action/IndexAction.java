@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.application.MyApplicationContext;
 import com.walkersoft.application.UserType;
+import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.application.util.CodeUtils;
 import com.walkersoft.system.SystemAction;
 import com.walkersoft.system.entity.UserCoreEntity;
@@ -44,6 +45,15 @@ public class IndexAction extends SystemAction {
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request, Model model){
 		List<FunctionGroup> list = getCurrentUserMenuGroups();
+		
+		/* 设置用户界面风格 */
+		UserCoreEntity currentUser = this.getCurrentUser();
+        String style = MyApplicationContext.STYLE_DEFAULT;
+		
+        this.userCacheProvider.getCacheData(currentUser.getId()).setStyle(style);
+		logger.debug("更新了缓存中样式: " + style);
+		// 更新session中样式字段
+		request.getSession(false).setAttribute(MyApplicationContext.STYLE_SESSION_NAME, style);
 		
 		// 加载子系统数据
 		List<FunctionObj> sysList = getSystemList(list);

@@ -12,6 +12,7 @@ public class OrderDataReq {
 	String wares;//必填，商品名称
 	String cpOrderId;//可选，CP订单编号，不重复
 	String ext;//可选，透传参数，原样返回
+	String notify_url;
 	int totalFee;//必填，支付金额，单位分
 	String wxappid;//必填，微信APPID，不填则不启用微信支付
 	
@@ -97,5 +98,13 @@ public class OrderDataReq {
 
 	public void setWxappid(String wxappid) {
 		this.wxappid = wxappid;
+	}
+
+	public String getNotify_url() {
+		return notify_url;
+	}
+
+	public void setNotify_url(String notify_url) {
+		this.notify_url = notify_url;
 	}
 }
