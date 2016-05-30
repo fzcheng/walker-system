@@ -27,6 +27,9 @@ public class OrderManagerImpl {
 	@Autowired
 	private TransferService transferService;
 	
+	@Autowired
+	private DailyManagerImpl dailyManager;
+	
 	public void execSave(OrderEntity entity) {
 		Assert.notNull(entity);
 		Date date = new Date();       
@@ -134,6 +137,7 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
+			dailyManager.dealOrderFinish(order);
 			transferService.addTransfer(order);
 		}
 	}
@@ -151,6 +155,7 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
+			dailyManager.dealOrderFinish(order);
 			transferService.addTransfer(order);
 		}
 	}
