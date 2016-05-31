@@ -1,5 +1,7 @@
 package com.walkersoft.appmanager.dao;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Repository;
 
 import com.walker.db.Sorts;
@@ -30,6 +32,11 @@ public class DailyDao extends SQLDaoSupport<DailyEntity> {
 	public GenericPager<DailyEntity> queryPageList(String[] appids) {
 		//TODO 20160531
 		return null;
+	}
+
+	public DailyEntity queryDaily(String appid, Date date, int paychannel, int market) {
+		return this.findUniqueBy(entityClass, new String[]{"appid", "date", "paychannel", "market"}, 
+				new Object[]{ appid,  date,  paychannel, market});
 	}
 
 }

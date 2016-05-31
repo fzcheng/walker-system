@@ -40,6 +40,10 @@ public class DailyManagerImpl {
 		dailyDao.save(entity);
 	}
 
+	private DailyEntity queryDaily(String appid, Date date, int paychannel, int market) {
+		return dailyDao.queryDaily( appid,  date,  paychannel, market);
+	}
+
 	public void execUpdate(DailyEntity entity) {
 		Assert.notNull(entity);
 		Date date = new Date();       
@@ -55,11 +59,41 @@ public class DailyManagerImpl {
 	public void dealOrderFinish(OrderEntity order)
 	{
 		try{
-			
+			createOrAdd(order.getAppid(), order.getCreate_time(), order.getPaychannel(), order.getMarket(), order);
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
+		}
+	}
+
+	private void createOrAdd(String appid, Timestamp time, int paychannel, int market, OrderEntity order) {
+		Date date = time;
+		DailyEntity daily = queryDaily(appid, date, paychannel, market);
+		if(daily != null)
+		{
+			daily.setOrder_count(daily.getOrder_count() + 1);
+			daily.setOrder_total_fee(daily.getOrder_total_fee() + order.getTotalFee());
+			execUpdate(daily);
+		}
+		else
+		{
+			Timestamp now = new Timestamp(date.getTime());
 			
+			DailyEntity entity = new DailyEntity();
+			entity.setAppid(appid);
+			entity.setCreate_time(now);
+			
+			java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+			
+			entity.setDate(sqlDate);
+			entity.setLast_time(now);
+			entity.setMarket(market);
+			entity.setOrder_count(1);
+			entity.setOrder_total_fee(order.getTotalFee());
+			entity.setPaychannel(paychannel);
+			
+			execSave(entity);
 		}
 	}
 }
