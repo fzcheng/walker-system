@@ -27,15 +27,17 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import com.walker.infrastructure.utils.StringUtils;
+import com.walker.test.MyUsernamePasswordToken;
 import com.walker.web.RequestAwareContext;
 import com.walker.web.jcaptcha.CaptchaServiceSingleton;
-import com.walker.test.MyUsernamePasswordToken;
 import com.walkersoft.application.MyApplicationConfig;
 import com.walkersoft.application.MyApplicationContext;
 import com.walkersoft.application.cache.FunctionCacheProvider;
 import com.walkersoft.application.log.MyLogDetail.LogType;
+import com.walkersoft.appmanager.manager.AppManagerImpl;
 import com.walkersoft.system.entity.UserCoreEntity;
 import com.walkersoft.system.manager.FunctionManagerImpl;
+import com.walkersoft.system.pojo.AppGroup;
 import com.walkersoft.system.pojo.FunctionGroup;
 import com.walkersoft.system.util.FunctionUtils;
 
@@ -82,6 +84,14 @@ public class MyAuthenticationProvider implements AuthenticationProvider,Initiali
 	
 	public void setFunctionCacheProvider(FunctionCacheProvider functionCacheProvider) {
 		this.functionCacheProvider = functionCacheProvider;
+	}
+	
+	//APP功能Manager，查询登录用户APP权限信息
+	@Autowired
+	private AppManagerImpl appManager = null;
+	
+	public void setAppManager(AppManagerImpl appManager) {
+		this.appManager = appManager;
 	}
 
 	/** 强制负责人为字符串 */
@@ -194,6 +204,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider,Initiali
 //        myUserInfo.setUserFuncGroup(fgLst);
 //        myUserInfo.setUserFuncMap(userFuncMap);
         Object[] menuResult = this.getUserMenugroupList(myUserInfo.getUserId(), myUserInfo.isSupervisor());
+        
         if(menuResult == null){
         	myUserInfo.setUserFuncGroup(null);
         	myUserInfo.setUserFuncMap(null);
@@ -201,6 +212,16 @@ public class MyAuthenticationProvider implements AuthenticationProvider,Initiali
 	        myUserInfo.setUserFuncGroup(menuResult[0] == null ? null : (List<FunctionGroup>)menuResult[0]);
 	        myUserInfo.setUserFuncMap(menuResult[1] == null ? null : (Map<String, Map<String, String>>)menuResult[1]);
         }
+        
+        Object[] appResult = this.getUserAppgroupList(myUserInfo.getUserId(), myUserInfo.isSupervisor());
+        if(appResult == null){
+        	myUserInfo.setUserAppGroup(null);
+        	myUserInfo.setUserAppMap(null);
+        } else {
+	        myUserInfo.setUserAppGroup(appResult[0] == null ? null : (List<AppGroup>)appResult[0]);
+	        myUserInfo.setUserAppMap(appResult[1] == null ? null : (Map<String, Map<String, String>>)appResult[1]);
+        }
+        
 		return createSuccessAuthentication(principalToReturn, authentication, myUserInfo);
 	}
 
@@ -306,6 +327,15 @@ public class MyAuthenticationProvider implements AuthenticationProvider,Initiali
 		return result;
 	}
 	
+	private Object[] getUserAppResult(List<AppGroup> availableUserGroup
+			, Map<String, Map<String, String>> userFuncMap){
+		// 返回用户功能菜单所有东东，第一个是菜单组，第二个是'用户功能'Map对象
+		Object[] result = new Object[2];
+		result[0] = availableUserGroup;
+		result[1] = userFuncMap;
+		return result;
+	}
+	
 	/**
 	 * 返回用户可用权限菜单
 	 * @param userId
@@ -375,6 +405,89 @@ public class MyAuthenticationProvider implements AuthenticationProvider,Initiali
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("功能加载错误：" + e.getMessage());
+		}
+	}
+	
+	/**
+	 * 返回用户可用权限菜单
+	 * @param userId
+	 * @return
+	 * 时克英新加方法
+	 */
+	private Object[] getUserAppgroupList(String userId, boolean isSupervisor){
+		//存放<appid, app操作项列表>
+		Map<String, List<String>> existAppMap = new HashMap<String, List<String>>();
+		
+//		// 对于超极管理员单独处理
+//		if(isSupervisor){
+////			systemWithUrl = functionCacheProvider.getSystemWithUrl();
+//			return getUserAppResult(functionCacheProvider.combinUserFuncGroup(existAppMap)
+//					, functionCacheProvider.getAllFunctionPointers());
+//		}
+		
+		//存放用户所有可用功能项，里面map是功能点id
+		Map<String, Map<String, String>> userAppMap = new HashMap<String, Map<String, String>>();
+		
+		try {
+			List<Map<String, Object>> usrAppList = new ArrayList<Map<String, Object>>();
+			// 对于超极管理员单独处理
+			if(isSupervisor){
+				usrAppList = appManager.queryAllAppList();
+			}
+			else
+			{
+				usrAppList = appManager.queryAppListByUser(userId);
+			}
+			
+			if(usrAppList == null) return null;
+			
+			List<AppGroup> userAppGroups = new ArrayList<AppGroup>();
+			for(Map<String, Object> _app : usrAppList){
+				
+				AppGroup appgroup = new AppGroup();
+				String appId = _app.get("appid").toString();
+				String appName = _app.get("appname").toString();
+				
+				appgroup.setAppid(appId);
+				appgroup.setAppname(appName);
+				
+				if(!existAppMap.containsKey(appId)){
+					existAppMap.put(appId, new ArrayList<String>());
+					//先放入空对象，如果存在功能点，在加入
+					userAppMap.put(appId, new HashMap<String, String>());
+//					System.out.println("=========== userFuncMap放入了：" + funcId);
+				}
+				if(_app.get("options") != null){
+					String[] _ps = _app.get("options").toString().split(StringUtils.DEFAULT_SPLIT_SEPARATOR);
+					for(String _p : _ps){
+						List<String> points = existAppMap.get(appId);
+						if(points != null){
+							if(!points.contains(_p)){
+								existAppMap.get(appId).add(_p);
+							}
+						} else {
+							//Map中没有就创建一个放进去
+							List<String> pl = new ArrayList<String>();
+							pl.add(_p);
+							existAppMap.put(appId, pl);
+						}
+						//把功能点放入功能项Map中，存在了就覆盖
+//						System.out.println("+++++++++取出funcId：" + userFuncMap.get(funcId));
+						userAppMap.get(appId).put(_p, _p);
+						
+						appgroup.addOption(_p);
+					}
+				}
+				
+				userAppGroups.add(appgroup);
+			}
+			// 处理带URL地址的子系统菜单
+			//List<AppGroup> userAppGroups = functionCacheProvider.combinUserAppGroup(existAppMap);
+			
+			return getUserAppResult(userAppGroups, userAppMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("功能应用错误：" + e.getMessage());
 		}
 	}
 	

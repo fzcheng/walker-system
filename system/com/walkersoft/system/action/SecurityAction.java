@@ -60,9 +60,9 @@ public class SecurityAction extends SystemAction {
 //		}
 		
 		// 检查是否已经部署
-		if(!JarDeployer.getDeployedStatus()){
-			return doShowDeployPage(model, true);
-		}
+		//if(!JarDeployer.getDeployedStatus()){
+		//	return doShowDeployPage(model, true);
+		//}
 		
 		model.addAttribute(NAME_USER_VALIDATE_CODE, MyApplicationConfig.isValidateCode());
 		String error = this.getParameter(NAME_ERROR);

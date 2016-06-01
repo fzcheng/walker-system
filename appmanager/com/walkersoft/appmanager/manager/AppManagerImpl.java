@@ -1,5 +1,8 @@
 package com.walkersoft.appmanager.manager;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,5 +102,22 @@ public class AppManagerImpl {
 		if(entity != null)
 			return entity;
 		return null;
+	}
+	
+	/**
+	 * 查询登录用户的app权限
+	 * @param userId
+	 * @return
+	 */
+	public List<Map<String, Object>> queryAppListByUser(String userId) {
+		return appDao.getAppListByUser(userId);
+	}
+
+	/**
+	 * 查询所有的app权限
+	 * @return
+	 */
+	public List<Map<String, Object>> queryAllAppList() {
+		return appDao.getAllAppList();
 	}
 }

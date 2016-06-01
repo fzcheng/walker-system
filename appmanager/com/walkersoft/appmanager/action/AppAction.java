@@ -38,6 +38,7 @@ public class AppAction extends SystemAction {
 	
 	@RequestMapping("appos/app/index")
 	public String index(Model model){
+		setUserApps(model);
 		setUserPointers(model);
 		loadList(model, appManager.queryPageList(this.getCurrentUserId()));
 		return APP_BASE_URL + "app_index";

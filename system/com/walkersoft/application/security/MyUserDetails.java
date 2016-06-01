@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.system.entity.UserCoreEntity;
+import com.walkersoft.system.pojo.AppGroup;
 import com.walkersoft.system.pojo.FunctionGroup;
 
 public class MyUserDetails implements UserDetails {
@@ -139,7 +140,7 @@ public class MyUserDetails implements UserDetails {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 	
-private List<FunctionGroup> funcGroup;
+	private List<FunctionGroup> funcGroup;
 	
 	private Map<String, Map<String, String>> userFuncMap;
 	
@@ -176,5 +177,44 @@ private List<FunctionGroup> funcGroup;
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 * 用户功能权限信息，移植老代码（SSHDEMO）
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+	
+	private List<AppGroup> appGroup;
+	private Map<String, Map<String, String>> userAppMap;
+
+	public List<AppGroup> getUserAppGroup() {
+		return appGroup;
+	}
+
+	public void setUserAppGroup(List<AppGroup> appGroup) {
+		this.appGroup = appGroup;
+	}
+
+	public Map<String, Map<String, String>> getUserAppMap() {
+		return userAppMap;
+	}
+
+	public void setUserAppMap(Map<String, Map<String, String>> userAppMap) {
+		this.userAppMap = userAppMap;
+	}
+	
+	/**
+	 * 返回登录用户可用的app options集合
+	 * @param funcId 给定功能ID
+	 * @return
+	 */
+	public Map<String, String> getUserAppOptionMap(String appid) {
+		Map<String, String> optionMap = this.userAppMap.get(appid);
+		if(optionMap != null){
+			return optionMap;
+		}
+		return null;
 	}
 }

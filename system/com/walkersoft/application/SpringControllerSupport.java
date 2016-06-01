@@ -1,5 +1,6 @@
 package com.walkersoft.application;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -12,6 +13,7 @@ import com.walkersoft.application.log.MyLogDetail.LogType;
 import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.application.util.DepartmentUtils;
 import com.walkersoft.system.entity.UserCoreEntity;
+import com.walkersoft.system.pojo.AppGroup;
 
 /**
  * 支持<code>Spring MVC</code>的控制器实现
@@ -114,5 +116,46 @@ public class SpringControllerSupport extends WebContextAction {
 			model.addAttribute(NAME_POINTER_MAP, pointers);
 		} else
 			logger.debug("该功能没有配置任何功能点权限或者不存在权限: " + fid);
+	}
+	
+	private static final String PARAMETER_NAME_APPID = "appid";
+	private static final String NAME_APPOPTION_MAP = "userappoptions";
+	/**
+	 * 把用户当前可看的的‘应用’的操作权限信息写入响应中，供模板页面处理对应按钮。</br>
+	 * 该方法由各个action中功能首页的请求来调用，如：<code>UserAction</code>中的index.do
+	 * @param model
+	 */
+	protected void setUserAppOptions(Model model){
+		String appid = this.getParameter(PARAMETER_NAME_APPID);
+		if(StringUtils.isEmpty(appid)){
+			logger.debug("无法找到菜单链接传入的'appid'参数。");
+			return;
+		}
+		
+		MyUserDetails userDetails = getCurrentUserDetails();
+		List<AppGroup> appgroup = userDetails.getUserAppGroup();
+		
+		Map<String, String> apps = getCurrentUserDetails().getUserAppOptionMap(appid);
+		if(apps != null){
+			model.addAttribute(NAME_APPOPTION_MAP, apps);
+		} else
+			logger.debug("该功能没有配置任何功能点权限或者不存在权限: " + appid);
+	}
+	
+	private static final String NAME_APP_MAP = "userapps";
+	/**
+	 * 把用户当前可看的的‘应用’的列表权限信息写入响应中，供模板页面处理对应按钮。</br>
+	 * 该方法由各个action中功能首页的请求来调用，如：<code>UserAction</code>中的index.do
+	 * @param model
+	 */
+	protected void setUserApps(Model model){
+		
+		MyUserDetails userDetails = getCurrentUserDetails();
+		List<AppGroup> appgroup = userDetails.getUserAppGroup();
+		
+		if(appgroup != null){
+			model.addAttribute(NAME_APP_MAP, appgroup);
+		} else
+			logger.debug("该用户没有配置任何应用权限或者不存在权限: " + userDetails.getUsername());
 	}
 }
