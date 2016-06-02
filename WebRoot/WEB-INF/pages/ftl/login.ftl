@@ -171,7 +171,7 @@ function getCode(){
 	</div>
 </form>
 			<div class="ext" id="loginExt">
-			<ul id="extText"><li class="ext-1"> <a href="#" target="_blank" style="">使用超级管理员supervisor登录</a></li><li class="ext-2"> <a href="#" target="_blank" style="">supervisor默认密码123456</a></li></ul>
+			
 				<div id="extMobLogin">
 					<h3 class="ext-tt"><a href="#" target="_blank">有手机号码邮箱，就可以直接登录</a></h3>
 					<p> <a href="#" target="_blank"> <span>无需注册</span><var>|</var>邮件到达免费提醒<var>|</var>送2G网盘 </a> </p>
