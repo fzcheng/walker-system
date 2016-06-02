@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.appmanager.manager.AppManagerImpl;
+import com.walkersoft.appmanager.manager.DailyManagerImpl;
 import com.walkersoft.system.SystemAction;
 import com.walkersoft.system.pojo.AppGroup;
 
@@ -22,18 +22,49 @@ import com.walkersoft.system.pojo.AppGroup;
 public class DailyAction extends SystemAction {
 	
 	@Autowired
-	private AppManagerImpl appManager;
+	private DailyManagerImpl dailyManager;
 	
-	public static final String APP_BASE_URL = "appos/app/";
+	public static final String APP_BASE_URL = "appos/daily/";
 	
 	@RequestMapping("appos/daily/index")
 	public String index(Model model){
 		
 		this.setUserApps(model);
 		
+		List<AppGroup> apps = this.getCurrentUserDetails().getUserAppGroup();
+		if(apps == null || apps.size() == 0)
+		{
+			model.addAttribute("msg", "无可查看的应用，请联系管理员进行配置。");
+			return APP_BASE_URL + "error";
+		}
+		
+		String curappid = (String)this.getParameter("appid");
+		if(curappid == null || curappid.equals("") || curappid.equals("0"))
+		{
+			loadList(model, dailyManager.queryPageList(apps));
+		}
+		else
+		{
+			if(!IsIn(apps, curappid))
+			{
+				model.addAttribute("msg", "无此应用的查询权限，请联系管理员进行配置。");
+				return APP_BASE_URL + "error";
+			}
+			loadList(model, dailyManager.queryPageList(curappid));
+		}
+		
 		setUserPointers(model);
-		loadList(model, appManager.queryPageList(this.getCurrentUserId()));
-		return APP_BASE_URL + "app_index";
+		
+		return APP_BASE_URL + "index";
+	}
+
+	private boolean IsIn(List<AppGroup> apps, String curappid) {
+		for(int i = 0; i < apps.size(); i ++)
+		{
+			if(curappid.equals(apps.get(i).getAppid()))
+				return true;
+		}
+		return false;
 	}
 	
 }

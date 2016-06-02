@@ -139,7 +139,7 @@ public class SpringControllerSupport extends WebContextAction {
 		if(apps != null){
 			model.addAttribute(NAME_APPOPTION_MAP, apps);
 		} else
-			logger.debug("该功能没有配置任何功能点权限或者不存在权限: " + appid);
+			logger.debug("该用户没有配置此应用的操作权限: " + appid);
 	}
 	
 	private static final String NAME_APP_MAP = "userapps";

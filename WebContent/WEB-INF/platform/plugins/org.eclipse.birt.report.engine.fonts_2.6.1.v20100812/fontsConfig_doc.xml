@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font>
+	<font-aliases>
+		<mapping name="serif" font-family="Times-Roman" />
+		<mapping name="sans-serif" font-family="Helvetica" />
+		<mapping name="monospace" font-family="Courier" />
+	</font-aliases>
+	<font-encodings>
+		<encoding font-family="Times-Roman" encoding="utf-8" />
+		<encoding font-family="Helvetica" encoding="utf-8" />
+		<encoding font-family="Courier" encoding="utf-8" />
+		<encoding font-family="Zapfdingbats" encoding="utf-8" />
+		<encoding font-family="Symbol" encoding="utf-8" />
+		<encoding font-family="STSong-Light" encoding="utf-8" />
+		<encoding font-family="STSongStd-Light" encoding="utf-8" />
+		<encoding font-family="MHei-Medium" encoding="utf-8" />
+		<encoding font-family="MSung-Light" encoding="utf-8" />
+		<encoding font-family="MSungStd-Light" encoding="utf-8" />
+		<encoding font-family="HeiseiMin-W3" encoding="utf-8" />
+		<encoding font-family="HeiseiKakuGo-W5" encoding="utf-8" />
+		<encoding font-family="KozMinPro-Regular" encoding="utf-8" />
+		<encoding font-family="HYGoThic-Medium" encoding="utf-8" />
+		<encoding font-family="HYSMyeongJo-Medium" encoding="utf-8" />
+		<encoding font-family="HYSMyeongJoStd" encoding="utf-8" />
+	</font-encodings>
+	<composite-font name="all-fonts">
+		<font font-family="Times-Roman" catalog="Western" />
+		<font font-family="MSung-Light" catalog="Chinese" />
+		<font font-family="HeiseiKakuGo-W5" catalog="Japanese" />
+		<font font-family="HYGoThic-Medium" catalog="Korean" />
+	</composite-font>
+</font>

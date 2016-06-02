@@ -11,8 +11,8 @@
   <property name="tempCompilePath" value="build/temp"/>
   
   <!-- 项目包路径 -->
-  <property name="project.lib" value="${basedir}/WebContent/WEB-INF/lib"/>
-  <property name="project.ftl" value="${basedir}/WebContent/WEB-INF/pages/ftl"/>
+  <property name="project.lib" value="${basedir}/WebRoot/WEB-INF/lib"/>
+  <property name="project.ftl" value="${basedir}/WebRoot/WEB-INF/pages/ftl"/>
   <property name="project.classpath" value="build/classes"/>
   <!-- tomcat包路径 -->
   <property name="tomcat.classpath" value="${tomcat.path}/lib"/>

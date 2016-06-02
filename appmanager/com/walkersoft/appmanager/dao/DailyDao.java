@@ -9,12 +9,11 @@ import com.walker.db.Sorts.Sort;
 import com.walker.db.hibernate.SQLDaoSupport;
 import com.walker.db.page.support.GenericPager;
 import com.walkersoft.appmanager.entity.DailyEntity;
-import com.walkersoft.appmanager.entity.OrderEntity;
 
 @Repository("dailyDao")
 public class DailyDao extends SQLDaoSupport<DailyEntity> {
 
-	private static final String HQL_SINGLE_CPORDERID = "select * from yl_order where appid=? and cpOrderId=?";
+	
 	
 //	private final RowMapper<OrderEntity> rowMapper = new OrderRowMapper();
 	
@@ -39,4 +38,23 @@ public class DailyDao extends SQLDaoSupport<DailyEntity> {
 				new Object[]{ appid,  date,  paychannel, market});
 	}
 
+	private static final String HQL_APPID = "select daily from DailyEntity daily where appid=?";
+	public GenericPager<DailyEntity> queryByAppid(String curappid) {
+		return this.queryForpage(HQL_APPID, new Object[]{curappid}, Sorts.ASC().setField("create_time"));
+	}
+
+	
+	private static final String HQL_MYAPP = "select daily from DailyEntity daily where appid in(:myapps)";
+	public GenericPager<DailyEntity> queryByAppid(String[] appids) {
+		if(appids == null || appids.length <= 0)
+			return null;
+		String hql = HQL_MYAPP;
+		String tmp = "?";
+		for(int i = 1; i < appids.length; i ++)
+		{
+			tmp += ",?";
+		}
+		hql = hql.replaceAll(":myapps", tmp);
+		return this.queryForpage(hql, appids, Sorts.ASC().setField("create_time"));
+	}
 }

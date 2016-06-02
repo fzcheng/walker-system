@@ -103,7 +103,6 @@ function getCode(){
 	<div id="loginBlock" class="login tab-1">
 		<div class="loginFunc">
 			<div id="lbNormal" class="loginFuncNormal"> 用户名登录 </div>
-			<div id="lbMob" class="loginFuncMobile"> 手机号登录(NO) </div>
 		</div>
 		<div class="loginForm">
 		<table width="245" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:-20px; margin-bottom:10px;">
@@ -122,7 +121,7 @@ function getCode(){
 <form method="post" action="${ctx}/j_spring_security_check" onsubmit="return login();">
 	<div id="idInputLine" class="loginFormIpt luru"> <b class="ico ico-uid"></b>
 		<input class="loginFormTdIpt loginFormTdIpt-focus" tabindex="1" title="请输入帐号" id="j_username" name="j_username" type="text" maxlength="50" value="" autocomplete="off" placeholder="用户名" />
-		<span id="showdomain" class="domain" style="width: 80px;">@walker-web</span>
+		
 		<div id="mobtips"></div>
 		<label for="idInput" class="placeholder" id="idPlaceholder">邮箱帐号或手机号</label>
 		<div id="idInputTest"></div>

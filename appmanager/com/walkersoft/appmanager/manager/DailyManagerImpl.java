@@ -2,6 +2,7 @@ package com.walkersoft.appmanager.manager;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.walkersoft.appmanager.dao.AppMarketDao;
 import com.walkersoft.appmanager.dao.DailyDao;
 import com.walkersoft.appmanager.entity.DailyEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
+import com.walkersoft.system.pojo.AppGroup;
 
 @Service("dailyManager")
 public class DailyManagerImpl {
@@ -95,5 +97,32 @@ public class DailyManagerImpl {
 			
 			execSave(entity);
 		}
+	}
+
+	/**
+	 * 查询
+	 * @param apps
+	 * @return
+	 */
+	public GenericPager<DailyEntity> queryPageList(List<AppGroup> apps) {
+		
+		String[] appids = new String[apps.size() * 2];
+		for(int i = 0; i < apps.size(); i ++)
+		{
+			AppGroup a = apps.get(i);
+			appids[i] = a.getAppid();
+			appids[i+1] = a.getAppid();
+		}
+
+		return dailyDao.queryByAppid(appids);
+	}
+
+	/**
+	 * 查询
+	 * @param apps
+	 * @return
+	 */
+	public GenericPager<DailyEntity> queryPageList(String curappid) {
+		return dailyDao.queryByAppid(curappid);
 	}
 }
