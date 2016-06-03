@@ -14,7 +14,7 @@
 </script>
 </head>
 <body>
-无可查看的应用，请联系管理员进行配置
+${msg}
  
 </body>
 <#include "/common/footer.ftl">

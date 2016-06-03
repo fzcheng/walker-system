@@ -35,6 +35,8 @@ public class AppAction extends SystemAction {
 	private static final String LOG_MSG_APPADD = "添加应用";
 	private static final String LOG_MSG_APPEDIT = "编辑应用";
 	public static final String APP_BASE_URL = "appos/app/";
+	public static final String USERAPP_BASE_URL = "appos/userapp/";
+	
 	
 	@RequestMapping("appos/app/index")
 	public String index(Model model){
@@ -125,5 +127,16 @@ public class AppAction extends SystemAction {
 			this.ajaxOutPutText("删除数据失败！");
 			return;
 		}
+	}
+	
+	
+	@RequestMapping("appos/userapp/index")
+	public String userApp(Model model){
+		setUserApps(model);
+		setUserPointers(model);
+		
+		//获取所有的用户
+		loadList(model, appManager.queryPageList(this.getCurrentUserId()));
+		return USERAPP_BASE_URL + "index";
 	}
 }
