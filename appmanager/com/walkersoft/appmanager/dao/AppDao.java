@@ -39,13 +39,13 @@ public class AppDao extends SQLDaoSupport<AppEntity> {
 	
 	
 	private static final StringBuilder SQL_USER_APP = new StringBuilder()
-	.append("select ru.role_id, ra.appid, app.appname, ra.options")
+	.append("select ru.role_id, ua.appid, app.appname, ua.options")
 	.append(" From s_role_user ru")
-	.append(" , yl_role_app ra")
+	.append(" , s_user_app ua")
 	.append(" , yl_app app")
 	.append(" Where ru.user_id = ?")
-	.append(" And ru.role_id = ra.role_id")
-	.append(" And ra.appid = app.appid")
+	.append(" And ru.user_id = ua.user_id")
+	.append(" And ua.appid = app.appid")
 	.append(" Order By app.appid");
 	/**
 	 * 返回用户所能查看的app列表信息
@@ -60,6 +60,11 @@ public class AppDao extends SQLDaoSupport<AppEntity> {
 	.append("select app.appid, app.appname, app.options")
 	.append(" From yl_app app")
 	.append(" Order By app.appid");
+	/**
+	 * 返回所有的app列表信息
+	 * @param userId
+	 * @return
+	 */
 	public List<Map<String, Object>> getAllAppList() {
 		return this.sqlQueryForList(SQL_ALL_APP.toString());
 	}

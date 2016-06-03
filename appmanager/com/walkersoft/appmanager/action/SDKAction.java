@@ -117,6 +117,10 @@ public class SDKAction extends SystemAction {
 		String notify_url = this.getParameter("notify_url");//可选，透传参数，原样返回
 		String totalFee = this.getParameter("totalFee");//必填，支付金额，单位分
 		String wxappid = this.getParameter("wxappid");//必填，微信APPID，不填则不启用微信支付
+		String imei = this.getParameter("imei");//必填，imei
+		String model = this.getParameter("model");//必填，model
+		String mobile = this.getParameter("mobile");//必填，mobile
+		String version = this.getParameter("version");//必填，version
 		
 		OrderDataReq req = new OrderDataReq();
 		
@@ -131,6 +135,10 @@ public class SDKAction extends SystemAction {
 		req.setNotify_url(notify_url);
 		req.setTotalFee(Integer.valueOf(totalFee));
 		req.setWxappid(wxappid);
+		req.setImei(imei);
+		req.setModel(model);
+		req.setMobile(mobile);
+		req.setVersion(version);
 		
 		return req;
 	}

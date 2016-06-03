@@ -61,7 +61,7 @@ public class DailyManagerImpl {
 	public void dealOrderFinish(OrderEntity order)
 	{
 		try{
-			createOrAdd(order.getAppid(), order.getCreate_time(), order.getPaychannel(), order.getMarket(), order);
+			createOrAdd(order.getAppid(), order.getAppname(), order.getCreate_time(), order.getPaychannel(), order.getMarket(), order);
 		}
 		catch(Exception e)
 		{
@@ -69,7 +69,32 @@ public class DailyManagerImpl {
 		}
 	}
 
-	private void createOrAdd(String appid, Timestamp time, int paychannel, int market, OrderEntity order) {
+	private void createOrAdd(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order) {
+		createOrAdd_detail(appid, appname, time, paychannel, market, order);
+		createOrAdd_detail(appid, appname, time, -1, -1, order);
+		createOrAdd_detail(appid, appname, time, -1, market, order);
+		createOrAdd_detail(appid, appname, time, paychannel, -1, order);
+	}
+	
+	private void createOrAdd_detail(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order) {
+		int datatype = 0;
+		if(paychannel == -1 && market == -1)
+		{
+			datatype = DailyEntity.DATATYPE_ALL;
+		}
+		else if(market == -1)
+		{
+			datatype = DailyEntity.DATATYPE_PAYCHANNEL;
+		}
+		else if(paychannel == -1)
+		{
+			datatype = DailyEntity.DATATYPE_MARKET;
+		}
+		else
+		{
+			datatype = DailyEntity.DATATYPE_PAYCHANNEL_MARKET;
+		}
+		
 		Date date = time;
 		DailyEntity daily = queryDaily(appid, date, paychannel, market);
 		if(daily != null)
@@ -84,7 +109,9 @@ public class DailyManagerImpl {
 			
 			DailyEntity entity = new DailyEntity();
 			entity.setAppid(appid);
+			entity.setAppname(appname);
 			entity.setCreate_time(now);
+			entity.setDatatype(datatype);
 			
 			java.sql.Date sqlDate=new java.sql.Date(date.getTime());
 			

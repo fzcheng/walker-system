@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 订单
+ * 每日统计－应用－日－渠道－市场
  * @author shikeying
  *
  */
@@ -17,16 +17,24 @@ import javax.persistence.Table;
 @Table(name = "yl_daily")
 public class DailyEntity {
 
+	public static final int DATATYPE_ALL = 0;//0—应用日总统计
+	public static final int DATATYPE_PAYCHANNEL = 1;//1—应用日付费渠道统计
+	public static final int DATATYPE_PAYCHANNEL_MARKET = 11;//11—应用日付费&市场渠道统计
+	public static final int DATATYPE_MARKET = 2;//2—应用日市场统计
+	
 	int id;
 	
 	@Column(name = "appid")
 	String appid;//应用',
+	@Column(name = "appname")
+	String appname;//应用名',
 	@Column(name = "market")
 	int market;//'渠道',
 	@Column(name = "paychannel")
 	int paychannel;// '付费渠道 1-ali 2-微信',
 
 	Date date;
+	int datatype;
 	int order_count;
 	int order_total_fee;
 	
@@ -92,5 +100,17 @@ public class DailyEntity {
 	}
 	public void setOrder_total_fee(int order_total_fee) {
 		this.order_total_fee = order_total_fee;
+	}
+	public String getAppname() {
+		return appname;
+	}
+	public void setAppname(String appname) {
+		this.appname = appname;
+	}
+	public int getDatatype() {
+		return datatype;
+	}
+	public void setDatatype(int datatype) {
+		this.datatype = datatype;
 	}
 }

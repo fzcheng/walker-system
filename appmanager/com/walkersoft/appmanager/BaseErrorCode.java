@@ -16,7 +16,8 @@ public enum BaseErrorCode {
 	Error_TId(-109, "tid错误"),
 	Error_OrderNoExist(-110, "订单不存在"),
 	Error_CardType(-111, "card类别错误"),
-	Error_CONNETCT(-112, "请求失败，稍后再试"),;
+	Error_CONNETCT(-112, "请求失败，稍后再试"),
+	Error_NoApp(-113, "appid不存在"),;
 	
 	private int code;
 	private String name;

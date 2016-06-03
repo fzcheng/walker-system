@@ -14,6 +14,7 @@ import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.BaseErrorCode;
 import com.walkersoft.appmanager.dao.OrderDao;
 import com.walkersoft.appmanager.entity.AliCallbackEntity;
+import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.entity.TenpayCallbackEntity;
 import com.walkersoft.appmanager.req.OrderDataReq;
@@ -29,6 +30,12 @@ public class OrderManagerImpl {
 	
 	@Autowired
 	private DailyManagerImpl dailyManager;
+	
+	@Autowired
+	private DeviceManagerImpl deviceManager;
+	
+	@Autowired
+	private AppManagerImpl appManager;
 	
 	public void execSave(OrderEntity entity) {
 		Assert.notNull(entity);
@@ -64,10 +71,17 @@ public class OrderManagerImpl {
 	
 	public BaseErrorCode createOrder(OrderDataReq req, int paychannel, OrderEntity order) {
 		
+		AppEntity app = appManager.queryByAppid(req.getAppid());
+		if(app == null)
+		{
+			return BaseErrorCode.Error_NoApp;
+		}
+		
 		OrderEntity oldorder = queryOrderByCpOrderId(req.getAppid(), req.getCpOrderId());
 		if(oldorder != null)
 		{
 			order.setAppid(oldorder.getAppid());
+			order.setAppname(oldorder.getAppname());
 			order.setCpOrderId(oldorder.getCpOrderId());
 			order.setExt(oldorder.getExt());
 			order.setMarket(oldorder.getMarket());
@@ -79,12 +93,17 @@ public class OrderManagerImpl {
 			order.setWares(oldorder.getWares());
 			order.setWaresId(oldorder.getWaresId());
 			order.setOrderid(oldorder.getOrderid());
+			order.setImei(oldorder.getImei());
+			order.setMobile(oldorder.getMobile());
+			order.setModel(oldorder.getModel());
+			order.setVersion(oldorder.getVersion());
 			
 			return BaseErrorCode.Error_Duplicate;
 		}
 		else
 		{
 			order.setAppid(req.getAppid());
+			order.setAppname(app.getAppname());
 			order.setCpOrderId(req.getCpOrderId());
 			order.setExt(req.getExt());
 			order.setMarket(req.getMarket());
@@ -98,7 +117,16 @@ public class OrderManagerImpl {
 			order.setTransfer_url(req.getNotify_url());
 			
 			order.setOrderid(getOutTradeNo());
+			
+			order.setImei(req.getImei());
+			order.setMobile(req.getMobile());
+			order.setModel(req.getModel());
+			order.setVersion(req.getVersion());
+			
 			execSave(order);
+			
+			//创建or修改 玩家数据
+			deviceManager.addRecord(order);
 			
 			return BaseErrorCode.Success;
 		}

@@ -20,6 +20,8 @@ public class OrderEntity {
 	
 	@Column(name = "appid")
 	String appid;//应用',
+	@Column(name = "appname")
+	String appname;//应用',
 	@Column(name = "market")
 	int market;//'渠道',
 	@Column(name = "paychannel")
@@ -60,6 +62,14 @@ public class OrderEntity {
 	String ip;//
 	@Column(name = "host")
 	String host;//
+	@Column(name = "imei")
+	String imei;//
+	@Column(name = "model")
+	String model;
+	@Column(name = "mobile")
+	String mobile;
+	@Column(name = "version")
+	String version;
 	
 	@Column(name = "pay_time")
 	Timestamp pay_time;// '创建时间',
@@ -221,6 +231,36 @@ public class OrderEntity {
 	}
 	public void setPay_time(Timestamp pay_time) {
 		this.pay_time = pay_time;
+	}
+	public String getAppname() {
+		return appname;
+	}
+	public void setAppname(String appname) {
+		this.appname = appname;
+	}
+	public String getImei() {
+		return imei;
+	}
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
 	}
 	
 }

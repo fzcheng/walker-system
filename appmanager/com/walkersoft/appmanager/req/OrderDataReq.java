@@ -15,6 +15,10 @@ public class OrderDataReq {
 	String notify_url;
 	int totalFee;//必填，支付金额，单位分
 	String wxappid;//必填，微信APPID，不填则不启用微信支付
+	String imei;//必填，imei
+	String model;//必填，model
+	String mobile;//必填，mobile
+	String version;//必填，version
 	
 	public OrderDataReq() {
 		
@@ -106,5 +110,37 @@ public class OrderDataReq {
 
 	public void setNotify_url(String notify_url) {
 		this.notify_url = notify_url;
+	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}
 }

@@ -38,13 +38,13 @@ public class DailyDao extends SQLDaoSupport<DailyEntity> {
 				new Object[]{ appid,  date,  paychannel, market});
 	}
 
-	private static final String HQL_APPID = "select daily from DailyEntity daily where appid=?";
+	private static final String HQL_APPID = "select daily from DailyEntity daily where appid=? and datatype=0";
 	public GenericPager<DailyEntity> queryByAppid(String curappid) {
 		return this.queryForpage(HQL_APPID, new Object[]{curappid}, Sorts.ASC().setField("create_time"));
 	}
 
 	
-	private static final String HQL_MYAPP = "select daily from DailyEntity daily where appid in(:myapps)";
+	private static final String HQL_MYAPP = "select daily from DailyEntity daily where appid in(:myapps) and datatype=0";
 	public GenericPager<DailyEntity> queryByAppid(String[] appids) {
 		if(appids == null || appids.length <= 0)
 			return null;
