@@ -47,60 +47,37 @@
 			}
 		});
 	}
-	/*提交保存角色功能*/
-	function submitForm(){
-		//formSerialize()
-		var sQuery = $("#myform1 *").fieldValue(true);
-		if(sQuery == null || sQuery == "" || sQuery == $("#roleId").val()){
-			alert("请选择该角色拥有的功能。");
-			return;
-		}
+	/*显示用户应用*/
+	function showApps(userId){
 		$.ajax({
 			async:false,
-			url:"${ctx}/admin/role/saveRoleFunc.do",
+			url:"${ctx}/permit/appos/userapp/getUserAppsHtml.do",
 			type:"post",
-			data:"roleId=" + $("#roleId").val() + "&funcIds=" + sQuery,
-			success:function(data){
-				$("#content").empty();
-				$("#content").html(data);
-				$("#submitBtn").hide();
-				$("#submitUsrBtn").hide();
-				ajustDms();
-			},
-			error:function(data){
-				$("#content").empty();
-				$("#content").html(data);
-			}
-		});
-	}
-	/*设置角色用户*/
-	function showUser(roleId){
-		$.ajax({
-			async:false,
-			url:"${ctx}/permit/admin/role/getRoleUserHtml.do",
-			type:"post",
-			data:"roleId=" + roleId,
+			data:"userId=" + userId,
 			success:function(data){
 				$("#content").empty();
 				$("#content").html(data);
 				$("#submitBtn").hide();
 				$("#submitUsrBtn").show();
 				ajustDms();
+			},
+			error:function(data){
+				alert(0);
 			}
 		});
 	}
-	/*提交保存角色用户*/
+	/*提交保存用户应用*/
 	function submitUser(){
 		var sQuery = $("#myform1 *").fieldValue(true);
-		if(sQuery == null || sQuery == "" || sQuery == $("#roleId").val()){
+		if(sQuery == null || sQuery == "" || sQuery == $("#userId").val()){
 			alert("请选择该角色包含的用户。");
 			return;
 		}
 		$.ajax({
 			async:false,
-			url:"${ctx}/admin/role/saveRoleUser.do",
+			url:"${ctx}/appos/userapp/saveUserApp.do",
 			type:"post",
-			data:"roleId=" + $("#roleId").val() + "&userIds=" + sQuery,
+			data:"userId=" + $("#userId").val() + "&appIds=" + sQuery,
 			success:function(data){
 				$("#content").empty();
 				$("#content").html(data);
@@ -134,13 +111,8 @@ function removeRole(){
 <table border="0" cellpadding="0" cellspacing="0" class="table-form">
 	<tr class="title">
 		<td>
-			<span>角色权限设置</span>&nbsp;|&nbsp;
-			<#if (pointers['ROLE_ADD'])>
-			<input type="button" value="创建新角色" onclick="showAddRoleWnd()" class="button-tj"/>
-			</#if>
-			<#if (pointers['ROLE_DEL'])>
-			<input type="button" value="删除角色" onclick="removeRole()" class="button"/>
-			</#if>
+			<span>用户应用权限</span>&nbsp;|&nbsp;
+			
 		</td>
 	</tr>
 </table>
@@ -155,16 +127,11 @@ function removeRole(){
 		<td valign="top">
 			<form id="myform1" name="myform1">
 				<div id="content" style="margin-top:0;">
-					请先选择一个角色的"关联功能"或者"关联用户"
+					请先选择一个用户的"关联应用"
 				</div>
-				<#if (pointers['ROLE_FUNC'])>
-					<input type="button" value="保存角色功能" id="submitBtn" name="submitBtn" onclick="submitForm()" class="button-tj"/>
-				<#else>
-					<input type="button" value="N/A" id="submitBtn" name="submitBtn" class="button"/>
-				</#if>
 				
-				<#if (pointers['ROLE_USER'])>
-					<input type="button" value="保存角色用户" id="submitUsrBtn" name="submitUsrBtn" onclick="submitUser()" class="button-tj"/>
+				<#if (pointers['USER_APP'])>
+					<input type="button" value="保存用户应用" id="submitUsrBtn" name="submitUsrBtn" onclick="submitUser()" class="button-tj"/>
 				<#else>
 					<input type="button" value="N/A" id="submitUsrBtn" name="submitUsrBtn" class="button"/>
 				</#if>

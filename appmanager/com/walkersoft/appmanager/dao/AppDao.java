@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.walker.db.hibernate.SQLDaoSupport;
 import com.walker.db.page.support.GenericPager;
+import com.walker.infrastructure.utils.NumberGenerator;
+import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.appmanager.entity.AppEntity;
 
 @Repository("appDao")
@@ -68,4 +70,31 @@ public class AppDao extends SQLDaoSupport<AppEntity> {
 	public List<Map<String, Object>> getAllAppList() {
 		return this.sqlQueryForList(SQL_ALL_APP.toString());
 	}
+	
+	/**
+	 * 根据userId，删除该用户可见的所有应用
+	 * @param userId
+	 */
+	public void deleteUserAppByUserId(String userId){
+		this.update(SQL_DEL_USER_APP, new Object[]{userId});
+	}
+	private static final String SQL_DEL_USER_APP = "delete from s_user_app where user_id = ?";
+	
+	/**
+	 * 保存用户可见的所有应用
+	 * @param roleId
+	 * @param userIds
+	 * @throws Exception
+	 */
+	public void insertUserAppByUserId(String userId, List<String> appIds){
+		if(appIds == null || appIds.size() <= 0){
+			return;
+		}
+		for(String appId : appIds){
+			this.update(SQL_INSERT_USER_APP, new Object[]{userId, appId});
+		}
+	}
+	
+	private static final String SQL_INSERT_USER_APP = "insert into s_user_app(user_id, appid)"
+			+ " values(?,?)";
 }

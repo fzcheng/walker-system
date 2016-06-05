@@ -38,6 +38,9 @@ public class DailyEntity {
 	int order_count;
 	int order_total_fee;
 	
+	@Column(name = "device_count")
+	int device_count;
+	
 	@Column(name = "create_time")
 	Timestamp create_time;// '创建时间',
 	
@@ -112,5 +115,11 @@ public class DailyEntity {
 	}
 	public void setDatatype(int datatype) {
 		this.datatype = datatype;
+	}
+	public int getDevice_count() {
+		return device_count;
+	}
+	public void setDevice_count(int device_count) {
+		this.device_count = device_count;
 	}
 }

@@ -57,11 +57,12 @@ public class DailyManagerImpl {
 	/**
 	 * 订单成功后处理 daily 统计
 	 * @param order
+	 * @param isfirst 
 	 */
-	public void dealOrderFinish(OrderEntity order)
+	public void dealOrderFinish(OrderEntity order, boolean isfirst)
 	{
 		try{
-			createOrAdd(order.getAppid(), order.getAppname(), order.getCreate_time(), order.getPaychannel(), order.getMarket(), order);
+			createOrAdd(order.getAppid(), order.getAppname(), order.getCreate_time(), order.getPaychannel(), order.getMarket(), order, isfirst);
 		}
 		catch(Exception e)
 		{
@@ -69,14 +70,14 @@ public class DailyManagerImpl {
 		}
 	}
 
-	private void createOrAdd(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order) {
-		createOrAdd_detail(appid, appname, time, paychannel, market, order);
-		createOrAdd_detail(appid, appname, time, -1, -1, order);
-		createOrAdd_detail(appid, appname, time, -1, market, order);
-		createOrAdd_detail(appid, appname, time, paychannel, -1, order);
+	private void createOrAdd(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order, boolean isfirst) {
+		createOrAdd_detail(appid, appname, time, paychannel, market, order, isfirst);
+		createOrAdd_detail(appid, appname, time, -1, -1, order, isfirst);
+		createOrAdd_detail(appid, appname, time, -1, market, order, isfirst);
+		createOrAdd_detail(appid, appname, time, paychannel, -1, order, isfirst);
 	}
 	
-	private void createOrAdd_detail(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order) {
+	private void createOrAdd_detail(String appid, String appname, Timestamp time, int paychannel, int market, OrderEntity order, boolean isfirst) {
 		int datatype = 0;
 		if(paychannel == -1 && market == -1)
 		{
@@ -101,6 +102,8 @@ public class DailyManagerImpl {
 		{
 			daily.setOrder_count(daily.getOrder_count() + 1);
 			daily.setOrder_total_fee(daily.getOrder_total_fee() + order.getTotalFee());
+			if(isfirst)
+				daily.setDevice_count(daily.getDevice_count() + 1);
 			execUpdate(daily);
 		}
 		else
@@ -121,6 +124,7 @@ public class DailyManagerImpl {
 			entity.setOrder_count(1);
 			entity.setOrder_total_fee(order.getTotalFee());
 			entity.setPaychannel(paychannel);
+			entity.setDevice_count(1);
 			
 			execSave(entity);
 		}

@@ -125,8 +125,8 @@ public class OrderManagerImpl {
 			
 			execSave(order);
 			
-			//创建or修改 玩家数据
-			deviceManager.addRecord(order);
+			//创建or修改 玩家数据 发起数据
+			deviceManager.dealOrderLaunch(order);
 			
 			return BaseErrorCode.Success;
 		}
@@ -165,7 +165,8 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
-			dailyManager.dealOrderFinish(order);
+			boolean isfirst = deviceManager.dealOrderFinish(order);
+			dailyManager.dealOrderFinish(order, isfirst);
 			transferService.addTransfer(order);
 		}
 	}
@@ -183,7 +184,8 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
-			dailyManager.dealOrderFinish(order);
+			boolean isfirst = deviceManager.dealOrderFinish(order);
+			dailyManager.dealOrderFinish(order, isfirst);
 			transferService.addTransfer(order);
 		}
 	}

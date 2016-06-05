@@ -1,5 +1,7 @@
 package com.walkersoft.appmanager.manager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +15,12 @@ import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.appmanager.dao.AppDao;
 import com.walkersoft.appmanager.dao.AppMarketDao;
 import com.walkersoft.appmanager.entity.AppEntity;
+import com.walkersoft.appmanager.entity.AppGroup;
 import com.walkersoft.appmanager.entity.AppMarketEntity;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
+import com.walkersoft.system.entity.UserCoreEntity;
+import com.walkersoft.system.pojo.SysOperatorImp;
+import com.walkersoft.system.pojo.UserGroup;
 
 @Service("appManager")
 public class AppManagerImpl {
@@ -119,5 +125,26 @@ public class AppManagerImpl {
 	 */
 	public List<Map<String, Object>> queryAllAppList() {
 		return appDao.getAllAppList();
+	}
+
+	/**
+	 * 查询登录用户的appid列表
+	 * @param userId
+	 * @return
+	 */
+	public List<String> queryUserAppList(String userId) {
+		List<String> appList = new ArrayList<String>();
+		List<Map<String, Object>> list = queryAppListByUser(userId);
+		if(list != null){
+			for(Map<String, Object> app : list){
+				appList.add(app.get("appid").toString());
+			}
+		}
+		return appList;
+	}
+
+	public void execSaveUserApps(String userId, List<String> appList) {
+		appDao.deleteUserAppByUserId(userId);
+		appDao.insertUserAppByUserId(userId, appList);
 	}
 }

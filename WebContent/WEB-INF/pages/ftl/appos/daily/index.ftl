@@ -5,34 +5,34 @@
 <title>应用渠道管理</title>
 <link href="${ctx}/style/${style}/css.css" type="text/css" rel="stylesheet"/>
 <link href="${ctx}/style/${style}/layer.css" type="text/css" rel="stylesheet"/>
-
-<script type="text/javascript" src="${ctx}/script/public.js"></script>
 <script type="text/javascript" src="${ctx}/script/lib/jquery-core.js"></script>
+<script type="text/javascript" src="${ctx}/script/public.js"></script>
 <script type="text/javascript" src="${ctx}/script/lib/layer/layer.min.js"></script>
+<script type="text/javascript" src="${ctx}/script/lib/select/jquery.cxselect.min.js"></script>
 <script type="text/javascript">
 
 $(function(){
 	
 });
 
-/*
 //重新加载业务分页列表，即：点击分页条的方法
-function query(offset){
+function reload(offset){
 	//拼json参数
 	var sel=document.getElementsByName("queryappid")[0];
-	var selvalue= sel.options[sel.options.selectedIndex].value//你要的值
+	var selvalue= sel.options[sel.options.selectedIndex].value;//你要的值
 
 	//alert(selvalue);
-	params = {"appid", selvalue};
-	doReloadPage(0, "${ctx}/appos/daily/index.do", params);
+	var params = {appid:selvalue};
+	doReloadPage(offset, "${ctx}/permit/appos/daily/reload.do", params);
 }
-*/
+
 
 function query(){
 	var sel=document.getElementsByName("queryappid")[0];
-	var selvalue= sel.options[sel.options.selectedIndex].value//你要的值
+	var selvalue= sel.options[sel.options.selectedIndex].value;//你要的值
 	
-	window.location.href = "${ctx}/appos/daily/index.do?appid="+selvalue;
+	var params = {appid:selvalue};
+	doReloadPage(1, "${ctx}/permit/appos/daily/reload.do", params);
 }
 
 
