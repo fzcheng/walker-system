@@ -1,9 +1,11 @@
 package com.walkersoft.appmanager.manager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import oracle.sql.DATE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,15 +14,15 @@ import com.walker.db.page.support.GenericPager;
 import com.walker.infrastructure.utils.Assert;
 import com.walker.infrastructure.utils.NumberGenerator;
 import com.walker.infrastructure.utils.StringUtils;
+import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.dao.AppDao;
 import com.walkersoft.appmanager.dao.AppMarketDao;
 import com.walkersoft.appmanager.entity.AppEntity;
-import com.walkersoft.appmanager.entity.AppGroup;
 import com.walkersoft.appmanager.entity.AppMarketEntity;
+import com.walkersoft.appmanager.entity.StrategyCondition;
+import com.walkersoft.appmanager.entity.StrategyEntity;
+import com.walkersoft.appmanager.entity.StrategyGroupDetailEntity;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
-import com.walkersoft.system.entity.UserCoreEntity;
-import com.walkersoft.system.pojo.SysOperatorImp;
-import com.walkersoft.system.pojo.UserGroup;
 
 @Service("appManager")
 public class AppManagerImpl {
@@ -30,6 +32,9 @@ public class AppManagerImpl {
 	
 	@Autowired
 	private AppMarketDao appmarketDao;
+	
+	@Autowired
+	private StrategyDetailManagerImpl strategyDetailManager;
 	
 	public GenericPager<AppEntity> queryPageList(String userId){
 		return appDao.queryPageList(userId);
@@ -64,22 +69,104 @@ public class AppManagerImpl {
 		//appCacheProvider.removeCacheData(appid);
 	}
 
-	public QuerySdkIdResult queryAppSdkId(String appid, int market) {
+	public QuerySdkIdResult queryAppSdkId(String appid, int market, int locationid) {
 		
-		AppMarketEntity set = appmarketDao.querySingle(appid, market);
+		AppMarketEntity appMarket = appmarketDao.querySingle(appid, market);
 		
 		QuerySdkIdResult r = new QuerySdkIdResult();
-		if(set != null)
-		{	
-			r.setCode(200);
-			r.setSdkId(set.getSdkid());
+		if(appMarket != null)
+		{
+			int strategyGroupId = appMarket.getStratety_groupid();
+			if(strategyGroupId > 0)
+			{
+				int sdkid = BaseConstant.M_SDK;
+				List<StrategyGroupDetailEntity> detailList = strategyDetailManager.queryGroupDetailPageList(strategyGroupId).getDatas();
+				for(StrategyGroupDetailEntity e : detailList)
+				{
+					if(e.getIsuse() == 1)
+					{
+						StrategyEntity strategy = strategyDetailManager.queryStrategy(e.getStrategy_id());
+						//根据时间端 区域 百分比 判断是否满足条件
+						Date curtime = new Date();
+						if(isCompareCondition(strategy, curtime, locationid))
+						{
+							sdkid = strategy.getSdkid();
+							break;
+						}
+					}
+				}
+				
+				r.setCode(200);
+				r.setSdkId(sdkid);
+			}
+			else
+			{
+				r.setCode(200);
+				r.setSdkId( BaseConstant.M_SDK);
+			}
 		}
 		else
 		{
 			r.setCode(200);
-			r.setSdkId(1);
+			r.setSdkId( BaseConstant.M_SDK);
 		}
 		return r;
+	}
+
+	//根据时间端 区域 百分比 判断是否满足 strategy条件
+	private boolean isCompareCondition(StrategyEntity strategy, Date curtime,
+			int locationid) {
+		
+		List<StrategyCondition> cList = new ArrayList<StrategyCondition>();
+		
+		if(strategy.getType1() > 0)
+		{
+			StrategyCondition c = new StrategyCondition();
+			c.setType(strategy.getType1());
+			c.setValue(strategy.getValue1());
+			cList.add(c);
+		}
+		
+		if(strategy.getType2() > 0)
+		{
+			StrategyCondition c = new StrategyCondition();
+			c.setType(strategy.getType2());
+			c.setValue(strategy.getValue2());
+			cList.add(c);
+		}
+		
+		if(strategy.getType3() > 0)
+		{
+			StrategyCondition c = new StrategyCondition();
+			c.setType(strategy.getType3());
+			c.setValue(strategy.getValue3());
+			cList.add(c);
+		}
+		
+		for(StrategyCondition c : cList)
+		{
+			try{
+				// 1-时段 2-地区 3-百分比
+				if(c.getType() == 1)
+				{
+					//把value转换成时间段list 然后进行判断
+				}
+				else if(c.getType() == 2)
+				{
+					//把value转换成地区id list 然后进行判断
+				}
+				else if(c.getType() == 3)
+				{
+					//直接随机按百分比判断
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public String getAppkey(String appid) {

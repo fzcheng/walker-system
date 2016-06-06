@@ -67,7 +67,7 @@ public class AppMarketAction extends SystemAction {
 		model.addAttribute("id", app.getId());
 		model.addAttribute("appid", app.getAppid());
 		model.addAttribute("market", app.getMarket());
-		model.addAttribute("sdkid", app.getSdkid());
+		model.addAttribute("strategy_group", app.getStratety_groupid());
 		model.addAttribute("create_time", app.getCreate_time());
 		model.addAttribute("last_time", app.getLast_time());
 		model.addAttribute("remark", app.getRemark());

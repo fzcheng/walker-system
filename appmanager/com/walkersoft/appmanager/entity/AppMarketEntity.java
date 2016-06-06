@@ -20,13 +20,13 @@ public class AppMarketEntity {
 	String appid;
 	
 	@Column(name = "market")
-	int market;// 'app码',
+	int market;// 'market',
 	
-	@Column(name = "sdkid")
-	int sdkid;// '应用名称',
+	@Column(name = "stratety_groupid")
+	int stratety_groupid;// '策略组id',
 	
 	@Column(name = "remark")
-	String remark;// '包名',
+	String remark;// '备注',
 	
 	@Column(name = "create_time")
 	long create_time;// '创建时间',
@@ -69,17 +69,16 @@ public class AppMarketEntity {
 	public void setMarket(int market) {
 		this.market = market;
 	}
-	public int getSdkid() {
-		return sdkid;
-	}
-	public void setSdkid(int sdkid) {
-		this.sdkid = sdkid;
-	}
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
+	public int getStratety_groupid() {
+		return stratety_groupid;
+	}
+	public void setStratety_groupid(int stratety_groupid) {
+		this.stratety_groupid = stratety_groupid;
+	}
 }

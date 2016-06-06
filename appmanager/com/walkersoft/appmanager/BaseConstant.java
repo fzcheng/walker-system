@@ -22,4 +22,8 @@ public class BaseConstant {
 //			其他=807
 	public static final int PAYCHANNEL_TEN = 801;
 	public static final int PAYCHANNEL_ALI = 802;
+	
+	//SDK 
+	public static final int YEE_SDK = 1;//YEESDK
+	public static final int M_SDK = 2;//内置sdk
 }
