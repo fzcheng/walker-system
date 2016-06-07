@@ -69,7 +69,8 @@ public class ApplicationResourceLoader implements ResourceLoadProvider {
 				}
 				// 每个URL都加上对超级管理员的支持
 //				caList.add(supervisorCA);
-				resultMap.put(entry.getKey(), caList);
+				if(!"".equals(entry.getKey()))
+					resultMap.put(entry.getKey(), caList);
 			}
 //			return resultMap;
 		}
@@ -78,8 +79,8 @@ public class ApplicationResourceLoader implements ResourceLoadProvider {
 		if(defaultAttributes != null){
 			resultMap.putAll(defaultAttributes);
 		}
-		logger.debug("加载的资源权限: " + urlRoleMap);
-		logger.debug("组装好的对象     : " + resultMap);
+		logger.debug("urlRoleMap    : " + urlRoleMap);
+		logger.debug("resultMap     : " + resultMap);
 		return resultMap;
 	}
 	

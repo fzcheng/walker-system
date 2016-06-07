@@ -106,29 +106,30 @@ public class IndexAction extends SystemAction {
 				html.append("</p>");
 				html.append("<div class=\"menu_line\"></div>");
 				html.append("<div class=\"menu_body\">");
-				for(FunctionObj fo : fg.getItemList()){
-					html.append("<div class=\"menu_content\">");
-					html.append("<a id=\"");
-					html.append(fo.getId());
-					html.append("\" href=\"####\" onclick=\"smenuOpen('");
-					html.append(this.getContextPath());
-					html.append(fo.getUrl());
-					html.append(MENU_HTML_5);
-					html.append(fo.getId());
-					html.append("','");
-					html.append(fo.getId());
-					
-					//添加菜单组、菜单项名称两个参数
-					html.append("', '");
-					html.append(fg.getName());
-					html.append("', '");
-					html.append(fo.getName());
-					
-					html.append("')\">");
-					html.append("<label class=\"menu_tip\">▪</label>");
-					html.append(fo.getName());
-					html.append("</a></div>");
-				}
+				if(fg.getItemList() != null)
+					for(FunctionObj fo : fg.getItemList()){
+						html.append("<div class=\"menu_content\">");
+						html.append("<a id=\"");
+						html.append(fo.getId());
+						html.append("\" href=\"####\" onclick=\"smenuOpen('");
+						html.append(this.getContextPath());
+						html.append(fo.getUrl());
+						html.append(MENU_HTML_5);
+						html.append(fo.getId());
+						html.append("','");
+						html.append(fo.getId());
+						
+						//添加菜单组、菜单项名称两个参数
+						html.append("', '");
+						html.append(fg.getName());
+						html.append("', '");
+						html.append(fo.getName());
+						
+						html.append("')\">");
+						html.append("<label class=\"menu_tip\">▪</label>");
+						html.append(fo.getName());
+						html.append("</a></div>");
+					}
 				html.append("</div>");
 			}
 			this.ajaxOutPutText(html);

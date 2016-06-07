@@ -17,7 +17,7 @@ public class StrategyGroupEntity {
 	String remark;//
 	
 	@Id
-	@Column(name="id", length=11)
+	@Column(name="group_id", length=11)
 	public int getGroup_id() {
 		return group_id;
 	}

@@ -189,6 +189,10 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 		<beans:property name="resourceLoaderProvider" ref="applicationResourceLoader"/>
 	</beans:bean>
 	
+	<!-- <beans:bean id="mySecurityMetadataSource" class="com.walker.test.MySecurityMetadataSource">
+		<beans:property name="resourceLoaderProvider" ref="applicationResourceLoader"/>
+	</beans:bean> -->
+	
 	<beans:bean id="myAccessDecisionManager" class="com.walker.web.security.MyAccessDecisionManager"/>
 	
 	<beans:bean id="mySecurityFilter" class="com.walker.web.security.MySecurityFilter">

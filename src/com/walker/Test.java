@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.walkersoft.appmanager.util.DateUtil;
+
 public class Test {
 
 	private static final int COUNT = 1000;
@@ -32,14 +34,16 @@ public class Test {
 //		System.out.println("2: " + new Date(time + year));
 //		
 //		System.out.println("3: " + new Date(1388640370000L));
-		while(true){
-			MyData md = null;
-			List<MyData> list = new ArrayList<MyData>(COUNT);
-			for(Iterator<MyData> it = cachedData.values().iterator(); it.hasNext();){
-				list.add(it.next());
-			}
-			System.out.println(".......... 处理了一次数据: " + list.size());
-		}
+		
+//		while(true){
+//			MyData md = null;
+//			List<MyData> list = new ArrayList<MyData>(COUNT);
+//			for(Iterator<MyData> it = cachedData.values().iterator(); it.hasNext();){
+//				list.add(it.next());
+//			}
+//			System.out.println(".......... 处理了一次数据: " + list.size());
+//		}
+		System.out.println(DateUtil.getCurrentWeekDay_int());
 	}
 	
 	private static class MyData {

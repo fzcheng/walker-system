@@ -156,7 +156,7 @@ public class SDKAction extends SystemAction {
 		
 		int market = Integer.valueOf(marketStr);
 		
-		QuerySdkIdResult r = appManager.queryAppSdkId(appid, market);
+		QuerySdkIdResult r = appManager.queryAppSdkId(appid, market, 0);
 		
 		return JacksonUtil.getJsonString4JavaPOJO(r);
 	}

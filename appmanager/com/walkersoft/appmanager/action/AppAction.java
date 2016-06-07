@@ -106,7 +106,7 @@ public class AppAction extends SystemAction {
 		logger.debug(entity);
 		try{
 			appManager.execSave(entity);
-			systemLog(LOG_MSG_APPADD + entity.getAppname(), LogType.Delete);
+			systemLog(LOG_MSG_APPADD + entity.getAppname(), LogType.Add);
 			this.ajaxOutPutText(MESSAGE_SUCCESS);
 		} catch(ApplicationRuntimeException ae){
 			this.ajaxOutPutText(ae.getMessage());

@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import oracle.sql.DATE;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +17,13 @@ import com.walkersoft.appmanager.dao.AppDao;
 import com.walkersoft.appmanager.dao.AppMarketDao;
 import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.AppMarketEntity;
+import com.walkersoft.appmanager.entity.ConditionDate;
+import com.walkersoft.appmanager.entity.ConditionLocation;
 import com.walkersoft.appmanager.entity.StrategyCondition;
 import com.walkersoft.appmanager.entity.StrategyEntity;
 import com.walkersoft.appmanager.entity.StrategyGroupDetailEntity;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
+import com.walkersoft.appmanager.util.RandomUtil;
 
 @Service("appManager")
 public class AppManagerImpl {
@@ -149,15 +150,52 @@ public class AppManagerImpl {
 				// 1-时段 2-地区 3-百分比
 				if(c.getType() == 1)
 				{
+					boolean isIn = false;
 					//把value转换成时间段list 然后进行判断
+					List<ConditionDate> l = c.getConditionDate();
+					for(ConditionDate cd : l)
+					{
+						if(cd.isContain(curtime))
+						{
+							isIn = true;
+							break;
+						}
+					}
+					
+					if(isIn == false)
+					{
+						return false;
+					}
 				}
 				else if(c.getType() == 2)
 				{
 					//把value转换成地区id list 然后进行判断
+					boolean isIn = false;
+					//把value转换成时间段list 然后进行判断
+					List<ConditionLocation> l = c.getConditionLocation();
+					for(ConditionLocation cd : l)
+					{
+						if(cd.getLocation() == locationid)
+						{
+							isIn = true;
+							break;
+						}
+					}
+					
+					if(isIn == false)
+					{
+						return false;
+					}
 				}
 				else if(c.getType() == 3)
 				{
+					int br = Integer.valueOf(c.getValue());
 					//直接随机按百分比判断
+					int r = RandomUtil.getIntRandom(100);
+					if(r >= br)
+					{
+						return false;
+					}
 				}
 			}
 			catch(Exception e)
