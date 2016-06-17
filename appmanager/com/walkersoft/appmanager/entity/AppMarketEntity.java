@@ -1,8 +1,12 @@
 package com.walkersoft.appmanager.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,54 +18,55 @@ import javax.persistence.Table;
 @Table(name = "yl_app_market")
 public class AppMarketEntity {
 
+	@Id
+	@Column(name="id", length=11)
 	int id;
 	
-	@Column(name="appid", length=36)
-	String appid;
+	//@Column(name="appid", length=36)
+	//String appid;
 	
 	@Column(name = "market")
 	int market;// 'market',
 	
-	@Column(name = "stratety_groupid")
-	int stratety_groupid;// '策略组id',
+	//@Column(name = "strategy_groupid")
+	@ManyToOne(targetEntity = StrategyGroupEntity.class)
+    @JoinColumn(name = "strategy_groupid", referencedColumnName = "group_id")
+	StrategyGroupEntity strategyGroup;
+	
+	@Column(name = "seq")
+	int seq;// 'market',
 	
 	@Column(name = "remark")
 	String remark;// '备注',
 	
 	@Column(name = "create_time")
-	long create_time;// '创建时间',
+	Timestamp create_time;// '创建时间',
 	
 	@Column(name = "last_time")
-	long last_time;// '最后修改时间',
+	Timestamp last_time;// '最后修改时间',
 
-	public long getCreate_time() {
+	@ManyToOne(targetEntity = AppEntity.class)
+    @JoinColumn(name = "appid", referencedColumnName = "appid")
+	AppEntity app;
+	
+	public Timestamp getCreate_time() {
 		return create_time;
 	}
-	public void setCreate_time(long create_time) {
+	public void setCreate_time(Timestamp create_time) {
 		this.create_time = create_time;
 	}
-	public long getLast_time() {
+	public Timestamp getLast_time() {
 		return last_time;
 	}
-	public void setLast_time(long last_time) {
+	public void setLast_time(Timestamp last_time) {
 		this.last_time = last_time;
 	}
 	
-	
-	@Id
-	@Column(name="id", length=11)
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public String getAppid() {
-		return appid;
-	}
-	public void setAppid(String id) {
-		this.appid = id;
 	}
 	public int getMarket() {
 		return market;
@@ -75,10 +80,22 @@ public class AppMarketEntity {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getStratety_groupid() {
-		return stratety_groupid;
+	public int getSeq() {
+		return seq;
 	}
-	public void setStratety_groupid(int stratety_groupid) {
-		this.stratety_groupid = stratety_groupid;
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public AppEntity getApp() {
+		return app;
+	}
+	public void setApp(AppEntity app) {
+		this.app = app;
+	}
+	public StrategyGroupEntity getStrategyGroup() {
+		return strategyGroup;
+	}
+	public void setStrategyGroup(StrategyGroupEntity strategyGroup) {
+		this.strategyGroup = strategyGroup;
 	}
 }

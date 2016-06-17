@@ -1,10 +1,12 @@
 package com.walkersoft.application;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.walker.infrastructure.utils.StringUtils;
@@ -13,6 +15,7 @@ import com.walkersoft.application.log.MyLogDetail.LogType;
 import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.application.util.DepartmentUtils;
 import com.walkersoft.system.entity.UserCoreEntity;
+import com.walkersoft.system.manager.FunctionManagerImpl;
 import com.walkersoft.system.pojo.AppGroup;
 
 /**
@@ -24,6 +27,9 @@ public class SpringControllerSupport extends WebContextAction {
 	
 	protected static final Log logger = LogFactory.getLog(SpringControllerSupport.class);
 
+	@Autowired
+	FunctionManagerImpl functionManager;
+	
 	/**
 	 * 定义系统响应成功标志，浏览器端使用
 	 */
@@ -108,6 +114,23 @@ public class SpringControllerSupport extends WebContextAction {
 	protected void setUserPointers(Model model){
 		String fid = this.getParameter(PARAMETER_NAME_FID);
 		if(StringUtils.isEmpty(fid)){
+			//根据请求连接 查找出fid
+			String path = this.getRequest().getServletPath();
+			logger.info("path: " + path);
+			
+			if(path != null)
+			{
+				try {
+					fid = functionManager.queryFidByUrl(path);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		if(StringUtils.isEmpty(fid)){
+			Map<String, String> pointers = new HashMap<String, String>();
+			model.addAttribute(NAME_POINTER_MAP, pointers);
 			logger.debug("无法找到菜单链接传入的'fid'参数。");
 			return;
 		}

@@ -33,6 +33,18 @@ public class FunctionManagerImpl {
 	}
 	
 	/**
+	 * 根据url 查找 fid
+	 * @param url
+	 * @return
+	 */
+	public String queryFidByUrl(String url) throws Exception{
+		FunctionObj f = functionDao.queryFidByUrl(url);
+		if(f != null)
+			return f.getId();
+		return null;
+	}
+	
+	/**
 	 * 返回该角色对应的所有用户ID
 	 * @param roleId
 	 * @return

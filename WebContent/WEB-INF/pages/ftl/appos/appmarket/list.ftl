@@ -3,9 +3,9 @@
 	    <td width="50px">
 	    	<input type="checkbox"  onclick="checkAllOrNone(this)" class="check_box"/>
 	    </td>
-	    <td width="180px">appid</td>
-	    <td width="150px">market</td>
-	    <td width="150px">sdkid</td>
+	    <td width="180px">应用名</td>
+	    <td width="150px">渠道</td>
+	    <td width="150px">策略组名称</td>
 	    <td width="100px">备注</td>
 	    <td width="70px">创建时间</td>
 	    <td width="70px">修改时间</td>
@@ -16,9 +16,12 @@
 	    <td>
 	    	<input name="ids" type="checkbox" value="${app.id}" class="check_box" />
 	    </td>
-	    <td>${app.appid}</td>
+	    <td>${app.app.appname}</td>
 	    <td>${app.market}</td>
-	    <td>${app.sdkid}</td>
+	    <td>
+			
+			<a href="javascript:;" onclick="popStrategyDialog('${app.strategyGroup.group_id}');">${app.strategyGroup.group_name}</a>
+	    </td>
 	    <td>${app.remark}</td>
 	    <td>${app.create_time}</td>
 	    <td>${app.last_time}</td>

@@ -29,6 +29,11 @@ public class StrategyDetailManagerImpl {
 		return strategyGroupDetailDao.queryPageList(groupid);
 	}
 
+	//group detail
+		public GenericPager<StrategyGroupDetailEntity> queryGroupDetailPageList(){
+			return strategyGroupDetailDao.queryPageList();
+		}
+		
 	public void execSaveGroupDetail(StrategyGroupDetailEntity entity) {
 		Assert.notNull(entity);
 

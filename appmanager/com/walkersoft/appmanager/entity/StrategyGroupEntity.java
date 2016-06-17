@@ -7,8 +7,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "yl_strategy_group")
-public class StrategyGroupEntity {
+public class StrategyGroupEntity  implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 925564022276697390L;
+
+	@Id
+	@Column(name="group_id", length=11)
 	int group_id;
 	
 	@Column(name = "group_name")
@@ -16,8 +23,7 @@ public class StrategyGroupEntity {
 	@Column(name = "remark")
 	String remark;//
 	
-	@Id
-	@Column(name="group_id", length=11)
+	
 	public int getGroup_id() {
 		return group_id;
 	}

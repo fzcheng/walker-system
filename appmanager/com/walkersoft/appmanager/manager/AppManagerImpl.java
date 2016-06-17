@@ -72,39 +72,44 @@ public class AppManagerImpl {
 
 	public QuerySdkIdResult queryAppSdkId(String appid, int market, int locationid) {
 		
-		AppMarketEntity appMarket = appmarketDao.querySingle(appid, market);
+		List<AppMarketEntity> appMarketList = appmarketDao.queryList(appid, market);
 		
 		QuerySdkIdResult r = new QuerySdkIdResult();
-		if(appMarket != null)
+		if(appMarketList != null && appMarketList.size() > 0)
 		{
-			int strategyGroupId = appMarket.getStratety_groupid();
-			if(strategyGroupId > 0)
+			int sdkid = BaseConstant.M_SDK;
+			boolean isMatch = false;
+			for(AppMarketEntity appMarket: appMarketList)
 			{
-				int sdkid = BaseConstant.M_SDK;
-				List<StrategyGroupDetailEntity> detailList = strategyDetailManager.queryGroupDetailPageList(strategyGroupId).getDatas();
-				for(StrategyGroupDetailEntity e : detailList)
+				int strategyGroupId = appMarket.getStrategyGroup().getGroup_id();
+				if(strategyGroupId > 0)
 				{
-					if(e.getIsuse() == 1)
+					List<StrategyGroupDetailEntity> detailList = strategyDetailManager.queryGroupDetailPageList(strategyGroupId).getDatas();
+					for(StrategyGroupDetailEntity e : detailList)
 					{
-						StrategyEntity strategy = strategyDetailManager.queryStrategy(e.getStrategy_id());
-						//根据时间端 区域 百分比 判断是否满足条件
-						Date curtime = new Date();
-						if(isCompareCondition(strategy, curtime, locationid))
+						if(e.getIsuse() == 1)
 						{
-							sdkid = strategy.getSdkid();
-							break;
+							StrategyEntity strategy = e.getStrategy();
+							//根据时间端 区域 百分比 判断是否满足条件
+							Date curtime = new Date();
+							if(isCompareCondition(strategy, curtime, locationid))
+							{
+								sdkid = strategy.getSdkid();
+								isMatch = true;
+								break;
+							}
 						}
 					}
+					
+					if(isMatch)
+					{
+						break;
+					}
 				}
-				
-				r.setCode(200);
-				r.setSdkId(sdkid);
 			}
-			else
-			{
-				r.setCode(200);
-				r.setSdkId( BaseConstant.M_SDK);
-			}
+			
+			r.setCode(200);
+			r.setSdkId(sdkid);
 		}
 		else
 		{

@@ -383,4 +383,16 @@ public class FunctionDao extends SQLDaoSupport<FunctionObj> {
 	public void updateFunctionPointers(String selectIds, String functionId){
 		this.update(SQL_UPDATE_FUNCTION_P, new Object[]{selectIds, functionId});
 	}
+
+	
+	private static final String SQL_QUERY_FID_BY_URL = "select * from s_function where URL = ?";
+	/**
+	 * 根据url 查找 fid
+	 * @param url
+	 * @return
+	 */
+	public FunctionObj queryFidByUrl(String url) {
+		return this.getJdbcTemplate().queryForObject(SQL_QUERY_FID_BY_URL, new Object[]{url}, rowMapper);
+		//return null;
+	}
 }

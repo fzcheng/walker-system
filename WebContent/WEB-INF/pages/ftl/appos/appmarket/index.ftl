@@ -52,6 +52,13 @@ function deleteAppMarketWnd()
 	}
 
 }
+
+//弹出策略详情
+function popStrategyDialog(groupId){
+	//popModalDialog("策略详情", "${ctx}/permit/appos/strategy/reloadGroup.do?groupid="+groupId, "900px", "600px");
+	
+	window.location.href = "${ctx}/appos/strategy/groupdetail.do?groupid="+groupId;
+}
 </script>
 </head>
 <body>

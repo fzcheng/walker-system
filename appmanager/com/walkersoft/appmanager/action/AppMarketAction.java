@@ -65,9 +65,9 @@ public class AppMarketAction extends SystemAction {
 		AppMarketEntity app = appmarketManager.queryAppMarket(id);
 		
 		model.addAttribute("id", app.getId());
-		model.addAttribute("appid", app.getAppid());
+		model.addAttribute("app", app.getApp());
 		model.addAttribute("market", app.getMarket());
-		model.addAttribute("strategy_group", app.getStratety_groupid());
+		model.addAttribute("strategy_group", app.getStrategyGroup());
 		model.addAttribute("create_time", app.getCreate_time());
 		model.addAttribute("last_time", app.getLast_time());
 		model.addAttribute("remark", app.getRemark());
@@ -81,7 +81,7 @@ public class AppMarketAction extends SystemAction {
 		logger.debug(entity);
 		try{
 			appmarketManager.execSave(entity);
-			systemLog(LOG_MSG_APPADD + entity.getAppid(), LogType.Delete);
+			systemLog(LOG_MSG_APPADD + entity.getApp().getAppid(), LogType.Delete);
 			this.ajaxOutPutText(MESSAGE_SUCCESS);
 		} catch(ApplicationRuntimeException ae){
 			this.ajaxOutPutText(ae.getMessage());
@@ -94,7 +94,7 @@ public class AppMarketAction extends SystemAction {
 		logger.debug(entity);
 		try{
 			appmarketManager.execUpdate(entity);
-			systemLog(LOG_MSG_APPADD + entity.getAppid(), LogType.Edit);
+			systemLog(LOG_MSG_APPADD + entity.getApp().getAppid(), LogType.Edit);
 			this.ajaxOutPutText(MESSAGE_SUCCESS);
 		} catch(ApplicationRuntimeException ae){
 			this.ajaxOutPutText(ae.getMessage());

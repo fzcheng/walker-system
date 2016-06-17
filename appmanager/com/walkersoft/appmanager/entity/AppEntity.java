@@ -12,8 +12,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "yl_app")
-public class AppEntity {
+public class AppEntity implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="id", length=11)
 	int id;
 	
 	@Column(name="appid", length=36)
@@ -85,10 +92,6 @@ public class AppEntity {
 	public void setLast_time(long last_time) {
 		this.last_time = last_time;
 	}
-	
-	
-	@Id
-	@Column(name="id", length=11)
 	public int getId() {
 		return id;
 	}

@@ -161,6 +161,18 @@ public class StrategyAction extends SystemAction {
 		this.setUserApps(model);
 		setUserPointers(model);
 		
+		String groupid = this.getParameter("groupid");
+		if(groupid != null && !groupid.equals(""))
+		{
+			model.addAttribute("groupid", groupid);
+			loadList(model, strategyDetailManager.queryGroupDetailPageList(Integer.valueOf(groupid)));
+		}
+		else
+		{
+			model.addAttribute("groupid", 0);
+			loadList(model, strategyDetailManager.queryGroupDetailPageList());
+		}
+		
 		return APP_BASE_URL + "groupdetail";
 	}
 	

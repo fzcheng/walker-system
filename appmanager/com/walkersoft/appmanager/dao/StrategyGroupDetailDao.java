@@ -15,4 +15,7 @@ public class StrategyGroupDetailDao extends SQLDaoSupport<StrategyGroupDetailEnt
 		return this.queryForpage(HQL_GROUPID, new Object[]{groupid}, Sorts.ASC().setField("seq"));
 	}
 	
+	public GenericPager<StrategyGroupDetailEntity> queryPageList() {
+		return this.queryForEntityPage();
+	}
 }
