@@ -100,4 +100,19 @@ public class StrategyEntity {
 	public void setWxtype(int wxtype) {
 		this.wxtype = wxtype;
 	}
+	
+	
+	//条件－－时间段
+	public void setTimeDetail(String[] s) {
+	}
+	public String[] getTimeDetail() {
+		return new String[]{"1", "2", "3"};
+	}
+	
+	//条件－－区域－－省
+	public void setProvinceDetail(String[] s) {
+	}
+	public String[] getProvinceDetail() {
+		return new String[]{"1", "2", "3"};
+	}
 }

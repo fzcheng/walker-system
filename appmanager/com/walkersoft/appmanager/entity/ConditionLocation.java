@@ -1,8 +1,10 @@
 package com.walkersoft.appmanager.entity;
 
+import com.walkersoft.appmanager.util.ProvinceUtil;
+
 
 public class ConditionLocation {
-
+	
 	int location;
 
 	public int getLocation() {
@@ -13,4 +15,7 @@ public class ConditionLocation {
 		this.location = location;
 	}
 
+	public String getPname() {
+		return ProvinceUtil.getInstance().getProviceName(location);
+	}
 }

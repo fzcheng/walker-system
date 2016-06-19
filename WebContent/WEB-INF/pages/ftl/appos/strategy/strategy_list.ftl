@@ -24,11 +24,18 @@
 		    <#if (app.type1 == 0)>
 			  	无
 		  	<#elseif (app.type1 == 1)>
-			  	时间段条件
+			  	时间段条件:
+			  	<#list app.timeDetail as t>  
+					<li>${t}</li>
+				</#list>
+			  	
 		  	<#elseif (app.type1 == 2)>
-			  	区域条件
+			  	区域条件:
+			  	<#list app.provinceDetail as t>  
+					<li>${t}</li>
+				</#list>
 			<#elseif (app.type1 == 3)>
-			  	比例条件
+			  	比例条件:
 		  	</#if>
 		</td>
 		
