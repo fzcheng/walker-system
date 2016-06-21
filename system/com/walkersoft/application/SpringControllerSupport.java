@@ -14,6 +14,7 @@ import com.walker.web.view.WebContextAction;
 import com.walkersoft.application.log.MyLogDetail.LogType;
 import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.application.util.DepartmentUtils;
+import com.walkersoft.appmanager.util.ProvinceUtil;
 import com.walkersoft.system.entity.UserCoreEntity;
 import com.walkersoft.system.manager.FunctionManagerImpl;
 import com.walkersoft.system.pojo.AppGroup;
@@ -180,5 +181,10 @@ public class SpringControllerSupport extends WebContextAction {
 			model.addAttribute(NAME_APP_MAP, appgroup);
 		} else
 			logger.debug("该用户没有配置任何应用权限或者不存在权限: " + userDetails.getUsername());
+	}
+	
+	protected void setProvince(Model model)
+	{
+		model.addAttribute("provinces", ProvinceUtil.p);
 	}
 }

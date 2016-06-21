@@ -24,7 +24,7 @@ function reload(offset){
 
 //创建授权页面
 function showAddStrategyWnd(){
-	popDefaultDialog('添加策略组', '${ctx}/permit/appos/strategy/showAddStrategyItem.do');
+	popDefaultDialog('添加策略', '${ctx}/permit/appos/strategy/showAddStrategyItem.do');
 }
 
 //创建授权页面
@@ -35,7 +35,7 @@ function showUpdateStrategyWnd(){
 		return;
 	}
 	
-	popDefaultDialog('编辑策略组', '${ctx}/permit/appos/strategy/showUpdateStrategyItem.do?id='+selected[0]);
+	popDefaultDialog('编辑策略', '${ctx}/permit/appos/strategy/showUpdateStrategyItem.do?id='+selected[0]);
 }
 
 function deleteStrategyWnd()
@@ -45,7 +45,7 @@ function deleteStrategyWnd()
 		alert("请选择一条数据。");
 		return;
 	}
-	if(window.confirm("确定要删除策略组么")){
+	if(window.confirm("确定要删除策略么")){
 		requestAjax("${ctx}/appos/strategy/delStrategy.do", {"id":selected[0]}, function(data){
 			reload(0);
 		});
@@ -53,13 +53,15 @@ function deleteStrategyWnd()
 }
 
 //获取条件类型名称
-function getConditionTypeName(int type)
+function getConditionTypeName( type)
 {
 }
 </script>
 </head>
 <body>
 
+<s:checkboxlist name="sds"  list="{'一辉','撒卡','童虎','加隆'}" label="区域条件">
+			</s:checkboxlist>
 <table border="0" cellpadding="0" cellspacing="0" class="table-form">
 	<tr class="title">
 		<td>

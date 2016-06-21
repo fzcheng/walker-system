@@ -6,10 +6,10 @@ import java.util.Map;
 public class ProvinceUtil {
 
 	static ProvinceUtil self = null;
-	Map<Integer, String> provinceNames = new HashMap<Integer, String>();
-	Map<String, Integer> provinceIds = new HashMap<String, Integer>();
+	private static Map<Integer, String> provinceNames = new HashMap<Integer, String>();
+	private static Map<String, Integer> provinceIds = new HashMap<String, Integer>();
 	
-	final Object p[][] = { 
+	public static final Object p[][] = { 
 			{ 1, "北京" }, { 2, "上海" }, { 3, "天津" },
 			{ 4, "重庆" }, { 5, "黑龙江" }, { 6, "吉林" }, { 7, "辽宁" },
 			{ 8, "内蒙古" }, { 9, "河北" }, { 10, "山西" }, { 11, "陕西" },

@@ -111,6 +111,7 @@ public class StrategyAction extends SystemAction {
 		
 		this.setUserApps(model);
 		setUserPointers(model);
+		setProvince(model);
 		loadList(model, strategyDetailManager.queryStrategyPageList());
 		return APP_BASE_URL + "strategy_add";
 	}

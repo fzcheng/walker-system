@@ -22,20 +22,6 @@ function reload(offset){
 	doReloadPage(offset, "${ctx}/permit/appos/order/reload.do", params);
 }
 
-function deleteOrderWnd()
-{
-	var selected = getCheckValue("ids");
-	if(selected == null || selected.length > 1){
-		alert("请选择一条数据。");
-		return;
-	}
-	if(window.confirm("确定要删除应用么")){
-		requestAjax("${ctx}/appos/order/delOrder.do", {"id":selected[0]}, function(data){
-			reload(0);
-		});
-	}
-
-}
 </script>
 </head>
 <body>

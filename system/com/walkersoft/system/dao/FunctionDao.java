@@ -392,7 +392,18 @@ public class FunctionDao extends SQLDaoSupport<FunctionObj> {
 	 * @return
 	 */
 	public FunctionObj queryFidByUrl(String url) {
-		return this.getJdbcTemplate().queryForObject(SQL_QUERY_FID_BY_URL, new Object[]{url}, rowMapper);
-		//return null;
+		try {
+			List<FunctionObj> fList = this.getJdbcTemplate().query(SQL_QUERY_FID_BY_URL, new Object[] { url }, rowMapper);
+
+			if (fList != null && fList.size() > 0) {
+				return fList.get(0);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		// return null;
 	}
 }
