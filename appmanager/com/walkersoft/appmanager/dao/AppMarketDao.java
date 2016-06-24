@@ -10,6 +10,7 @@ import com.walker.db.Sorts.Sort;
 import com.walker.db.hibernate.SQLDaoSupport;
 import com.walker.db.page.support.GenericPager;
 import com.walkersoft.appmanager.entity.AppMarketEntity;
+import com.walkersoft.appmanager.entity.DailyEntity;
 
 @Repository("appmarketDao")
 public class AppMarketDao extends SQLDaoSupport<AppMarketEntity> {
@@ -18,19 +19,20 @@ public class AppMarketDao extends SQLDaoSupport<AppMarketEntity> {
 		return this.queryForEntityPage();
 	}
 	
+	private static final String HQL_APPID = "select daily from AppMarketEntity daily where appid=? and market=?";
+//	public GenericPager<DailyEntity> queryByAppid(String curappid) {
+//		return this.queryForpage(HQL_APPID, new Object[]{curappid}, Sorts.DESC().setField("date"));
+//	}
+	
 	public List<AppMarketEntity> queryList(String appid, int market) {
 		PropertyEntry p[] = new PropertyEntry[2];
-		p[0] = new PropertyEntry();
-		p[0].setName("appid");
-		p[0].setValue(appid);
-		
-		p[1] = new PropertyEntry();
-		p[1].setName("market");
-		p[1].setValue(market);
+		p[0] = PropertyEntry.createEQ("appid", appid);
+		p[1] = PropertyEntry.createEQ("market", market);
 		
 		Sort seqSort = Sorts.ASC().setField("seq");
 		//return this.findBy(new String[]{"appid", "market"}, new Object[]{appid, market});
-		return this.findBy(p, new Sort[]{seqSort});
+		//return this.findBy(entityClass, p, new Sort[]{seqSort});
+		return this.queryForpage(HQL_APPID, new Object[]{appid, market}, Sorts.DESC().setField("seq")).getDatas();
 	}
 
 	public AppMarketEntity queryForAppMarketById(int id) {

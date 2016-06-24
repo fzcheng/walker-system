@@ -477,7 +477,7 @@ public class DateUtil {
 			return 0;
 		}
 
-		Date begin_time = strToDate(beginTimestr);
+		Date begin_time = strToTime(beginTimestr);
 		begin_time = formatDate(begin_time, "yyyy-MM-dd HH:mm:ss");
 		end_time = formatDate(end_time, "yyyy-MM-dd HH:mm:ss");
 
@@ -498,7 +498,7 @@ public class DateUtil {
 			return 0;
 		}
 
-		Date end_time = strToDate(endTimeStr);
+		Date end_time = strToTime(endTimeStr);
 		begin_time = formatDate(begin_time, "yyyy-MM-dd HH:mm:ss");
 		end_time = formatDate(end_time, "yyyy-MM-dd HH:mm:ss");
 

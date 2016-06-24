@@ -24,7 +24,7 @@ public class StrategyCondition {
 	public List<ConditionDate> getConditionDate() {
 		List<ConditionDate> l = new ArrayList<ConditionDate> ();
 		String v = getValue();
-		String vs[] = v.split("|");
+		String vs[] = v.split("\\|");
 		for(String t : vs)
 		{
 			String ts[] = t.split(",");
@@ -48,7 +48,7 @@ public class StrategyCondition {
 	public List<ConditionLocation> getConditionLocation() {
 		List<ConditionLocation> l = new ArrayList<ConditionLocation> ();
 		String v = getValue();
-		String vs[] = v.split("|");
+		String vs[] = v.split("\\|");
 		for(String t : vs)
 		{
 			ConditionLocation cd = new ConditionLocation();
