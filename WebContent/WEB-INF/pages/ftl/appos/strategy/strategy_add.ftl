@@ -132,7 +132,9 @@ function changeConditionType(id, type)
   		<td id="valueNone1" style="display: inline">无</td>
   		<tr id="valueTime1" style="display: none">
   			<td>时间段条件</td>
-  			<input type="text"  id="temp" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"/>
+  			<td>
+  				<input type="text" class="Wdate"  id="temp" onClick="WdatePicker({dateFmt:'HH:mm:ss'})"/>
+  			</td>
   		<tr>
   		<tr id="valueLocation1" style="display: none">
   			<td>区域条件</td>
@@ -149,26 +151,26 @@ function changeConditionType(id, type)
   			<td>vip等级</td>
   			<td>
   				区间1：
-				<INPUT type="text" name="vip1_b1" value="0">－
-				<INPUT type="text" name="vip1_e1" value="0">
+				<INPUT type="text" name="vip1_b1" size=12 value="0">－
+				<INPUT type="text" name="vip1_e1" size=12 value="0">
 				<br>
 				区间2：
-				<INPUT type="text" name="vip1_b2" value="0">－
-				<INPUT type="text" name="vip1_e2" value="0">
+				<INPUT type="text" name="vip1_b2" size=12 value="0">－
+				<INPUT type="text" name="vip1_e2" size=12 value="0">
 				<br>
 				区间3：
-				<INPUT type="text" name="vip1_b3" value="0">－
-				<INPUT type="text" name="vip1_e3" value="0">
+				<INPUT type="text" name="vip1_b3" size=12 value="0">－
+				<INPUT type="text" name="vip1_e3" size=12 value="0">
 				<br>
 				区间4：
-				<INPUT type="text" name="vip1_b4" value="0">－
-				<INPUT type="text" name="vip1_e4" value="0">
+				<INPUT type="text" name="vip1_b4" size=12 value="0">－
+				<INPUT type="text" name="vip1_e4" size=12 value="0">
   			</td>	
   		</tr>
   		<tr id="valuePer1" style="display: none">
   			<td>比例</td>
   			<td>
-  				<INPUT type="text" name="per1" value="4">
+  				<INPUT type="text" name="per1" value="0">
   			</td>	
   		</tr>
   	</tr>
