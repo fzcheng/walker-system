@@ -1,0 +1,24 @@
+=====================查询订单=====================
+key:total_fee value:1
+key:mch_id value:7551000001
+key:openid value:oywgtuFTXAtVixCX0SVfYZpVKazk
+key:result_code value:0
+key:time_end value:20160216183642
+key:sign_type value:MD5
+key:bank_type value:CFT
+key:out_transaction_id value:1004820845201602163318105211
+key:appid value:wx1f87d44db95cba7a
+key:is_subscribe value:N
+key:trade_type value:pay.weixin.jspay
+key:out_trade_no value:RJB2016021618362873510690375
+key:charset value:UTF-8
+key:version value:2.0
+key:sub_is_subscribe value:N
+key:sub_openid value:oYxNnuNgeYYvxOncot-kjyM8BjJg
+key:sub_appid value:wxdd0fc60fe4bf072e
+key:fee_type value:CNY
+key:nonce_str value:FCDu5WKhnJlZIU8h
+key:status value:0
+key:transaction_id value:7551000001201602160202208492
+key:sign value:EA086CEF6DEF186047FBAF8516723F2F
+key:trade_state value:SUCCESS

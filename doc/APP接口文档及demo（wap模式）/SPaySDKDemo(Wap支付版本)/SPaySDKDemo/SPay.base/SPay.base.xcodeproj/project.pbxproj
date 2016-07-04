@@ -1,0 +1,635 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF41FA601AFB531C0062D5A2 /* SPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF41FA5F1AFB531C0062D5A2 /* SPBaseNavigationController.m */; };
+		CF41FA671AFB54EA0062D5A2 /* SPBaseSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CF41FA661AFB54EA0062D5A2 /* SPBaseSystem.m */; };
+		CF41FA6B1AFB578D0062D5A2 /* SPBaseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF41FA6A1AFB578D0062D5A2 /* SPBaseAppDelegate.m */; };
+		CF41FA841AFB6E570062D5A2 /* SPBaseUntil.m in Sources */ = {isa = PBXBuildFile; fileRef = CF41FA831AFB6E570062D5A2 /* SPBaseUntil.m */; };
+		CF6D3F0A1AFB0602009AA5BC /* NSArray+PDUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EEE1AFB0602009AA5BC /* NSArray+PDUtilsExtras.m */; };
+		CF6D3F0B1AFB0602009AA5BC /* NSData+EvtUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EF01AFB0602009AA5BC /* NSData+EvtUtilsExtras.m */; };
+		CF6D3F0C1AFB0602009AA5BC /* NSDate+EVTUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EF21AFB0602009AA5BC /* NSDate+EVTUtilsExtras.m */; };
+		CF6D3F0D1AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EF41AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.m */; };
+		CF6D3F0E1AFB0602009AA5BC /* NSObject+COCUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EF61AFB0602009AA5BC /* NSObject+COCUtilsExtras.m */; };
+		CF6D3F0F1AFB0602009AA5BC /* NSString+EVTUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EF81AFB0602009AA5BC /* NSString+EVTUtilsExtras.m */; };
+		CF6D3F101AFB0602009AA5BC /* NSURL+EVTUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EFA1AFB0602009AA5BC /* NSURL+EVTUtilsExtras.m */; };
+		CF6D3F111AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EFC1AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.m */; };
+		CF6D3F121AFB0602009AA5BC /* UIImage+EvtUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3EFE1AFB0602009AA5BC /* UIImage+EvtUtilsExtras.m */; };
+		CF6D3F131AFB0602009AA5BC /* UIAlertView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F011AFB0602009AA5BC /* UIAlertView+Block.m */; };
+		CF6D3F141AFB0602009AA5BC /* UIButton+COCUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F031AFB0602009AA5BC /* UIButton+COCUtilsExtras.m */; };
+		CF6D3F151AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F051AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.m */; };
+		CF6D3F161AFB0602009AA5BC /* UITableView+COCUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F071AFB0602009AA5BC /* UITableView+COCUtilsExtras.m */; };
+		CF6D3F171AFB0602009AA5BC /* UIView+COCUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F091AFB0602009AA5BC /* UIView+COCUtilsExtras.m */; };
+		CF6D3F1B1AFB0846009AA5BC /* SPBaseConst.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F1A1AFB0846009AA5BC /* SPBaseConst.m */; };
+		CF6D3F291AFB147B009AA5BC /* SPBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F281AFB147B009AA5BC /* SPBaseView.m */; };
+		CF6D3F2B1AFB1728009AA5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6D3F2A1AFB1728009AA5BC /* UIKit.framework */; };
+		CF6D3F2E1AFB193E009AA5BC /* SPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F2D1AFB193E009AA5BC /* SPBaseTableViewCell.m */; };
+		CF6D3F311AFB3420009AA5BC /* SPBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F301AFB3420009AA5BC /* SPBaseViewController.m */; };
+		CF6D3F341AFB3438009AA5BC /* SPBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F331AFB3438009AA5BC /* SPBaseTableViewController.m */; };
+		CF6D3F371AFB345E009AA5BC /* SPBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F361AFB345E009AA5BC /* SPBaseCollectionViewCell.m */; };
+		CF6D3F3A1AFB35CF009AA5BC /* SPBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6D3F391AFB35CF009AA5BC /* SPBaseModel.m */; };
+		CF6F98901B03243E007E744E /* NSNumber+SPUtilsExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6F988F1B03243E007E744E /* NSNumber+SPUtilsExtras.m */; };
+		CFC1A28F1B25D8E6006FE700 /* SPBaseLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC1A28E1B25D8E6006FE700 /* SPBaseLineView.m */; };
+		CFCFC1721AF9F5550056F774 /* libSPay.base.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCFC1661AF9F5550056F774 /* libSPay.base.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CFCFC1731AF9F5550056F774 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFCFC15E1AF9F5550056F774 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFCFC1651AF9F5550056F774;
+			remoteInfo = SPay.base;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CFCFC1641AF9F5550056F774 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CF41FA5E1AFB531C0062D5A2 /* SPBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseNavigationController.h; sourceTree = "<group>"; };
+		CF41FA5F1AFB531C0062D5A2 /* SPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseNavigationController.m; sourceTree = "<group>"; };
+		CF41FA651AFB54EA0062D5A2 /* SPBaseSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseSystem.h; sourceTree = "<group>"; };
+		CF41FA661AFB54EA0062D5A2 /* SPBaseSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseSystem.m; sourceTree = "<group>"; };
+		CF41FA691AFB578D0062D5A2 /* SPBaseAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseAppDelegate.h; sourceTree = "<group>"; };
+		CF41FA6A1AFB578D0062D5A2 /* SPBaseAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseAppDelegate.m; sourceTree = "<group>"; };
+		CF41FA821AFB6E570062D5A2 /* SPBaseUntil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseUntil.h; sourceTree = "<group>"; };
+		CF41FA831AFB6E570062D5A2 /* SPBaseUntil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseUntil.m; sourceTree = "<group>"; };
+		CF41FA8B1AFB72FC0062D5A2 /* SPBaseSystemDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseSystemDefine.h; sourceTree = "<group>"; };
+		CF455DA91AFC8D95006AFCA2 /* SPBaseRGBDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseRGBDefine.h; sourceTree = "<group>"; };
+		CF6D3EED1AFB0602009AA5BC /* NSArray+PDUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PDUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EEE1AFB0602009AA5BC /* NSArray+PDUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PDUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EEF1AFB0602009AA5BC /* NSData+EvtUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EvtUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EF01AFB0602009AA5BC /* NSData+EvtUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EvtUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EF11AFB0602009AA5BC /* NSDate+EVTUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+EVTUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EF21AFB0602009AA5BC /* NSDate+EVTUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+EVTUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EF31AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+EVTUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EF41AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+EVTUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EF51AFB0602009AA5BC /* NSObject+COCUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+COCUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EF61AFB0602009AA5BC /* NSObject+COCUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+COCUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EF71AFB0602009AA5BC /* NSString+EVTUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EVTUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EF81AFB0602009AA5BC /* NSString+EVTUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EVTUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EF91AFB0602009AA5BC /* NSURL+EVTUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+EVTUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EFA1AFB0602009AA5BC /* NSURL+EVTUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+EVTUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EFB1AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+EVTUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EFC1AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+EVTUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3EFD1AFB0602009AA5BC /* UIImage+EvtUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EvtUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3EFE1AFB0602009AA5BC /* UIImage+EvtUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EvtUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3F001AFB0602009AA5BC /* UIAlertView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Block.h"; sourceTree = "<group>"; };
+		CF6D3F011AFB0602009AA5BC /* UIAlertView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Block.m"; sourceTree = "<group>"; };
+		CF6D3F021AFB0602009AA5BC /* UIButton+COCUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+COCUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3F031AFB0602009AA5BC /* UIButton+COCUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+COCUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3F041AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+EvtUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3F051AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+EvtUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3F061AFB0602009AA5BC /* UITableView+COCUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+COCUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3F071AFB0602009AA5BC /* UITableView+COCUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+COCUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3F081AFB0602009AA5BC /* UIView+COCUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+COCUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6D3F091AFB0602009AA5BC /* UIView+COCUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+COCUtilsExtras.m"; sourceTree = "<group>"; };
+		CF6D3F191AFB0846009AA5BC /* SPBaseConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseConst.h; sourceTree = "<group>"; };
+		CF6D3F1A1AFB0846009AA5BC /* SPBaseConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseConst.m; sourceTree = "<group>"; };
+		CF6D3F271AFB147B009AA5BC /* SPBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseView.h; sourceTree = "<group>"; };
+		CF6D3F281AFB147B009AA5BC /* SPBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseView.m; sourceTree = "<group>"; };
+		CF6D3F2A1AFB1728009AA5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CF6D3F2C1AFB193E009AA5BC /* SPBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseTableViewCell.h; sourceTree = "<group>"; };
+		CF6D3F2D1AFB193E009AA5BC /* SPBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseTableViewCell.m; sourceTree = "<group>"; };
+		CF6D3F2F1AFB3420009AA5BC /* SPBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseViewController.h; sourceTree = "<group>"; };
+		CF6D3F301AFB3420009AA5BC /* SPBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseViewController.m; sourceTree = "<group>"; };
+		CF6D3F321AFB3438009AA5BC /* SPBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseTableViewController.h; sourceTree = "<group>"; };
+		CF6D3F331AFB3438009AA5BC /* SPBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseTableViewController.m; sourceTree = "<group>"; };
+		CF6D3F351AFB345E009AA5BC /* SPBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseCollectionViewCell.h; sourceTree = "<group>"; };
+		CF6D3F361AFB345E009AA5BC /* SPBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseCollectionViewCell.m; sourceTree = "<group>"; };
+		CF6D3F381AFB35CF009AA5BC /* SPBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseModel.h; sourceTree = "<group>"; };
+		CF6D3F391AFB35CF009AA5BC /* SPBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseModel.m; sourceTree = "<group>"; };
+		CF6D3F891AFB3E53009AA5BC /* SPBaseCommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseCommonDefine.h; sourceTree = "<group>"; };
+		CF6F988E1B03243E007E744E /* NSNumber+SPUtilsExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+SPUtilsExtras.h"; sourceTree = "<group>"; };
+		CF6F988F1B03243E007E744E /* NSNumber+SPUtilsExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+SPUtilsExtras.m"; sourceTree = "<group>"; };
+		CFC1A28D1B25D8E6006FE700 /* SPBaseLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBaseLineView.h; sourceTree = "<group>"; };
+		CFC1A28E1B25D8E6006FE700 /* SPBaseLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBaseLineView.m; sourceTree = "<group>"; };
+		CFCFC1661AF9F5550056F774 /* libSPay.base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSPay.base.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFCFC1711AF9F5550056F774 /* SPay.baseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPay.baseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFCFC1771AF9F5550056F774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFCFC1631AF9F5550056F774 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6D3F2B1AFB1728009AA5BC /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFCFC16E1AF9F5550056F774 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFCFC1721AF9F5550056F774 /* libSPay.base.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF41FA641AFB54AF0062D5A2 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				CF41FA651AFB54EA0062D5A2 /* SPBaseSystem.h */,
+				CF41FA661AFB54EA0062D5A2 /* SPBaseSystem.m */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		CF41FA681AFB57680062D5A2 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				CF41FA691AFB578D0062D5A2 /* SPBaseAppDelegate.h */,
+				CF41FA6A1AFB578D0062D5A2 /* SPBaseAppDelegate.m */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		CF41FA811AFB6E3E0062D5A2 /* Until */ = {
+			isa = PBXGroup;
+			children = (
+				CF41FA821AFB6E570062D5A2 /* SPBaseUntil.h */,
+				CF41FA831AFB6E570062D5A2 /* SPBaseUntil.m */,
+			);
+			path = Until;
+			sourceTree = "<group>";
+		};
+		CF6D3EEB1AFB0602009AA5BC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3EEC1AFB0602009AA5BC /* Foundation */,
+				CF6D3EFF1AFB0602009AA5BC /* UIKit */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		CF6D3EEC1AFB0602009AA5BC /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3EED1AFB0602009AA5BC /* NSArray+PDUtilsExtras.h */,
+				CF6D3EEE1AFB0602009AA5BC /* NSArray+PDUtilsExtras.m */,
+				CF6D3EEF1AFB0602009AA5BC /* NSData+EvtUtilsExtras.h */,
+				CF6D3EF01AFB0602009AA5BC /* NSData+EvtUtilsExtras.m */,
+				CF6D3EF11AFB0602009AA5BC /* NSDate+EVTUtilsExtras.h */,
+				CF6D3EF21AFB0602009AA5BC /* NSDate+EVTUtilsExtras.m */,
+				CF6D3EF31AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.h */,
+				CF6D3EF41AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.m */,
+				CF6D3EF51AFB0602009AA5BC /* NSObject+COCUtilsExtras.h */,
+				CF6D3EF61AFB0602009AA5BC /* NSObject+COCUtilsExtras.m */,
+				CF6D3EF71AFB0602009AA5BC /* NSString+EVTUtilsExtras.h */,
+				CF6D3EF81AFB0602009AA5BC /* NSString+EVTUtilsExtras.m */,
+				CF6D3EF91AFB0602009AA5BC /* NSURL+EVTUtilsExtras.h */,
+				CF6D3EFA1AFB0602009AA5BC /* NSURL+EVTUtilsExtras.m */,
+				CF6D3EFB1AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.h */,
+				CF6D3EFC1AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.m */,
+				CF6D3EFD1AFB0602009AA5BC /* UIImage+EvtUtilsExtras.h */,
+				CF6D3EFE1AFB0602009AA5BC /* UIImage+EvtUtilsExtras.m */,
+				CF6F988E1B03243E007E744E /* NSNumber+SPUtilsExtras.h */,
+				CF6F988F1B03243E007E744E /* NSNumber+SPUtilsExtras.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		CF6D3EFF1AFB0602009AA5BC /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F001AFB0602009AA5BC /* UIAlertView+Block.h */,
+				CF6D3F011AFB0602009AA5BC /* UIAlertView+Block.m */,
+				CF6D3F021AFB0602009AA5BC /* UIButton+COCUtilsExtras.h */,
+				CF6D3F031AFB0602009AA5BC /* UIButton+COCUtilsExtras.m */,
+				CF6D3F041AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.h */,
+				CF6D3F051AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.m */,
+				CF6D3F061AFB0602009AA5BC /* UITableView+COCUtilsExtras.h */,
+				CF6D3F071AFB0602009AA5BC /* UITableView+COCUtilsExtras.m */,
+				CF6D3F081AFB0602009AA5BC /* UIView+COCUtilsExtras.h */,
+				CF6D3F091AFB0602009AA5BC /* UIView+COCUtilsExtras.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		CF6D3F181AFB082C009AA5BC /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F191AFB0846009AA5BC /* SPBaseConst.h */,
+				CF6D3F1A1AFB0846009AA5BC /* SPBaseConst.m */,
+				CF41FA8B1AFB72FC0062D5A2 /* SPBaseSystemDefine.h */,
+				CF455DA91AFC8D95006AFCA2 /* SPBaseRGBDefine.h */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		CF6D3F1C1AFB0E92009AA5BC /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F261AFB13E2009AA5BC /* UIKit */,
+				CF6D3F1D1AFB0E92009AA5BC /* Models */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		CF6D3F1D1AFB0E92009AA5BC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F381AFB35CF009AA5BC /* SPBaseModel.h */,
+				CF6D3F391AFB35CF009AA5BC /* SPBaseModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CF6D3F211AFB13A6009AA5BC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F891AFB3E53009AA5BC /* SPBaseCommonDefine.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CF6D3F261AFB13E2009AA5BC /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F271AFB147B009AA5BC /* SPBaseView.h */,
+				CF6D3F281AFB147B009AA5BC /* SPBaseView.m */,
+				CF6D3F2C1AFB193E009AA5BC /* SPBaseTableViewCell.h */,
+				CF6D3F2D1AFB193E009AA5BC /* SPBaseTableViewCell.m */,
+				CF6D3F2F1AFB3420009AA5BC /* SPBaseViewController.h */,
+				CF6D3F301AFB3420009AA5BC /* SPBaseViewController.m */,
+				CF6D3F321AFB3438009AA5BC /* SPBaseTableViewController.h */,
+				CF6D3F331AFB3438009AA5BC /* SPBaseTableViewController.m */,
+				CF6D3F351AFB345E009AA5BC /* SPBaseCollectionViewCell.h */,
+				CF6D3F361AFB345E009AA5BC /* SPBaseCollectionViewCell.m */,
+				CF41FA5E1AFB531C0062D5A2 /* SPBaseNavigationController.h */,
+				CF41FA5F1AFB531C0062D5A2 /* SPBaseNavigationController.m */,
+				CFC1A28D1B25D8E6006FE700 /* SPBaseLineView.h */,
+				CFC1A28E1B25D8E6006FE700 /* SPBaseLineView.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		CFCFC15D1AF9F5550056F774 = {
+			isa = PBXGroup;
+			children = (
+				CF6D3F2A1AFB1728009AA5BC /* UIKit.framework */,
+				CFCFC1681AF9F5550056F774 /* SPay.base */,
+				CFCFC1751AF9F5550056F774 /* SPay.baseTests */,
+				CFCFC1671AF9F5550056F774 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CFCFC1671AF9F5550056F774 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFCFC1661AF9F5550056F774 /* libSPay.base.a */,
+				CFCFC1711AF9F5550056F774 /* SPay.baseTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFCFC1681AF9F5550056F774 /* SPay.base */ = {
+			isa = PBXGroup;
+			children = (
+				CF41FA811AFB6E3E0062D5A2 /* Until */,
+				CF41FA681AFB57680062D5A2 /* AppDelegate */,
+				CF41FA641AFB54AF0062D5A2 /* System */,
+				CF6D3F211AFB13A6009AA5BC /* Common */,
+				CF6D3F1C1AFB0E92009AA5BC /* Base */,
+				CF6D3F181AFB082C009AA5BC /* Const */,
+				CF6D3EEB1AFB0602009AA5BC /* Category */,
+			);
+			path = SPay.base;
+			sourceTree = "<group>";
+		};
+		CFCFC1751AF9F5550056F774 /* SPay.baseTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFCFC1761AF9F5550056F774 /* Supporting Files */,
+			);
+			path = SPay.baseTests;
+			sourceTree = "<group>";
+		};
+		CFCFC1761AF9F5550056F774 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFCFC1771AF9F5550056F774 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFCFC1651AF9F5550056F774 /* SPay.base */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFCFC17A1AF9F5550056F774 /* Build configuration list for PBXNativeTarget "SPay.base" */;
+			buildPhases = (
+				CFCFC1621AF9F5550056F774 /* Sources */,
+				CFCFC1631AF9F5550056F774 /* Frameworks */,
+				CFCFC1641AF9F5550056F774 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SPay.base;
+			productName = SPay.base;
+			productReference = CFCFC1661AF9F5550056F774 /* libSPay.base.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CFCFC1701AF9F5550056F774 /* SPay.baseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFCFC17D1AF9F5550056F774 /* Build configuration list for PBXNativeTarget "SPay.baseTests" */;
+			buildPhases = (
+				CFCFC16D1AF9F5550056F774 /* Sources */,
+				CFCFC16E1AF9F5550056F774 /* Frameworks */,
+				CFCFC16F1AF9F5550056F774 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFCFC1741AF9F5550056F774 /* PBXTargetDependency */,
+			);
+			name = SPay.baseTests;
+			productName = SPay.baseTests;
+			productReference = CFCFC1711AF9F5550056F774 /* SPay.baseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFCFC15E1AF9F5550056F774 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = wongfish;
+				TargetAttributes = {
+					CFCFC1651AF9F5550056F774 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					CFCFC1701AF9F5550056F774 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CFCFC1611AF9F5550056F774 /* Build configuration list for PBXProject "SPay.base" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CFCFC15D1AF9F5550056F774;
+			productRefGroup = CFCFC1671AF9F5550056F774 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFCFC1651AF9F5550056F774 /* SPay.base */,
+				CFCFC1701AF9F5550056F774 /* SPay.baseTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFCFC16F1AF9F5550056F774 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFCFC1621AF9F5550056F774 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6D3F0F1AFB0602009AA5BC /* NSString+EVTUtilsExtras.m in Sources */,
+				CF41FA601AFB531C0062D5A2 /* SPBaseNavigationController.m in Sources */,
+				CF41FA671AFB54EA0062D5A2 /* SPBaseSystem.m in Sources */,
+				CF6D3F0E1AFB0602009AA5BC /* NSObject+COCUtilsExtras.m in Sources */,
+				CF6D3F311AFB3420009AA5BC /* SPBaseViewController.m in Sources */,
+				CF6D3F2E1AFB193E009AA5BC /* SPBaseTableViewCell.m in Sources */,
+				CFC1A28F1B25D8E6006FE700 /* SPBaseLineView.m in Sources */,
+				CF6D3F0A1AFB0602009AA5BC /* NSArray+PDUtilsExtras.m in Sources */,
+				CF6D3F121AFB0602009AA5BC /* UIImage+EvtUtilsExtras.m in Sources */,
+				CF6D3F0B1AFB0602009AA5BC /* NSData+EvtUtilsExtras.m in Sources */,
+				CF6D3F131AFB0602009AA5BC /* UIAlertView+Block.m in Sources */,
+				CF6D3F0D1AFB0602009AA5BC /* NSDictionary+EVTUtilsExtras.m in Sources */,
+				CF41FA841AFB6E570062D5A2 /* SPBaseUntil.m in Sources */,
+				CF6D3F0C1AFB0602009AA5BC /* NSDate+EVTUtilsExtras.m in Sources */,
+				CF6D3F341AFB3438009AA5BC /* SPBaseTableViewController.m in Sources */,
+				CF6D3F101AFB0602009AA5BC /* NSURL+EVTUtilsExtras.m in Sources */,
+				CF6D3F161AFB0602009AA5BC /* UITableView+COCUtilsExtras.m in Sources */,
+				CF6D3F151AFB0602009AA5BC /* UIImageView+EvtUtilsExtras.m in Sources */,
+				CF41FA6B1AFB578D0062D5A2 /* SPBaseAppDelegate.m in Sources */,
+				CF6D3F171AFB0602009AA5BC /* UIView+COCUtilsExtras.m in Sources */,
+				CF6D3F371AFB345E009AA5BC /* SPBaseCollectionViewCell.m in Sources */,
+				CF6D3F1B1AFB0846009AA5BC /* SPBaseConst.m in Sources */,
+				CF6D3F291AFB147B009AA5BC /* SPBaseView.m in Sources */,
+				CF6D3F3A1AFB35CF009AA5BC /* SPBaseModel.m in Sources */,
+				CF6F98901B03243E007E744E /* NSNumber+SPUtilsExtras.m in Sources */,
+				CF6D3F141AFB0602009AA5BC /* UIButton+COCUtilsExtras.m in Sources */,
+				CF6D3F111AFB0602009AA5BC /* UIDevice+EVTUtilsExtras.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFCFC16D1AF9F5550056F774 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CFCFC1741AF9F5550056F774 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFCFC1651AF9F5550056F774 /* SPay.base */;
+			targetProxy = CFCFC1731AF9F5550056F774 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CFCFC1781AF9F5550056F774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CFCFC1791AF9F5550056F774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFCFC17B1AF9F5550056F774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		CFCFC17C1AF9F5550056F774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		CFCFC17E1AF9F5550056F774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SPay.baseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CFCFC17F1AF9F5550056F774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SPay.baseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFCFC1611AF9F5550056F774 /* Build configuration list for PBXProject "SPay.base" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFCFC1781AF9F5550056F774 /* Debug */,
+				CFCFC1791AF9F5550056F774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFCFC17A1AF9F5550056F774 /* Build configuration list for PBXNativeTarget "SPay.base" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFCFC17B1AF9F5550056F774 /* Debug */,
+				CFCFC17C1AF9F5550056F774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFCFC17D1AF9F5550056F774 /* Build configuration list for PBXNativeTarget "SPay.baseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFCFC17E1AF9F5550056F774 /* Debug */,
+				CFCFC17F1AF9F5550056F774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFCFC15E1AF9F5550056F774 /* Project object */;
+}

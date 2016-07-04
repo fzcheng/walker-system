@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:32
+-keep class com.swiftpass.pay.test.PayMainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:41
+-keep class com.switfpass.pay.activity.QQWapPayWebView { <init>(...); }
+

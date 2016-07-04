@@ -1,0 +1,35 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1587e4f0-26d2-5148-afbe-05971a23e8ef++4649",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++6952" : {
+
+    },
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++4649" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++6952" : 0,
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++4649" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "420CE453-D249-432F-B082-8580EE74FB4A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++6952" : "SPaySDKDemo(Wap%E6%94%AF%E4%BB%98%E7%89%88%E6%9C%AC)\/",
+    "1587e4f0-26d2-5148-afbe-05971a23e8ef++4649" : "SDK\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SPaySDKDemo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "truck\/SPaySDKDemo\/demo\/SPaySDKDemo(Wap支付版本)\/SPaySDKDemo\/SPaySDKDemo.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.1.6:8080\/svn\/wxpay",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1587e4f0-26d2-5148-afbe-05971a23e8ef++4649"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.1.6:8080\/svn\/wxpay",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1587e4f0-26d2-5148-afbe-05971a23e8ef++6952"
+    }
+  ]
+}

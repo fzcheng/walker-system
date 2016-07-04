@@ -1,0 +1,319 @@
+com.fyfeng.webviewtest.BuildConfig
+com.fyfeng.webviewtest.R
+com.fyfeng.webviewtest.R$attr
+com.fyfeng.webviewtest.R$dimen
+com.fyfeng.webviewtest.R$drawable
+com.fyfeng.webviewtest.R$id
+com.fyfeng.webviewtest.R$layout
+com.fyfeng.webviewtest.R$menu
+com.fyfeng.webviewtest.R$string
+com.fyfeng.webviewtest.R$style
+com.swiftpass.pay.test.PayMainActivity:
+    private android.widget.ArrayAdapter adapterPayType
+    private static final java.lang.String APP_KEY
+    303:308:private java.lang.String createSign(java.util.Map)
+    313:329:public void buildPayParams(java.lang.StringBuilder,java.util.Map,boolean)
+    335:339:public java.lang.String urlEncode(java.lang.String)
+    46:46:static synthetic void access$1(com.swiftpass.pay.test.PayMainActivity,int)
+com.swiftpass.pay.test.PayMainActivity$GetPrepayIdTask:
+    private java.lang.String accessToken
+    124:126:public PayMainActivity$GetPrepayIdTask(com.swiftpass.pay.test.PayMainActivity,java.lang.String)
+com.swiftpass.pay.test.PayMainActivity$SpinnerXMLSelectedListener
+com.switfpass.pay.MainApplication:
+    public static com.switfpass.pay.MainApplication getContext()
+    public static boolean isNetworkOK(android.content.Context)
+com.switfpass.pay.activity.P
+com.switfpass.pay.activity.PayPlugin:
+    public static void unifiedSacndPay(android.app.Activity,com.switfpass.pay.bean.RequestMsg)
+    public int test(java.lang.String)
+    public static void unifiedAppPay(android.app.Activity,com.switfpass.pay.bean.RequestMsg)
+    public void showLoading(android.content.Context,java.lang.String)
+    public static void unifiedMicroPay(android.app.Activity,com.switfpass.pay.bean.RequestMsg)
+    public static void pay(android.app.Activity,com.switfpass.pay.bean.RequestMsg)
+com.switfpass.pay.activity.PayPlugin$GetAccessTokenTask
+com.switfpass.pay.activity.PayResult:
+    public java.lang.String getMemo()
+    public java.lang.String getResult()
+com.switfpass.pay.activity.PaySDKCaptureActivity:
+    public static void startActivity(android.content.Context,com.switfpass.pay.bean.RequestMsg)
+    public void handleDecode(com.google.zxing.Result,android.graphics.Bitmap)
+com.switfpass.pay.activity.Q
+com.switfpass.pay.activity.QQWapPayWebView:
+    public static void startActivity(android.app.Activity,java.lang.String)
+com.switfpass.pay.activity.QrcodeActivity:
+    public static void startActivity(com.switfpass.pay.bean.OrderBena,android.content.Context)
+    public void sendWxRedpack(java.lang.String)
+com.switfpass.pay.activity.Result
+com.switfpass.pay.activity.d
+com.switfpass.pay.activity.e:
+    public e(com.switfpass.pay.activity.PayPlugin)
+com.switfpass.pay.activity.zxing.ViewfinderView:
+    private static float density
+    public ViewfinderView(android.content.Context,android.util.AttributeSet)
+    public final void addPossibleResultPoint(com.google.zxing.ResultPoint)
+    public final void drawResultBitmap(android.graphics.Bitmap)
+com.switfpass.pay.activity.zxing.camera.PlanarYUVLuminanceSource:
+    public final byte[] getRow(int,byte[])
+    public final byte[] getMatrix()
+    public final boolean isCropSupported()
+    public final int getDataWidth()
+    public final int getDataHeight()
+com.switfpass.pay.activity.zxing.decoding.DecodeThread:
+    public static final java.lang.String BARCODE_BITMAP
+com.switfpass.pay.activity.zxing.decoding.InactivityTimer:
+    public final void shutdown()
+com.switfpass.pay.activity.zxing.decoding.Intents
+com.switfpass.pay.activity.zxing.decoding.Intents$Encode
+com.switfpass.pay.activity.zxing.decoding.Intents$Scan
+com.switfpass.pay.activity.zxing.decoding.ViewfinderResultPointCallback:
+    public final void foundPossibleResultPoint(com.google.zxing.ResultPoint)
+com.switfpass.pay.bean.MchBean
+com.switfpass.pay.bean.OrderBena:
+    private boolean cm
+    private java.lang.String cn
+    private java.lang.String co
+    private java.lang.String cp
+    private java.lang.String cy
+    private java.lang.String sign
+    private java.lang.String nonceStr
+    private java.lang.String timeStamp
+    private java.lang.String appId
+    public java.lang.String getResCode()
+    public java.lang.String getMessage()
+    public java.lang.String getAppId()
+    public void setAppId(java.lang.String)
+    public java.lang.String getNonceStr()
+    public void setNonceStr(java.lang.String)
+    public java.lang.String getTimeStamp()
+    public void setTimeStamp(java.lang.String)
+    public java.lang.String getSign()
+    public void setSign(java.lang.String)
+    public java.lang.String getRedPack()
+    public void setRedPack(java.lang.String)
+    public java.lang.String getOpenID()
+    public void setTokenId(java.lang.String)
+    public java.lang.String get_input_charset()
+    public void set_input_charset(java.lang.String)
+    public java.lang.String getPrepayid()
+    public void setPrepayid(java.lang.String)
+    public java.lang.String getPartner()
+    public void setPartner(java.lang.String)
+    public boolean isQpay()
+    public void setQpay(boolean)
+    public void setMchId(java.lang.String)
+com.switfpass.pay.bean.RequestMsg:
+    private java.lang.String cu
+    private java.lang.String cv
+    private java.lang.Integer cw
+    private java.lang.String cH
+    private java.lang.String cI
+    public java.lang.String getApiKey()
+    public void setApiKey(java.lang.String)
+    public java.lang.String getSubOpenID()
+    public void setSubOpenID(java.lang.String)
+    public java.lang.Integer getBankType()
+    public void setBankType(java.lang.Integer)
+    public java.lang.String getCashierName()
+    public java.lang.String getPay_logo()
+    public void setPay_logo(java.lang.String)
+    public void setCashierName(java.lang.String)
+    public java.lang.String getTradeName()
+    public java.lang.String getServerType()
+    public java.lang.String getPartner()
+    public void setPartner(java.lang.String)
+    public java.lang.String getAppKey()
+    public void setAppKey(java.lang.String)
+    public java.lang.String getSign()
+    public void setSign(java.lang.String)
+    public java.lang.String getAppId()
+    public java.lang.String getSignKey()
+    public void setSignKey(java.lang.String)
+    public java.lang.String getMchId()
+    public java.lang.String getNotifyUrl()
+    public java.lang.String getBody()
+com.switfpass.pay.service.GetAccessTokenResult
+com.switfpass.pay.service.Ipay
+com.switfpass.pay.service.OrderService:
+    public void wxRedpack(java.lang.String,com.switfpass.pay.thread.UINotifyListener)
+    public void queryByMchId(java.lang.String,com.switfpass.pay.thread.UINotifyListener)
+    public void createNativeOrder(com.switfpass.pay.bean.RequestMsg,java.lang.String,com.switfpass.pay.thread.UINotifyListener)
+    public void createWxAppOrder(com.switfpass.pay.bean.RequestMsg,com.switfpass.pay.thread.UINotifyListener)
+    public void createzfbAppOrder(com.switfpass.pay.bean.RequestMsg,java.lang.String,com.switfpass.pay.thread.UINotifyListener)
+com.switfpass.pay.service.a
+com.switfpass.pay.service.b
+com.switfpass.pay.service.g
+com.switfpass.pay.service.i
+com.switfpass.pay.service.j
+com.switfpass.pay.thread.Executable:
+    public void updateProgress(int)
+com.switfpass.pay.thread.Executable$ProgressChangedListener:
+    public abstract void onProgressChanged(int)
+com.switfpass.pay.thread.NetHelper:
+    public static boolean chkStatus()
+    public java.lang.String HttpPost(java.lang.String,java.lang.String)
+com.switfpass.pay.thread.RequestResult:
+    public org.json.JSONArray arr
+    public java.lang.Object tag
+    public static final int RESULT_NO_ERROR
+    public static final int RESULT_BAD_NETWORK
+    public static final int RESULT_INTERNAL_ERROR
+    public static final int RESULT_READING_ERROR
+    public static final int RESULT_TIMEOUT_ERROR
+    public static final int RESULT_SERVICE_ERROR
+    public static final int RESULT_CHANK_DATA_ERROR
+    public static final int RESULT_USERNAME_EXIST
+    public static final int RESULT_RECOMMEND_NOT_EXIST
+    public static final int RESULT_INVALID_RECOMMEND
+    public static final int RESULT_SOFT_COMMENT
+    public static boolean hasError(int)
+    public boolean isRetryable()
+    public java.lang.String getMessage()
+    public static java.lang.String getErrorMsg(int)
+com.switfpass.pay.thread.ThreadHelper:
+    public ThreadHelper()
+com.switfpass.pay.thread.c:
+    public final void onProgressChanged(int)
+com.switfpass.pay.thread.d:
+    static synthetic void a(com.switfpass.pay.thread.d,java.lang.Object[])
+com.switfpass.pay.thread.e:
+    public final void onProgressChanged(int)
+com.switfpass.pay.utils.A
+com.switfpass.pay.utils.B
+com.switfpass.pay.utils.Base64
+com.switfpass.pay.utils.C
+com.switfpass.pay.utils.Constants
+com.switfpass.pay.utils.D
+com.switfpass.pay.utils.DialogHelper:
+    public DialogHelper()
+    public static android.app.AlertDialog$Builder createListDialog(java.lang.String,android.content.Context,java.util.List)
+    public static android.app.Dialog showDialog(java.lang.String,java.lang.String,int,android.content.Context)
+    public static android.app.Dialog showDialog(java.lang.String,java.lang.String,int,android.content.Context,android.content.DialogInterface$OnClickListener)
+    public static android.app.Dialog showDialog(java.lang.String,java.lang.String,java.lang.String,java.lang.String,android.content.Context,android.content.DialogInterface$OnClickListener,int)
+    public static android.app.Dialog showDialog(java.lang.String,android.view.View,android.content.Context)
+    public static android.app.Dialog showDialog(java.lang.String,android.view.View,int,int,android.content.Context,android.content.DialogInterface$OnClickListener)
+    public static void keepDialog(android.content.DialogInterface)
+    public static void distoryDialog(android.content.DialogInterface)
+    public static void showLoading(java.lang.String,android.content.Context)
+    public static void dismissLoading()
+com.switfpass.pay.utils.DialogHelper$DialogItem
+com.switfpass.pay.utils.DialogInfoSdk:
+    public static final int FLAG
+    public static final int SUBMIT
+    public static final int REGISTFLAG
+    public static final int EXITAUTH
+    public static final int EXITAUTHLOGIN
+    public static final int SUBMITSHOPINFO
+    public static final int NETWORKSTATUE
+    public static final int SUBMIT_FINISH
+    public static final int SUBMIT_COUPON_INFO
+    public static final int SUBMIT_NO_CANLE
+    public static final int PAY_SCAN_MICRO
+    public static final int REVERS
+    public static final int SCAN_PAY
+    public static final int PAY_SDK
+    public void setmDelListener(com.switfpass.pay.utils.DialogInfoSdk$OnItemLongDelListener,int)
+    public void setmOnSubmitCouponListener(com.switfpass.pay.utils.DialogInfoSdk$OnSubmitCouponListener)
+    public void showPage(java.lang.Class)
+com.switfpass.pay.utils.DialogInfoSdk$OnItemLongDelListener
+com.switfpass.pay.utils.DialogInfoSdk$OnSubmitCouponListener
+com.switfpass.pay.utils.E
+com.switfpass.pay.utils.F
+com.switfpass.pay.utils.G
+com.switfpass.pay.utils.H
+com.switfpass.pay.utils.I
+com.switfpass.pay.utils.J
+com.switfpass.pay.utils.K
+com.switfpass.pay.utils.L
+com.switfpass.pay.utils.M
+com.switfpass.pay.utils.MD5:
+    private MD5()
+com.switfpass.pay.utils.N
+com.switfpass.pay.utils.O
+com.switfpass.pay.utils.P
+com.switfpass.pay.utils.PayDialogInfo:
+    private android.view.ViewGroup dj
+    private android.widget.RelativeLayout dv
+    private android.widget.RelativeLayout dw
+    private android.widget.RelativeLayout dx
+    private android.widget.RelativeLayout dy
+    private android.widget.RelativeLayout dz
+    private android.widget.RelativeLayout dA
+    private android.widget.RelativeLayout dB
+    private android.widget.RelativeLayout dC
+    private com.switfpass.pay.utils.ProgressInfoDialog dD
+    private java.util.List dE
+    private android.widget.TextView dF
+    private com.tencent.mm.sdk.openapi.IWXAPI dG
+    private com.switfpass.pay.utils.ProgressInfoDialog$HandleBtn dH
+    private android.app.AlertDialog aa
+    public com.switfpass.pay.bean.RequestMsg getMsg()
+    public PayDialogInfo(android.app.Activity,java.util.List)
+    public void setmOnSubmitCouponListener(com.switfpass.pay.utils.PayDialogInfo$OnSubmitCouponListener)
+    public void unifiedAppPay(com.switfpass.pay.bean.RequestMsg)
+    public void unifiedSacndPay(com.switfpass.pay.bean.RequestMsg)
+    public void showConfirm(java.lang.String,com.switfpass.pay.utils.ProgressInfoDialog)
+    public void wxSacndPay(com.switfpass.pay.bean.RequestMsg)
+    public void qqSacndPay(com.switfpass.pay.bean.RequestMsg)
+    public void wxWapPay(com.switfpass.pay.bean.RequestMsg)
+    public void qqWapPay(com.switfpass.pay.bean.RequestMsg)
+    public void zfbSacndPay(com.switfpass.pay.bean.RequestMsg)
+    private void q()
+    static synthetic void a(com.switfpass.pay.utils.PayDialogInfo,boolean)
+    static synthetic com.switfpass.pay.utils.ProgressInfoDialog a(com.switfpass.pay.utils.PayDialogInfo)
+    static synthetic android.app.AlertDialog c(com.switfpass.pay.utils.PayDialogInfo)
+    static synthetic boolean d(com.switfpass.pay.utils.PayDialogInfo)
+    static synthetic void a(com.switfpass.pay.utils.PayDialogInfo,com.switfpass.pay.bean.OrderBena,com.switfpass.pay.bean.RequestMsg)
+    static synthetic void a(com.switfpass.pay.utils.PayDialogInfo,com.switfpass.pay.bean.OrderBena)
+    static synthetic com.switfpass.pay.bean.RequestMsg e(com.switfpass.pay.utils.PayDialogInfo)
+    static synthetic void a(com.switfpass.pay.utils.PayDialogInfo,com.switfpass.pay.bean.RequestMsg)
+    static synthetic void b(com.switfpass.pay.utils.PayDialogInfo,com.switfpass.pay.bean.RequestMsg)
+    static synthetic java.lang.String r()
+com.switfpass.pay.utils.PayDialogInfo$OnSubmitCouponListener
+com.switfpass.pay.utils.Q
+com.switfpass.pay.utils.R
+com.switfpass.pay.utils.Rsa
+com.switfpass.pay.utils.S
+com.switfpass.pay.utils.SignUtils:
+    public SignUtils()
+    public static java.util.Map paraFilter(java.util.Map)
+    public static java.lang.String payParamsToString(java.util.Map)
+    public static java.lang.String payParamsToString(java.util.Map,boolean)
+    public static java.lang.String payParamsToString(java.lang.StringBuilder,java.util.Map,boolean)
+com.switfpass.pay.utils.T
+com.switfpass.pay.utils.TempConstants
+com.switfpass.pay.utils.U
+com.switfpass.pay.utils.Util:
+    public Util()
+    public static java.lang.String getSign()
+    public static java.lang.String genNonceStr()
+    public static long genTimeStamp()
+    public static java.lang.String getMoney(double)
+    public static java.lang.String formatTime(java.lang.String)
+    public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
+    public static java.util.Map paraFilter(java.util.Map)
+    public static byte[] httpGet(java.lang.String)
+    public static byte[] readFromFile(java.lang.String,int,int)
+    public static android.graphics.Bitmap extractThumbNail(java.lang.String,int,int,boolean)
+    public static java.lang.String sha1(java.lang.String)
+    public static java.util.List stringsToList(java.lang.String[])
+com.switfpass.pay.utils.V
+com.switfpass.pay.utils.XmlUtils:
+    public XmlUtils()
+com.switfpass.pay.utils.a
+com.switfpass.pay.utils.b
+com.switfpass.pay.utils.e
+com.switfpass.pay.utils.f
+com.switfpass.pay.utils.k
+com.switfpass.pay.utils.l
+com.switfpass.pay.utils.m
+com.switfpass.pay.utils.p
+com.switfpass.pay.utils.q
+com.switfpass.pay.utils.r
+com.switfpass.pay.utils.s
+com.switfpass.pay.utils.t
+com.switfpass.pay.utils.u
+com.switfpass.pay.utils.v
+com.switfpass.pay.utils.w
+com.switfpass.pay.utils.x
+com.switfpass.pay.utils.y
+com.switfpass.pay.utils.z

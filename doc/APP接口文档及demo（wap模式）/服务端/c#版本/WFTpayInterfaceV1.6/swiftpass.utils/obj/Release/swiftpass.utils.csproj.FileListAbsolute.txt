@@ -1,0 +1,5 @@
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Release\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Release\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Release\swiftpass.utils.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Release\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Release\swiftpass.utils.pdb

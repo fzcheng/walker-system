@@ -1,0 +1,42 @@
+E:\008_NetProject\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+E:\008_NetProject\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+E:\008_NetProject\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+E:\008_NetProject\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\payInterface_V1.3\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\payInterface_V1.3\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\C#版本demo\payInterface_V1.3\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\C#版本demo\payInterface_V1.3\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+C:\Users\jesse\Desktop\WEB扫码支付接口开发资料（C#版）\C#版本demo\C#版本demo\payInterface_V1.3\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+C:\Users\zw\Desktop\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+C:\Users\zw\Desktop\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+C:\Users\zw\Desktop\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+C:\Users\zw\Desktop\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+C:\Users\zw\Desktop\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+E:\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+E:\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+E:\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+E:\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+E:\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+E:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+E:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+E:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+E:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+E:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\payInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+D:\Documents\Visual Studio 2012\Projects\WFTpayInterface\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+D:\Documents\Visual Studio 2012\Projects\WFTpayInterface\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+D:\Documents\Visual Studio 2012\Projects\WFTpayInterface\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+D:\Documents\Visual Studio 2012\Projects\WFTpayInterface\swiftpass.utils\obj\Debug\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\swiftpass.utils\bin\Debug\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\swiftpass.utils\bin\Debug\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\swiftpass.utils\obj\Debug\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\swiftpass.utils\obj\Debug\swiftpass.utils.pdb

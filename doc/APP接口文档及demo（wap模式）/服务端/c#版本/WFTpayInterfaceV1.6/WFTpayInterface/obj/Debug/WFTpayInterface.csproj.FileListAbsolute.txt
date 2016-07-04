@@ -1,0 +1,62 @@
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\bin\WFTpayInterface.dll
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\bin\WFTpayInterface.pdb
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\bin\swiftpass.utils.dll
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\bin\swiftpass.utils.pdb
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+d:\documents\visual studio 2012\Projects\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo\WFTpayInterface\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\Native扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\web扫码\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.4\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\公众账号\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\WAP支付SDK（微信、QQ钱包）\C#版本demo（new)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\SDK（new）\C#版本demo（wap)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\bin\WFTpayInterface.pdb
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.dll
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\bin\swiftpass.utils.pdb
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.csprojResolveAssemblyReference.cache
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.dll
+F:\线上业务demo\最新接口文档和demo\C#版本demo（trade预下单)\WFTpayInterfaceV1.6\WFTpayInterface\obj\Debug\WFTpayInterface.pdb

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Debug</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/swiftpass.utils.dll">
+      <publishTime>02/22/2016 20:44:38</publishTime>
+    </File>
+    <File Include="bin/swiftpass.utils.pdb">
+      <publishTime>02/22/2016 20:44:38</publishTime>
+    </File>
+    <File Include="bin/WFTpayInterface.dll">
+      <publishTime>02/22/2016 21:11:47</publishTime>
+    </File>
+    <File Include="bin/WFTpayInterface.pdb">
+      <publishTime>02/22/2016 21:11:47</publishTime>
+    </File>
+    <File Include="config/config.properties">
+      <publishTime>02/22/2016 19:08:07</publishTime>
+    </File>
+    <File Include="css/wechattrade.css">
+      <publishTime>12/18/2015 17:58:30</publishTime>
+    </File>
+    <File Include="css/wft.css">
+      <publishTime>02/16/2016 18:42:10</publishTime>
+    </File>
+    <File Include="Downpass.aspx">
+      <publishTime>02/14/2016 18:55:35</publishTime>
+    </File>
+    <File Include="generateCode.aspx">
+      <publishTime>02/17/2016 15:43:11</publishTime>
+    </File>
+    <File Include="image/code.jpg">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/global_png24.png">
+      <publishTime>12/18/2015 17:58:51</publishTime>
+    </File>
+    <File Include="image/icon60_qr15b813.png">
+      <publishTime>12/18/2015 18:03:06</publishTime>
+    </File>
+    <File Include="image/icon_pay.png">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/ico_men.png">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/ico_pass.png">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/loading.GIF">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/sprite.png">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/success.png">
+      <publishTime>12/18/2015 17:58:51</publishTime>
+    </File>
+    <File Include="image/webpay_guide.gif">
+      <publishTime>12/18/2015 17:58:51</publishTime>
+    </File>
+    <File Include="image/xg_next.jpg">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/xg_prev.jpg">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="image/zhifu_logo.png">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="Index.aspx">
+      <publishTime>02/16/2016 20:05:33</publishTime>
+    </File>
+    <File Include="js/jquery-1.9.1.min.js">
+      <publishTime>12/18/2015 17:58:17</publishTime>
+    </File>
+    <File Include="js/jquery-2.1.0.min.js">
+      <publishTime>11/09/2015 15:32:57</publishTime>
+    </File>
+    <File Include="js/pay.js">
+      <publishTime>12/18/2015 17:57:15</publishTime>
+    </File>
+    <File Include="js/wechatpay.js">
+      <publishTime>12/18/2015 17:58:17</publishTime>
+    </File>
+    <File Include="notify.ashx">
+      <publishTime>02/18/2016 20:21:18</publishTime>
+    </File>
+    <File Include="notify.aspx">
+      <publishTime>02/22/2016 20:24:35</publishTime>
+    </File>
+    <File Include="payCode.aspx">
+      <publishTime>02/17/2016 11:08:30</publishTime>
+    </File>
+    <File Include="queryOrder.aspx">
+      <publishTime>02/17/2016 09:11:13</publishTime>
+    </File>
+    <File Include="queryRefund.aspx">
+      <publishTime>02/17/2016 10:37:56</publishTime>
+    </File>
+    <File Include="refundTest.aspx">
+      <publishTime>02/17/2016 10:28:02</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/22/2016 21:11:55</publishTime>
+    </File>
+    <File Include="WebForm1.aspx">
+      <publishTime>02/22/2016 20:13:48</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
