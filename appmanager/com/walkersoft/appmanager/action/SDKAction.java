@@ -204,7 +204,7 @@ public class SDKAction extends SystemAction {
 		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_TEN, order);
 		AppEntity app = appManager.queryByAppid(order.getAppid());
 		
-		TreeMap<String, String> r = TenpayManager.getInstance().queryPrepay_id(request, app, order);
+		Map<String, String> r = TenpayManager.getInstance().queryPrepayId(request, app, order);
 		
 		//QueryWxPayParamResult r = new QueryWxPayParamResult();
 		return JacksonUtil.getJsonString4JavaPOJO(r);
