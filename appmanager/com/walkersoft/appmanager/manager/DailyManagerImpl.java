@@ -57,7 +57,7 @@ public class DailyManagerImpl {
 	/**
 	 * 订单成功后处理 daily 统计
 	 * @param order
-	 * @param isfirst 
+	 * @param isfirst  设备是否是第一次
 	 */
 	public void dealOrderFinish(OrderEntity order, boolean isfirst)
 	{

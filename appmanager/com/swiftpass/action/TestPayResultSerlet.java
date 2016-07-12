@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.swiftpass.config.SwiftpassConfig;
 import com.swiftpass.util.SignUtils;
 import com.swiftpass.util.XmlUtils;
+import com.walkersoft.appmanager.util.swift.SwiftpassConfig;
 
 /**
  * <一句话功能简述>

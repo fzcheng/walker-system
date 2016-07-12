@@ -27,13 +27,13 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.swiftpass.config.SwiftpassConfig;
 import com.swiftpass.util.MD5;
 import com.swiftpass.util.SignUtils;
 import com.swiftpass.util.XmlUtils;
 import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.util.DateTimeUtil;
+import com.walkersoft.appmanager.util.swift.SwiftpassConfig;
 import com.walkersoft.appmanager.util.tenpay.TenpayConfig;
 import com.walkersoft.appmanager.util.tenpay.TenpayHttpClient;
 
@@ -51,105 +51,8 @@ public class TenpayManager {
 			manager = new TenpayManager();
 		return manager;
 	}
-	
-	public Map<String, String> queryPrepayId(HttpServletRequest request, AppEntity app, OrderEntity order) throws XmlPullParserException, IOException
-	{
-		if(false)
-			return queryPrepayId_wx(request, app, order);
-		else
-			return queryPrepayId_swift(request, app, order);
-	}
-	
-	private Map<String, String> queryPrepayId_swift(HttpServletRequest req, AppEntity app, OrderEntity order) {
-		
-		SortedMap<String,String> map = XmlUtils.getParameterMap(req);
-        
-        map.put("mch_id", SwiftpassConfig.mch_id);
-        
-        map.put("notify_url", SwiftpassConfig.notify_url);
-        map.put("nonce_str", String.valueOf(new Date().getTime()));
-        
-        map.put("body", "SPay收款"); // 商品名称
-        map.put("service", "unified.trade.pay"); // 支付类型
-        map.put("version", "1.0"); // 版本
-        map.put("out_trade_no", order.getOrderid()); //订单号
-        map.put("mch_create_ip", "127.0.0.1"); // 机器ip地址
-        map.put("total_fee", ""+order.getTotalFee()); // 总金额
-        map.put("limit_credit_pay", "0"); // 是否限制信用卡支付， 0：不限制（默认），1：限制
-        
-        Map<String,String> params = SignUtils.paraFilter(map);
-        StringBuilder buf = new StringBuilder((params.size() +1) * 10);
-        SignUtils.buildPayParams(buf,params,false);
-        String preStr = buf.toString();
-        String sign = MD5.sign(preStr, "&key=" + SwiftpassConfig.key, "utf-8");
-        map.put("sign", sign);
-        
-        String reqUrl = SwiftpassConfig.req_url;
-        System.out.println("reqUrl：" + reqUrl);
-        
-        System.out.println("reqParams:" + XmlUtils.parseXML(map));
-        CloseableHttpResponse response = null;
-        CloseableHttpClient client = null;
-        String res = null;
-        Map<String,String> resultMap = new HashMap<String,String>();
-        try {
-            HttpPost httpPost = new HttpPost(reqUrl);
-            StringEntity entityParams = new StringEntity(XmlUtils.parseXML(map),"utf-8");
-            httpPost.setEntity(entityParams);
-            //httpPost.setHeader("Content-Type", "text/xml;charset=ISO-8859-1");
-            client = HttpClients.createDefault();
-            response = client.execute(httpPost);
-            if(response != null && response.getEntity() != null){
-            	resultMap = XmlUtils.toMap(EntityUtils.toByteArray(response.getEntity()), "utf-8");
-                res = XmlUtils.toXml(resultMap);
-                System.out.println("请求结果：" + res);
-                
-                if(resultMap.containsKey("sign")){
-                    if(!SignUtils.checkParam(resultMap, SwiftpassConfig.key)){
-                        res = "验证签名不通过";
-                    }else{
-                        if("0".equals(resultMap.get("status")) && "0".equals(resultMap.get("result_code"))){
-                            
-                            
-                            String token_id = resultMap.get("token_id");
-                            String services = resultMap.get("services");
-                            
-                        }else{
-                            req.setAttribute("result", res);
-                        }
-                        
-                    }
-                } 
-            }else{
-                res = "操作失败";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            res = "系统异常";
-        } 
-        
-        
-//        TreeMap<String, String> payMap = new TreeMap<String, String>();
-//		
-//		payMap.put("appid", appid);
-//		payMap.put("partnerid", mch_id);
-//		payMap.put("timestamp", create_timestamp());
-//		payMap.put("noncestr", create_nonce_str());
-//		//payMap.put("package", "prepay_id=" + prepay_id);
-//		payMap.put("package", "Sign=WXPay");
-//		payMap.put("prepayid", prepay_id);
-//		String paySign = getSign(payMap, paternerKey);
-//		
-//		payMap.put("orderId", order.getOrderid());
-//		payMap.put("sign_method", "sha1");
-//		payMap.put("code", "200");
-//		payMap.put("msg", "success");
-//		payMap.put("sign", paySign);
-		
-        return resultMap;
-	}
 
-	public Map<String, String> queryPrepayId_wx(HttpServletRequest request, AppEntity app, OrderEntity order) throws XmlPullParserException, IOException
+	public Map<String, String> queryPrepayId(HttpServletRequest request, AppEntity app, OrderEntity order) throws XmlPullParserException, IOException
 	{
 		//AppID：wxd9c0c13bacc6d9b0
 		//AppSecret：3b0a6de73552bb92822c21f229f0e97e

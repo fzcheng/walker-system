@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,9 +166,7 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
-			boolean isfirst = deviceManager.dealOrderFinish(order);
-			dailyManager.dealOrderFinish(order, isfirst);
-			transferService.addTransfer(order);
+			dealCountAndTransfer(order);
 		}
 	}
 
@@ -184,10 +183,38 @@ public class OrderManagerImpl {
 			order.setIsdeal(1);
 			execUpdate(order);
 			
-			boolean isfirst = deviceManager.dealOrderFinish(order);
-			dailyManager.dealOrderFinish(order, isfirst);
-			transferService.addTransfer(order);
+			dealCountAndTransfer(order);
+		}
+	}
+
+	public void dealTradeFinished_swiftpay(Map<String, String> map) {
+		String out_trade_no = map.get("out_trade_no");
+		String pay_result = map.get("pay_result");
+		String transaction_id = map.get("transaction_id");//威富通订单号
+		OrderEntity order = queryOrderByOrderId(out_trade_no);
+		if(order.getIsdeal() == 1)
+		{
+			//已处理过
+		}
+		else{
+			order.setStatus(BaseConstant.STATUS_SUCCESS);
+			order.setRetCode(pay_result);
+			order.setPayOrderid(transaction_id);
+			order.setIsdeal(1);
+			execUpdate(order);
+			
+			dealCountAndTransfer(order);
 		}
 	}
 	
+	/**
+	 * 处理统计 通知
+	 * @param order
+	 */
+	private void dealCountAndTransfer(OrderEntity order)
+	{
+		boolean isfirst = deviceManager.dealOrderFinish(order);
+		dailyManager.dealOrderFinish(order, isfirst);
+		transferService.addTransfer(order);
+	}
 }

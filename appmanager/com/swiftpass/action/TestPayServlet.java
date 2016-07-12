@@ -17,10 +17,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import com.swiftpass.config.SwiftpassConfig;
 import com.swiftpass.util.MD5;
 import com.swiftpass.util.SignUtils;
 import com.swiftpass.util.XmlUtils;
+import com.walkersoft.appmanager.util.swift.SwiftpassConfig;
 
 /**
  * <一句话功能简述>

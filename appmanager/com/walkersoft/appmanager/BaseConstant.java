@@ -13,15 +13,12 @@ public class BaseConstant {
 	public static final int TRANSFER_STATUS_SUCCESS = 1;
 	public static final int TRANSFER_STATUS_FAIL = 2;
 	
-//	微信=801
-//			支付宝=802
-//			银联=803（暂未开通）
-//			移动卡=804
-//			电信卡=805
-//			联通卡=806
-//			其他=807
+	//	微信=801
+	//	支付宝=802
+	//	威富通=803
 	public static final int PAYCHANNEL_TEN = 801;
 	public static final int PAYCHANNEL_ALI = 802;
+	public static final int PAYCHANNEL_SWIFT = 803;
 	
 	//SDK 
 	public static final int YEE_SDK = 1;//YEESDK

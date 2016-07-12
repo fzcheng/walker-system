@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.swiftpass.util.SignUtils;
+import com.swiftpass.util.XmlUtils;
 import com.tenpay.ResponseHandler;
 import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.BaseErrorCode;
@@ -31,6 +32,7 @@ import com.walkersoft.appmanager.manager.AliManager;
 import com.walkersoft.appmanager.manager.AppManagerImpl;
 import com.walkersoft.appmanager.manager.CallbackRecordImpl;
 import com.walkersoft.appmanager.manager.OrderManagerImpl;
+import com.walkersoft.appmanager.manager.SwiftManager;
 import com.walkersoft.appmanager.manager.TenpayManager;
 import com.walkersoft.appmanager.req.OrderDataReq;
 import com.walkersoft.appmanager.response.QueryAliPayParamResult;
@@ -39,6 +41,7 @@ import com.walkersoft.appmanager.response.QuerySdkIdResult;
 import com.walkersoft.appmanager.util.JacksonUtil;
 import com.walkersoft.appmanager.util.ali.AlipayNotify;
 import com.walkersoft.appmanager.util.ali.Base64;
+import com.walkersoft.appmanager.util.swift.SwiftpassConfig;
 import com.walkersoft.appmanager.util.tenpay.TenpayConfig;
 import com.walkersoft.system.SystemAction;
 
@@ -210,6 +213,30 @@ public class SDKAction extends SystemAction {
 		return JacksonUtil.getJsonString4JavaPOJO(r);
 	}
 	
+	/**
+	 * swift微信支付参数
+	 * @param entity
+	 * @param response
+	 * @return code msg appid orderId partnerid prepayid noncestr timestamp package sign 
+	 * @throws IOException
+	 * @throws JSONException 
+	 * @throws XmlPullParserException 
+	 */
+	@RequestMapping("sdk/pay/swiftapp")
+	@ResponseBody
+	public String swiftapp(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, XmlPullParserException{
+		
+		OrderDataReq req = parseOrderData();
+
+		OrderEntity order = new OrderEntity();
+		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_SWIFT, order);
+		AppEntity app = appManager.queryByAppid(order.getAppid());
+		
+		Map<String, String> r = SwiftManager.getInstance().queryPrepayId(request, app, order);
+		
+		//QueryWxPayParamResult r = new QueryWxPayParamResult();
+		return JacksonUtil.getJsonString4JavaPOJO(r);
+	}
 	
 	/**
 	 * 支付宝支付回调
@@ -366,6 +393,52 @@ public class SDKAction extends SystemAction {
 		else{
 			System.out.println("-----------wxcallback" + "callback sign check : not pair");
 		}
+	}
+	
+	/**
+	 * swift支付回调
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("sdk/pay/swiftcallback")
+	@ResponseBody
+	public void swiftcallback(@RequestBody String requestBody, HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		
+		System.out.println("-----------swiftcallback--------------");
+		
+		try {
+            req.setCharacterEncoding("utf-8");
+            resp.setCharacterEncoding("utf-8");
+            resp.setHeader("Content-type", "text/html;charset=UTF-8");
+            
+            String respString = "fail";
+            if(requestBody != null && !"".equals(requestBody)){
+                Map<String,String> map = XmlUtils.toMap(requestBody.getBytes(), "utf-8");
+                String res = XmlUtils.toXml(map);
+                System.out.println("content：" + res);
+                if(map.containsKey("sign")){
+                    if(!SignUtils.checkParam(map, SwiftpassConfig.key)){
+                        res = "验证签名不通过";
+                        respString = "fail";
+                    }else{
+                        String status = map.get("status");
+                        if(status != null && "0".equals(status)){
+                            String result_code = map.get("result_code");
+                            if(result_code != null && "0".equals(result_code)){
+                            	//后台数据订单状态更新等操作
+                            	orderManager.dealTradeFinished_swiftpay(map);
+                            } 
+                        } 
+                        respString = "success";
+                    }
+                }
+            }
+            resp.getWriter().write(respString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }
 
