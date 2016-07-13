@@ -24,7 +24,7 @@ function reload(offset){
 
 //创建授权页面
 function showAddAppMarketWnd(){
-	popDefaultDialog('添加应用', '${ctx}/permit/appos/appmarket/showAddAppMarketItem.do');
+	popDefaultDialog('添加应用渠道配置', '${ctx}/permit/appos/appmarket/showAddAppMarketItem.do');
 }
 
 //创建授权页面
@@ -35,7 +35,7 @@ function showUpdateAppMarketWnd(){
 		return;
 	}
 	
-	popDefaultDialog('编辑应用', '${ctx}/permit/appos/appmarket/showUpdateAppMarketItem.do?id='+selected[0]);
+	popDefaultDialog('编辑应用渠道配置', '${ctx}/permit/appos/appmarket/showUpdateAppMarketItem.do?id='+selected[0]);
 }
 
 function deleteAppMarketWnd()
@@ -45,7 +45,7 @@ function deleteAppMarketWnd()
 		alert("请选择一条数据。");
 		return;
 	}
-	if(window.confirm("确定要删除应用么")){
+	if(window.confirm("确定要删除应用渠道配置么")){
 		requestAjax("${ctx}/appos/appmarket/delAppmarket.do", {"id":selected[0]}, function(data){
 			reload(0);
 		});

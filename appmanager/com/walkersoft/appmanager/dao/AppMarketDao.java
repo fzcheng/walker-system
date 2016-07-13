@@ -39,4 +39,9 @@ public class AppMarketDao extends SQLDaoSupport<AppMarketEntity> {
 		return findUniqueBy(entityClass, new String[]{"id"}, new Object[]{id});
 	}
 
+	public AppMarketEntity queryForAppMarketByKey(String appid, int market,
+			int group_id) {
+		return findUniqueBy(entityClass, new String[]{"app.appid", "market", "strategyGroup.group_id"}, new Object[]{appid,market,group_id});
+	}
+
 }

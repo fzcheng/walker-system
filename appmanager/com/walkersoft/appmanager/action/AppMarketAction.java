@@ -13,6 +13,7 @@ import com.walker.app.ApplicationRuntimeException;
 import com.walker.infrastructure.utils.Assert;
 import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.application.log.MyLogDetail.LogType;
+import com.walkersoft.appmanager.action.base.ApposBaseAction;
 import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.AppMarketEntity;
 import com.walkersoft.appmanager.manager.AppManagerImpl;
@@ -26,7 +27,7 @@ import com.walkersoft.system.SystemAction;
  */
 
 @Controller
-public class AppMarketAction extends SystemAction {
+public class AppMarketAction extends ApposBaseAction {
 	
 	@Autowired
 	private AppManagerImpl appManager;
@@ -54,7 +55,8 @@ public class AppMarketAction extends SystemAction {
 	
 	@RequestMapping("permit/appos/appmarket/showAddAppMarketItem")
 	public String showAddAppItem(Model model){
-		
+		this.setUserApps(model);
+		this.setAllStrategyGroup(model);
 		return APP_BASE_URL + "add";
 	}
 	
@@ -64,13 +66,10 @@ public class AppMarketAction extends SystemAction {
 		
 		AppMarketEntity app = appmarketManager.queryAppMarket(id);
 		
-		model.addAttribute("id", app.getId());
-		model.addAttribute("app", app.getApp());
-		model.addAttribute("market", app.getMarket());
-		model.addAttribute("strategy_group", app.getStrategyGroup());
-		model.addAttribute("create_time", app.getCreate_time());
-		model.addAttribute("last_time", app.getLast_time());
-		model.addAttribute("remark", app.getRemark());
+		this.setAllStrategyGroup(model);
+		this.setUserApps(model);
+		
+		model.addAttribute("app", app);
 		
 		return APP_BASE_URL + "edit";
 	}
@@ -80,9 +79,17 @@ public class AppMarketAction extends SystemAction {
 		Assert.notNull(entity);
 		logger.debug(entity);
 		try{
-			appmarketManager.execSave(entity);
-			systemLog(LOG_MSG_APPADD + entity.getApp().getAppid(), LogType.Delete);
-			this.ajaxOutPutText(MESSAGE_SUCCESS);
+			AppMarketEntity vo = appmarketManager.queryAppMarket(entity.getApp().getAppid(), entity.getMarket(), entity.getStrategyGroup().getGroup_id());
+			if(vo != null)
+			{
+				this.ajaxOutPutText("已有相同的配置");
+			}
+			else
+			{
+				appmarketManager.execSave(entity);
+				systemLog(LOG_MSG_APPADD + entity.getApp().getAppid(), LogType.Add);
+				this.ajaxOutPutText(MESSAGE_SUCCESS);
+			}
 		} catch(ApplicationRuntimeException ae){
 			this.ajaxOutPutText(ae.getMessage());
 		}

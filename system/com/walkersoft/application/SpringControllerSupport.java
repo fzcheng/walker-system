@@ -14,6 +14,7 @@ import com.walker.web.view.WebContextAction;
 import com.walkersoft.application.log.MyLogDetail.LogType;
 import com.walkersoft.application.security.MyUserDetails;
 import com.walkersoft.application.util.DepartmentUtils;
+import com.walkersoft.appmanager.entity.StrategyGroupEntity;
 import com.walkersoft.appmanager.util.ProvinceUtil;
 import com.walkersoft.system.entity.UserCoreEntity;
 import com.walkersoft.system.manager.FunctionManagerImpl;

@@ -26,6 +26,13 @@ public class AppMarketManagerImpl {
 			return entity;
 		return null;
 	}
+	
+	public AppMarketEntity queryAppMarket(String appid, int market, int group_id) {
+		AppMarketEntity entity = appmarketDao.queryForAppMarketByKey(appid, market, group_id);
+		if(entity != null)
+			return entity;
+		return null;
+	}
 
 	public void execSave(AppMarketEntity entity) {
 		appmarketDao.save(entity);

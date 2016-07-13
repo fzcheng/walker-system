@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,8 +21,9 @@ import javax.persistence.Table;
 public class AppMarketEntity {
 
 	@Id
-	@Column(name="id", length=11)
-	int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false, insertable = true, updatable = false)
+	Integer id;
 	
 	//@Column(name="appid", length=36)
 	//String appid;
@@ -62,10 +65,10 @@ public class AppMarketEntity {
 		this.last_time = last_time;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public int getMarket() {

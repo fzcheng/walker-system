@@ -8,7 +8,6 @@
     <script type="text/javascript" src="${ctx}/script/lib/jquery-core.js"></script>
     <script type="text/javascript" src="${ctx}/script/lib/jquery.form.js"></script>
     <script type="text/javascript">
-		<!--
 		
 var index = parent.layer.getFrameIndex(window.name);
 
@@ -49,16 +48,16 @@ function save(){
 		
 function f_check(){
 	if($("#market").val() == ""){		
-		alert("错误：market为空！");
+		alert("请输入market！");
 		return false;
 	}
-	if($("#appid").val() == ""){		
-		alert("错误：appid为空！");
+	if($("#app.appid").val() == ""){		
+		alert("请选择应用！");
 		return false;
 	}
-	if($("#sdkid").val() == ""){		
-		alert("请输入应用名称！");
-		$("#sdkid").focus();
+	if($("#strategyGroup.group_id").val() == ""){		
+		alert("请选择策略组！");
+		$("#strategyGroup.group_id").focus();
 		return false;
 	}
 	return true;
@@ -70,22 +69,46 @@ function f_check(){
 <body>
 	<form action="${ctx}/appos/appmarket/updateAppmarket.do" method="post" id="form" target="_self">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table-form">
+  	
+  	<tr>
+  		<td width="160" class="showTitle">id：</td>
+  		<td><input type="text" id="id" name="id" value="${app.id}" class="text" readonly="readonly"/></td>
+  	</tr>
   	<tr>
   		<td width="160" class="showTitle">appid：</td>
-  		<td><input type="text" id="appid" name="appid" class="text" value="${appid}" style="width:200px;" readonly="readonly"/></td>
+  		<!-- <td><input type="text" id="appid" name="appid" class="text" value="${appid}" style="width:200px;"/></td> -->
+  		<td> <select id="app.appid" name="app.appid" value="${app.app.appid}">
+			<option value="0">请选择</option>
+			<#list userapps as userapp>
+			<option value="${userapp.appid}" <#if (userapp.appid == app.app.appid)>selected="selected"</#if>>
+			${userapp.appname}
+			</option>
+			</#list>
+		 </select> </td>
   	</tr>
   	<tr>
   		<td class="showTitle">market：</td>
-  		<td><input type="text" id="market" name="market" value="${market}" class="text"
-  			value="${market}"/></td>
+  		<td><input type="text" id="market" name="market" value="${app.market}" class="text"/></td>
   	</tr>
   	<tr>
-  		<td class="showTitle">sdkid：</td>
-  		<td><input type="text" id="sdkid" name="sdkid" value="${sdkid}" class="text"/></td>
+  		<td class="showTitle">策略组名称：</td>
+  		<!-- <td><input type="text" id="strategyGroup.strategy_groupid" name="strategyGroup.strategy_groupid" class="text"/></td> -->
+  		<td> <select id="strategyGroup.group_id" name="strategyGroup.group_id" value="${app.strategyGroup.group_id}">
+			<option value="0">请选择</option>
+			<#list strategygroups as group>
+			<option value="${group.group_id}" <#if (group.group_id == app.strategyGroup.group_id)>selected="selected"</#if>>
+			${group.group_name}
+			</option>
+			</#list>
+		 </select> </td>
+  	</tr>
+  	<tr>
+  		<td class="showTitle">序号：</td>
+  		<td><input type="text" id="seq" name="seq" value="${app.seq}" class="text"/></td>
   	</tr>
   	<tr>
   		<td class="showTitle">备注：</td>
-  		<td><input type="text" id="remark" name="remark" value="${remark}" class="text"/></td>
+  		<td><input type="text" id="remark" name="remark" value="${app.remark}" class="text"/></td>
   	</tr>
   </table>
   <div style="width:99%;" align="center">
