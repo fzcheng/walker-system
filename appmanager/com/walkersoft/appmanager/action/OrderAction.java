@@ -7,29 +7,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.walkersoft.appmanager.manager.AppManagerImpl;
-import com.walkersoft.appmanager.manager.DailyManagerImpl;
-import com.walkersoft.system.SystemAction;
+import com.walkersoft.appmanager.action.base.ApposBaseAction;
+import com.walkersoft.appmanager.manager.OrderManagerImpl;
 import com.walkersoft.system.pojo.AppGroup;
 
 /**
- * 每日统计管理
+ * 订单流水管理
  * @author a
  *
  */
 
 @Controller
-public class DailyAction extends SystemAction {
+public class OrderAction extends ApposBaseAction {
 	
 	@Autowired
-	private DailyManagerImpl dailyManager;
+	private OrderManagerImpl orderManager;
 	
-	public static final String APP_BASE_URL = "appos/daily/";
+	public static final String APP_BASE_URL = "appos/order/";
 	
-	@RequestMapping("appos/daily/index")
+	@RequestMapping("appos/order/index")
 	public String index(Model model){
 		
 		this.setUserApps(model);
+		this.setStatuss(model);
 		
 		List<AppGroup> apps = this.getCurrentUserDetails().getUserAppGroup();
 		if(apps == null || apps.size() == 0)
@@ -41,7 +41,8 @@ public class DailyAction extends SystemAction {
 		String curappid = (String)this.getParameter("appid");
 		if(curappid == null || curappid.equals("") || curappid.equals("0"))
 		{
-			loadList(model, dailyManager.queryPageList(apps));
+			//loadList(model, orderManager.queryPageList(apps));
+			loadList(model, orderManager.queryPageList(null, null));
 		}
 		else
 		{
@@ -50,7 +51,7 @@ public class DailyAction extends SystemAction {
 				model.addAttribute("msg", "无此应用的查询权限，请联系管理员进行配置。");
 				return APP_BASE_URL + "error";
 			}
-			loadList(model, dailyManager.queryPageList(curappid));
+			loadList(model, orderManager.queryPageList(curappid, null));
 		}
 		
 		setUserPointers(model);
@@ -58,10 +59,11 @@ public class DailyAction extends SystemAction {
 		return APP_BASE_URL + "index";
 	}
 	
-	@RequestMapping("permit/appos/daily/reload")
+	@RequestMapping("permit/appos/order/reload")
 	public String reload(Model model){
 		
 		this.setUserApps(model);
+		this.setStatuss(model);
 		
 		List<AppGroup> apps = this.getCurrentUserDetails().getUserAppGroup();
 		if(apps == null || apps.size() == 0)
@@ -71,9 +73,11 @@ public class DailyAction extends SystemAction {
 		}
 		
 		String curappid = (String)this.getParameter("appid");
+		String status = (String)this.getParameter("status");
 		if(curappid == null || curappid.equals("") || curappid.equals("0"))
 		{
-			loadList(model, dailyManager.queryPageList(apps));
+			//loadList(model, orderManager.queryPageList(apps));
+			loadList(model, orderManager.queryPageList(null, status));
 		}
 		else
 		{
@@ -82,7 +86,7 @@ public class DailyAction extends SystemAction {
 				model.addAttribute("msg", "无此应用的查询权限，请联系管理员进行配置。");
 				return APP_BASE_URL + "error";
 			}
-			loadList(model, dailyManager.queryPageList(curappid));
+			loadList(model, orderManager.queryPageList(curappid, status));
 		}
 		
 		setUserPointers(model);

@@ -22,6 +22,17 @@ function reload(offset){
 	doReloadPage(offset, "${ctx}/permit/appos/order/reload.do", params);
 }
 
+function query(){
+	var sel=document.getElementsByName("curappid")[0];
+	var selvalue= sel.options[sel.options.selectedIndex].value;//你要的值
+	
+	var stat=document.getElementsByName("status")[0];
+	var statvalue= stat.options[stat.options.selectedIndex].value;//你要的值
+	
+	var params = {appid:selvalue, status:statvalue};
+	doReloadPage(1, "${ctx}/permit/appos/order/reload.do", params);
+}
+
 </script>
 </head>
 <body>
@@ -29,9 +40,29 @@ function reload(offset){
 <table border="0" cellpadding="0" cellspacing="0" class="table-form">
 	<tr class="title">
 		<td>
-			<span>订单列表</span>&nbsp;|&nbsp;
+			<span>订单流水查询</span>&nbsp;|&nbsp;&nbsp;&nbsp;
 			
-			<#if (pointers['APP_MARKET_ADD'])>
+			<span>应用</span>&nbsp;&nbsp;
+			<select id="curappid" name="curappid">
+			<option value="0">全部</option>
+			<#list userapps as app>
+			<option value="${app.appid}">
+			${app.appname}
+			</option>
+			</#list>
+			</select>
+			
+			<span>状态</span>&nbsp;&nbsp;
+			<select id="status" name="status">
+			<option value="0">全部</option>
+			<#list statuss as stat>
+			<option value="${stat.value}">
+			${stat.name}
+			</option>
+			</#list>
+			</select>
+			
+			<#if (pointers['ORDER_SINGLE_QUERY'])>
 			<input type="button" value="查询" onclick="query()" class="button"/>
 			</#if>
 

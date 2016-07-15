@@ -3,6 +3,7 @@ package com.walkersoft.appmanager.manager;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -10,6 +11,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.walker.db.page.support.GenericPager;
 import com.walker.infrastructure.utils.Assert;
 import com.walkersoft.appmanager.BaseConstant;
 import com.walkersoft.appmanager.BaseErrorCode;
@@ -19,6 +21,7 @@ import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.entity.TenpayCallbackEntity;
 import com.walkersoft.appmanager.req.OrderDataReq;
+import com.walkersoft.system.pojo.AppGroup;
 
 @Service("orderManager")
 public class OrderManagerImpl {
@@ -216,5 +219,21 @@ public class OrderManagerImpl {
 		boolean isfirst = deviceManager.dealOrderFinish(order);
 		dailyManager.dealOrderFinish(order, isfirst);
 		transferService.addTransfer(order);
+	}
+
+//	public GenericPager<OrderEntity> queryPageList(List<AppGroup> apps) {
+//		String[] appids = new String[apps.size() * 2];
+//		for(int i = 0; i < apps.size(); i ++)
+//		{
+//			AppGroup a = apps.get(i);
+//			appids[i] = a.getAppid();
+//			appids[i+1] = a.getAppid();
+//		}
+//
+//		return orderDao.queryByAppid(appids);
+//	}
+
+	public GenericPager<OrderEntity> queryPageList(String curappid, String status) {
+		return orderDao.queryByAppid(curappid, status);
 	}
 }
