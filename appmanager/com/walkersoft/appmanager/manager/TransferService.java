@@ -6,8 +6,11 @@ import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
@@ -42,12 +45,12 @@ public class TransferService {
 	//最大线程数
 	public final static int MAX_T_SIZE = 10;
 	static ExecutorService transferThreadPool;//通知线程池
-	static ExecutorService retransferThreadPool;//重发通知线程池
+	static ScheduledExecutorService retransferThreadPool;//重发通知线程池
 	
 	static
 	{
 		transferThreadPool = Executors.newFixedThreadPool(MAX_T_SIZE);
-		retransferThreadPool = Executors.newFixedThreadPool(MAX_T_SIZE);
+		retransferThreadPool = Executors.newScheduledThreadPool(MAX_T_SIZE);
 	}
 
 	/**
@@ -68,16 +71,27 @@ public class TransferService {
 	/**
 	 * 添加重发通知
 	 * @param order
+	 * delaySec 延迟时间 秒
 	 */
-	public void addReTransfer(final OrderEntity order) {
-		retransferThreadPool.execute(new Runnable(){
-			
-			@Override
-			public void run() {
-				dealTransfer(order);
-			}
-		});
+	public void addReTransfer(final OrderEntity order, int delaySec) {
 		
+		TimerTask task1 = new TimerTask()  
+        {  
+            @Override  
+            public void run()  
+            {  
+            	dealTransfer(order); 
+            }  
+        };  
+        
+//		retransferThreadPool.execute(new Runnable(){
+//			
+//			@Override
+//			public void run() {
+//				dealTransfer(order);
+//			}
+//		});
+        retransferThreadPool.schedule(task1, delaySec, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -132,7 +146,7 @@ public class TransferService {
 	private void dealTransferFail(OrderEntity order) {
 		order.setTransfer_count(order.getTransfer_count() + 1);
 		
-		if(order.getTransfer_count() >= 5)
+		if(order.getTransfer_count() >= 10)
 		{
 			order.setTransfer_status(BaseConstant.TRANSFER_STATUS_FAIL);
 			orderManager.execUpdate(order);
@@ -140,7 +154,7 @@ public class TransferService {
 		else
 		{
 			orderManager.execUpdate(order);
-			addTransfer(order);
+			addReTransfer(order, 10);
 		}
 	}
 
