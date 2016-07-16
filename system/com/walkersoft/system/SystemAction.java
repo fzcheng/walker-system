@@ -598,7 +598,8 @@ public class SystemAction extends SpringControllerSupport {
 	 */
 	protected <T> void loadList(Model model, GenericPager<T> pager){
 		if(pager == null){
-			model.addAttribute(DEFAULT_PAGER_VIEW_NAME, null);
+			PagerView<T> pagerView = new PagerView<T>(null);
+			model.addAttribute(DEFAULT_PAGER_VIEW_NAME, pagerView);
 		} else {
 			PagerView<T> pagerView = ListPageContext.createPagerView(pager, DEFAULT_JS_NAME);
 			model.addAttribute(DEFAULT_PAGER_VIEW_NAME, pagerView);

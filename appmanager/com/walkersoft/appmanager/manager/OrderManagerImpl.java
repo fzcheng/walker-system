@@ -221,19 +221,16 @@ public class OrderManagerImpl {
 		transferService.addTransfer(order);
 	}
 
-//	public GenericPager<OrderEntity> queryPageList(List<AppGroup> apps) {
-//		String[] appids = new String[apps.size() * 2];
-//		for(int i = 0; i < apps.size(); i ++)
-//		{
-//			AppGroup a = apps.get(i);
-//			appids[i] = a.getAppid();
-//			appids[i+1] = a.getAppid();
-//		}
-//
-//		return orderDao.queryByAppid(appids);
-//	}
+	public GenericPager<OrderEntity> queryPageList(List<AppGroup> apps, String status) {
+		return orderDao.queryByAppid(apps, status);
+	}
 
 	public GenericPager<OrderEntity> queryPageList(String curappid, String status) {
 		return orderDao.queryByAppid(curappid, status);
+	}
+
+	public GenericPager<OrderEntity> queryPageList(String cpOrderid, String orderid,
+			String payOrderid) {
+		return orderDao.queryByAppid(cpOrderid, orderid, payOrderid);
 	}
 }

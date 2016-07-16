@@ -100,6 +100,7 @@ public class YL_HttpUtils
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		con.setRequestProperty("Charset", "utf-8");
+		con.setConnectTimeout(5000);//设置5秒连接超时时间
 		
 		BufferedWriter bout = new BufferedWriter(new OutputStreamWriter(con
 				.getOutputStream()));

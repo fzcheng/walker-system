@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.walkersoft.appmanager.action.base.ApposBaseAction;
@@ -42,7 +43,7 @@ public class OrderAction extends ApposBaseAction {
 		if(curappid == null || curappid.equals("") || curappid.equals("0"))
 		{
 			//loadList(model, orderManager.queryPageList(apps));
-			loadList(model, orderManager.queryPageList(null, null));
+			loadList(model, orderManager.queryPageList(apps, null));
 		}
 		else
 		{
@@ -77,7 +78,7 @@ public class OrderAction extends ApposBaseAction {
 		if(curappid == null || curappid.equals("") || curappid.equals("0"))
 		{
 			//loadList(model, orderManager.queryPageList(apps));
-			loadList(model, orderManager.queryPageList(null, status));
+			loadList(model, orderManager.queryPageList(apps, status));
 		}
 		else
 		{
@@ -94,6 +95,57 @@ public class OrderAction extends ApposBaseAction {
 		return APP_BASE_URL + "list";
 	}
 
+	@RequestMapping("appos/order/single")
+	public String single(Model model){
+		
+		this.setUserApps(model);
+		this.setStatuss(model);
+		
+		String cpOrderid = (String)this.getParameter("cpOrderid");
+		String orderid = (String)this.getParameter("orderid");
+		String payOrderid = (String)this.getParameter("payOrderid");
+		if(StringUtils.isEmpty(cpOrderid) && StringUtils.isEmpty(orderid) && StringUtils.isEmpty(payOrderid))
+		{
+			//loadList(model, orderManager.queryPageList(apps));
+			//loadList(model, orderManager.queryPageList(apps, null));
+			loadList(model, null);
+		}
+		else
+		{
+			loadList(model, orderManager.queryPageList(cpOrderid, orderid, payOrderid));
+		}
+		
+		setUserPointers(model);
+		
+		return APP_BASE_URL + "single";
+	}
+	
+	@RequestMapping("permit/appos/order/singleReload")
+	public String singleReload(Model model){
+		
+		this.setUserApps(model);
+		this.setStatuss(model);
+		
+		String cpOrderid = (String)this.getParameter("cpOrderid");
+		String orderid = (String)this.getParameter("orderid");
+		String payOrderid = (String)this.getParameter("payOrderid");
+		if(StringUtils.isEmpty(cpOrderid) && StringUtils.isEmpty(orderid) && StringUtils.isEmpty(payOrderid))
+		{
+			//loadList(model, orderManager.queryPageList(apps));
+			//loadList(model, orderManager.queryPageList(apps, null));
+			
+			loadList(model, null);
+		}
+		else
+		{
+			loadList(model, orderManager.queryPageList(cpOrderid, orderid, payOrderid));
+		}
+		
+		setUserPointers(model);
+		
+		return APP_BASE_URL + "list";
+	}
+	
 	private boolean IsIn(List<AppGroup> apps, String curappid) {
 		for(int i = 0; i < apps.size(); i ++)
 		{

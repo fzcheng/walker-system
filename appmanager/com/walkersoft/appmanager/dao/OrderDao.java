@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.walker.db.Sorts;
 import com.walker.db.Sorts.Sort;
 import com.walker.db.hibernate.SQLDaoSupport;
 import com.walker.db.page.support.GenericPager;
 import com.walkersoft.appmanager.entity.OrderEntity;
+import com.walkersoft.system.pojo.AppGroup;
 
 @Repository("orderDao")
 public class OrderDao extends SQLDaoSupport<OrderEntity> {
@@ -46,7 +48,7 @@ public class OrderDao extends SQLDaoSupport<OrderEntity> {
 			hql += " and appid=?";
 			objs.add(curappid);
 		}
-		if(status != null)
+		if(status != null && !status.equals("0"))
 		{
 			hql += " and status=?";
 			objs.add(Integer.valueOf(status));			
@@ -56,18 +58,68 @@ public class OrderDao extends SQLDaoSupport<OrderEntity> {
 	}
 
 	
-	private static final String HQL_MYAPP = "select daily from OrderEntity daily where appid in(:myapps) and status=? ";
-	public GenericPager<OrderEntity> queryByAppid(String[] appids, int status) {
-		if(appids == null || appids.length <= 0)
+	private static final String HQL_MYAPP = "select daily from OrderEntity daily where 1=1 ";
+	public GenericPager<OrderEntity> queryByAppid(List<AppGroup> apps, String status) {
+		//appid in(:myapps) and status=? 
+		
+		if(apps == null || apps.size() <= 0)
 			return null;
-		String hql = HQL_MYAPP;
-		String tmp = "?";
-		for(int i = 1; i < appids.length; i ++)
+		
+		List<Object> objs = new ArrayList<Object>();
+		String t = "";
+		for(int i = 0; i < apps.size(); i ++)
 		{
-			tmp += ",?";
+			AppGroup a = apps.get(i);
+			
+			if(t.length() == 0)
+				t += "?";
+			else
+				t += ",?";
+			
+			objs.add(a.getAppid());
 		}
-		hql = hql.replaceAll(":myapps", tmp);
-		return this.queryForpage(hql, appids, Sorts.DESC().setField("create_time"));
+		
+		String hql = HQL_MYAPP;
+		if(apps.size() == 1)
+		{
+			hql += " and appid=?";
+		}
+		else
+		{
+			hql += " and appid in(" + t + ")";
+		}
+		
+		if(status != null && !status.equals("0"))
+		{
+			hql += " and status=?";
+			objs.add(Integer.valueOf(status));			
+		}
+		
+		
+		return this.queryForpage(hql, objs.toArray(), Sorts.DESC().setField("create_time"));
+	}
+
+	public GenericPager<OrderEntity> queryByAppid(String cpOrderid, String orderid,
+			String payOrderid) {
+		String hql = HQL_QUERY_ORDER;
+		List<Object> objs = new ArrayList<Object>();
+		if(!StringUtils.isEmpty(cpOrderid))
+		{
+			hql += " and cpOrderid=?";
+			objs.add(cpOrderid);
+		}
+		if(!StringUtils.isEmpty(orderid))
+		{
+			hql += " and orderid=?";
+			objs.add(orderid);			
+		}
+		if(!StringUtils.isEmpty(payOrderid))
+		{
+			hql += " and payOrderid=?";
+			objs.add(payOrderid);			
+		}
+		
+		return this.queryForpage(hql, objs.toArray(), Sorts.DESC().setField("create_time"));
 	}
 
 }

@@ -112,7 +112,8 @@ input.button-tj:hover { color: #fff; line-height: 24px; text-align: center; padd
 .table-box { border-top-width: 2px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: #1a66b3; border-right-color: #dddddd; border-bottom-color: #dddddd; border-left-color: #dddddd; margin-bottom: 10px; width: 100%; }
 .table-box td {font-size: 12px; font-family: Verdana, Arial, Helvetica, sans-serif;}
 /* color: #1a66b3; */
-.table-tit td { background-color: green; border-bottom-style: solid; border-bottom-color: #dddddd; border-bottom-width: 1px; color: #333333; font-size: 12px; height: 28px; line-height: 28px; font-weight: bold; padding-left: 6px; }
+.table-tit td { background-color: green; border-bottom-style: solid; border-bottom-color: #dddddd; border-bottom-width: 1px; color: #333333; font-size: 12px; height: 40px; line-height: 18px; font-weight: bold; padding-left: 6px; }
+.table-tit2 td { background-color: green; border-bottom-style: solid; border-bottom-color: #dddddd; border-bottom-width: 1px; color: #333333; font-size: 12px; height: 40px; line-height: 18px; font-weight: bold; padding-left: 6px; }
 .table-date td { font-size: 12px; line-height: 22px; text-align: left; border-bottom-width: 1px; border-bottom-style: dotted; border-bottom-color: #CCC; padding-left: 6px; }
 .table-tit td .on{ color: #1A66B3; cursor: pointer; float: right; margin-right: 20px; font-weight: normal; }
 .table-box .select{ background-color: #ebf4fc;}

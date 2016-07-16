@@ -155,9 +155,10 @@ max-width:1366px;
 /* color: #1a66b3; */
 .table-tit td {
 	background-color: #F4FEFF; background-image:url(window-title.png);background-repeat: repeat-x;
-	font-size: 12px; line-height:43px; font-weight: bold;
+	font-size: 12px; height: 40px; line-height:26px; font-weight: bold;
 	padding-top:0px; padding-bottom:0px;
 }
+
 .table-tit .portal-logo {
 	padding-left:12px; margin-right:6px;
 }
