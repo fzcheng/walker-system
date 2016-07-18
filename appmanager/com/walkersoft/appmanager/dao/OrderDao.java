@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.walker.db.PropertyEntry;
 import com.walker.db.Sorts;
 import com.walker.db.Sorts.Sort;
 import com.walker.db.hibernate.SQLDaoSupport;
@@ -120,6 +121,10 @@ public class OrderDao extends SQLDaoSupport<OrderEntity> {
 		}
 		
 		return this.queryForpage(hql, objs.toArray(), Sorts.DESC().setField("create_time"));
+	}
+
+	public OrderEntity queryById(int id) {
+		return this.findUniqueBy(PropertyEntry.createEQ("id", id));
 	}
 
 }

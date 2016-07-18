@@ -1,16 +1,16 @@
 package com.walkersoft.appmanager.entity;
 
 /**
- * 订单状态
+ * 状态
  * @author a
  *
  */
-public class OrderStatus {
+public class ApposStatus {
 
 	int value;
 	String name;
 	
-	public OrderStatus(int value, String name)
+	public ApposStatus(int value, String name)
 	{
 		this.value = value;
 		this.name = name;

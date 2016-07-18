@@ -60,6 +60,10 @@ public class OrderManagerImpl {
 		orderDao.updateEntity(entity);
 	}
 	
+	public OrderEntity queryOrder(int id) {
+		return orderDao.queryById(id);
+	}
+	
 	public OrderEntity queryOrderByCpOrderId(String appid, String cporderid)
 	{
 		return orderDao.querySingleOrderByCpOrderid(appid, cporderid);
@@ -221,6 +225,16 @@ public class OrderManagerImpl {
 		transferService.addTransfer(order);
 	}
 
+	/**
+	 * 处理手动重发通知
+	 * @param id
+	 */
+	public void dealReTranser(int id)
+	{
+		OrderEntity order = this.queryOrder(id);
+		transferService.addTransfer(order);
+	}
+	
 	public GenericPager<OrderEntity> queryPageList(List<AppGroup> apps, String status) {
 		return orderDao.queryByAppid(apps, status);
 	}

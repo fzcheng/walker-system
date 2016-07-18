@@ -10,7 +10,10 @@
 	    <td width="50px">市场渠道</td>
 	    <td width="50px">订单状态</td>
 	    <td width="50px">通知状态</td>
+	    <td width="50px">操作</td>
 	  </tr>
+	  
+	  <#assign statusmap = statuss>
 	  
 	 	<#list pagerView.datas as app>
 	 	<tr class="table-date">
@@ -22,9 +25,12 @@
 	    <td>${app.cpOrderId}<br>${app.orderid}</td>
 	    <td>${app.payOrderid}</td>
 	    <td>${app.market}</td>
-	    <td>${app.status}</td>
+	    <td>${statusmap["${app.status}"].name}</td>
 	    <td>${app.transfer_status}</td>
-	    
+	    <td>
+	    	<input type="button" value="重发通知" onclick="retransfer(${app.id})" class="button"/>
+	    	<input type="button" value="查看详情" onclick="detail(${app.id})" class="button"/>
+	    </td>
 	  </tr>
 		</#list>
 	</table>

@@ -33,10 +33,38 @@ function query(){
 	doReloadPage(1, "${ctx}/permit/appos/order/reload.do", params);
 }
 
+function retransfer(id){
+	$.ajax({
+		url:"${ctx}/permit/appos/order/retransfer.do",
+        //提交的数据
+        data:{id:id},
+		dataType: 'text',
+		//target: '#content',
+		success: function(data){
+			if(data == "success"){
+				showErrorTip("通知重发成功");
+			} else {
+				showErrorTip(data);
+			}
+		},
+		error:function(data){
+			try{
+		    	console.log("error:" + data);
+		    } catch(e){
+		    	alert(e.message + ", " + e.name);
+		    }
+		}
+	});
+}
+
+function detail(id){
+	popDefaultDialog('订单详情', '${ctx}/permit/appos/order/showOrderDetail.do?id='+id);
+}
+
 </script>
 </head>
 <body>
-
+			
 <table border="0" cellpadding="0" cellspacing="0" class="table-form">
 	<tr class="title">
 		<td>
@@ -55,13 +83,13 @@ function query(){
 			<span>状态</span>&nbsp;&nbsp;
 			<select id="status" name="status">
 			<option value="0">全部</option>
-			<#list statuss as stat>
-			<option value="${stat.value}">
-			${stat.name}
+			<#list statuss?keys as key>
+			<option value="${key}">
+			${statuss[key].name}
 			</option>
 			</#list>
 			</select>
-			
+     		
 			<#if (pointers['ORDER_SINGLE_QUERY'])>
 			<input type="button" value="查询" onclick="query()" class="button"/>
 			</#if>

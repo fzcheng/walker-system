@@ -1,14 +1,18 @@
 package com.walkersoft.appmanager.action;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.walker.infrastructure.utils.StringUtils;
 import com.walkersoft.appmanager.action.base.ApposBaseAction;
+import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.manager.OrderManagerImpl;
 import com.walkersoft.system.pojo.AppGroup;
 
@@ -144,6 +148,55 @@ public class OrderAction extends ApposBaseAction {
 		setUserPointers(model);
 		
 		return APP_BASE_URL + "list";
+	}
+	
+	/**
+	 * 重发通知
+	 * @param model
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping("permit/appos/order/retransfer")
+	public void retransfer(Model model, HttpServletResponse response){
+		
+		String id = (String)this.getParameter("id");
+		if(StringUtils.isEmpty(id))
+		{
+			try {
+				this.ajaxOutPutText("未选择订单");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			orderManager.dealReTranser(Integer.valueOf(id));
+			try {
+				this.ajaxOutPutText(MESSAGE_SUCCESS);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * 订单详情
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("permit/appos/order/showOrderDetail")
+	public String showOrderDetail(int id, Model model){
+		//assert (StringUtils.isNotEmpty(id));
+		this.setStatuss(model);
+		
+		OrderEntity order = orderManager.queryOrder(id);
+		
+		model.addAttribute("order", order);
+		
+		return APP_BASE_URL + "detail";
 	}
 	
 	private boolean IsIn(List<AppGroup> apps, String curappid) {
