@@ -60,6 +60,8 @@ public class OrderEntity {
 	String transfer_url;// '通知地址',
 	@Column(name = "ip")
 	String ip;//
+	@Column(name = "province")
+	int province;//
 	@Column(name = "host")
 	String host;//
 	@Column(name = "imei")
@@ -207,6 +209,12 @@ public class OrderEntity {
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+	public int getProvince() {
+		return province;
+	}
+	public void setProvince(int province) {
+		this.province = province;
 	}
 	public String getHost() {
 		return host;

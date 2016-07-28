@@ -3,6 +3,8 @@ package com.walkersoft.appmanager.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class ProvinceUtil {
 
 	static ProvinceUtil self = null;
@@ -10,9 +12,10 @@ public class ProvinceUtil {
 	private static Map<String, Integer> provinceIds = new HashMap<String, Integer>();
 	
 	public static final Object p[][] = { 
+			{ 0, "未知" },
 			{ 1, "北京" }, { 2, "上海" }, { 3, "天津" },
 			{ 4, "重庆" }, { 5, "黑龙江" }, { 6, "吉林" }, { 7, "辽宁" },
-			{ 8, "内蒙古" }, { 9, "河北" }, { 10, "山西" }, { 11, "陕西" },
+			{ 8, "内蒙" }, { 9, "河北" }, { 10, "山西" }, { 11, "陕西" },
 			{ 12, "山东" }, { 13, "新疆" }, { 14, "西藏" }, { 15, "青海" },
 			{ 16, "甘肃" }, { 17, "宁夏" }, { 18, "河南" }, { 19, "江苏" },
 			{ 20, "湖北" }, { 21, "浙江" }, { 22, "安徽" }, { 23, "福建" },
@@ -50,6 +53,20 @@ public class ProvinceUtil {
 	
 	public int getProvinceId(String name)
 	{
-		return provinceIds.get(name);
+		Integer id = provinceIds.get(name);
+		if(id == null)
+			return 0;
+		return id;
+	}
+
+	public int getProvinceId(HttpServletRequest request) {
+		IPSeeker iPSeeker =IPSeeker.getInstance();
+		String ip = iPSeeker.getIpAddr(request);
+		String txnProvince = iPSeeker.getAddress(ip);
+		System.out.println("----txnProvince----:" + txnProvince);
+		if(txnProvince.length() >= 2)
+			txnProvince = txnProvince.substring(0,2);
+		int provinceid = ProvinceUtil.getInstance().getProvinceId(txnProvince);
+		return provinceid;
 	}
 }

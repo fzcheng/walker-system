@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import com.walkersoft.appmanager.entity.AppEntity;
 import com.walkersoft.appmanager.entity.OrderEntity;
 import com.walkersoft.appmanager.entity.TenpayCallbackEntity;
 import com.walkersoft.appmanager.req.OrderDataReq;
+import com.walkersoft.appmanager.util.IPSeeker;
+import com.walkersoft.appmanager.util.ProvinceUtil;
 import com.walkersoft.system.pojo.AppGroup;
 
 @Service("orderManager")
@@ -77,7 +81,7 @@ public class OrderManagerImpl {
 		return orderDao.queryOrderByOrderId(orderid);
 	}
 	
-	public BaseErrorCode createOrder(OrderDataReq req, int paychannel, OrderEntity order) {
+	public BaseErrorCode createOrder(HttpServletRequest request, OrderDataReq req, int paychannel, OrderEntity order) {
 		
 		AppEntity app = appManager.queryByAppid(req.getAppid());
 		if(app == null)
@@ -130,6 +134,16 @@ public class OrderManagerImpl {
 			order.setMobile(req.getMobile());
 			order.setModel(req.getModel());
 			order.setVersion(req.getVersion());
+			
+			
+			IPSeeker iPSeeker =IPSeeker.getInstance();
+			String ip = iPSeeker.getIpAddr(request);
+			int provinceid = ProvinceUtil.getInstance().getProvinceId(request);
+			//TODO 计算设置省份id
+			order.setIp(ip);
+			order.setProvince(provinceid);
+			
+			order.setHost(request.getRemoteHost());
 			
 			execSave(order);
 			

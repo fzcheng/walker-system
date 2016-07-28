@@ -38,7 +38,9 @@ import com.walkersoft.appmanager.req.OrderDataReq;
 import com.walkersoft.appmanager.response.QueryAliPayParamResult;
 import com.walkersoft.appmanager.response.QueryOrderResult;
 import com.walkersoft.appmanager.response.QuerySdkIdResult;
+import com.walkersoft.appmanager.util.IPSeeker;
 import com.walkersoft.appmanager.util.JacksonUtil;
+import com.walkersoft.appmanager.util.ProvinceUtil;
 import com.walkersoft.appmanager.util.ali.AlipayNotify;
 import com.walkersoft.appmanager.util.ali.Base64;
 import com.walkersoft.appmanager.util.swift.SwiftpassConfig;
@@ -70,12 +72,12 @@ public class SDKAction extends SystemAction {
 	 */
 	@RequestMapping("sdk/pay/wsMobilePay")
 	@ResponseBody
-	public String wsMobilePay(Model model) throws UnsupportedEncodingException{
+	public String wsMobilePay(HttpServletRequest request, Model model) throws UnsupportedEncodingException{
 		
 		OrderDataReq req = parseOrderData();
 
 		OrderEntity order = new OrderEntity();
-		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_ALI, order);
+		BaseErrorCode code = orderManager.createOrder(request, req, BaseConstant.PAYCHANNEL_ALI, order);
 		/**
 		 * 完整的符合支付宝参数规范的订单信息
 		 */
@@ -153,13 +155,15 @@ public class SDKAction extends SystemAction {
 	 */
 	@RequestMapping(value = "sdk/pay/getSdkId")
 	@ResponseBody
-	public String getSdkId(Model model){
+	public String getSdkId(HttpServletRequest request, Model model){
 		String appid = this.getParameter("appid");
 		String marketStr = this.getParameter("market");
 		
 		int market = Integer.valueOf(marketStr);
 		
-		QuerySdkIdResult r = appManager.queryAppSdkId(appid, market, 0);
+		int provinceid = ProvinceUtil.getInstance().getProvinceId(request);
+		
+		QuerySdkIdResult r = appManager.queryAppSdkId(appid, market, provinceid);
 		
 		return JacksonUtil.getJsonString4JavaPOJO(r);
 	}
@@ -204,7 +208,7 @@ public class SDKAction extends SystemAction {
 		OrderDataReq req = parseOrderData();
 
 		OrderEntity order = new OrderEntity();
-		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_TEN, order);
+		BaseErrorCode code = orderManager.createOrder(request, req, BaseConstant.PAYCHANNEL_TEN, order);
 		AppEntity app = appManager.queryByAppid(order.getAppid());
 		
 		Map<String, String> r = TenpayManager.getInstance().queryPrepayId(request, app, order);
@@ -229,7 +233,7 @@ public class SDKAction extends SystemAction {
 		OrderDataReq req = parseOrderData();
 
 		OrderEntity order = new OrderEntity();
-		BaseErrorCode code = orderManager.createOrder(req, BaseConstant.PAYCHANNEL_SWIFT, order);
+		BaseErrorCode code = orderManager.createOrder(request, req, BaseConstant.PAYCHANNEL_SWIFT, order);
 		AppEntity app = appManager.queryByAppid(order.getAppid());
 		
 		Map<String, String> r = SwiftManager.getInstance().queryPrepayId(request, app, order);

@@ -28,7 +28,9 @@
 	    <td>${statusmap["${app.status}"].name}</td>
 	    <td>${app.transfer_status}</td>
 	    <td>
-	    	<input type="button" value="重发通知" onclick="retransfer(${app.id})" class="button"/>
+			<#if (app.status == 200)>
+	    		<input type="button" value="重发通知" onclick="retransfer(${app.id})" class="button"/>
+	    	</#if>
 	    	<input type="button" value="查看详情" onclick="detail(${app.id})" class="button"/>
 	    </td>
 	  </tr>

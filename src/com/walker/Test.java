@@ -41,6 +41,12 @@ public class Test {
 //			System.out.println(".......... 处理了一次数据: " + list.size());
 //		}
 		System.out.println(DateUtil.getCurrentWeekDay_int());
+		
+		String txnProvince = "北京市";
+		System.out.println("----txnProvince----:" + txnProvince);
+		if(txnProvince.length() >= 2)
+			txnProvince = txnProvince.substring(0, 2);
+		System.out.println("----txnProvince----:" + txnProvince);
 	}
 	
 	private static class MyData {
